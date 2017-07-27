@@ -17,8 +17,10 @@ gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+gem 'therubyracer', platforms: :ruby
 
+# Use jquery as the JavaScript library
+gem 'jquery-rails'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -36,6 +38,8 @@ gem 'jbuilder', '~> 2.5'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'factory_girl_rails'
+  gem 'rspec-rails'
 end
 
 group :development do
@@ -45,7 +49,50 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+
+  gem 'rubocop', require: false
+end
+
+group :test do
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'ffaker'
+  gem 'shoulda-matchers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# Rails Internationalization
+gem 'rails-i18n', '~> 5.0.0'
+
+# Authentication
+gem 'devise'
+gem 'omniauth-facebook'
+# gem 'omniauth-google-oauth2'
+
+# authorization
+# gem 'cancan', '~> 1.6', '>= 1.6.10'
+gem 'cancancan', '~> 2.0'
+
+# CRM
+gem 'activeadmin', github: 'activeadmin'
+
+# Paginator
+gem 'kaminari'
+
+# Solution for file uploads
+gem 'carrierwave', '~> 1.0'
+
+# State machines for Ruby classes
+gem 'aasm'
+
+# An interface to the ImageMagick and GraphicsMagick image processing libraries
+gem 'mini_magick'
+
+# Use Haml templating engine
+gem 'haml'
+gem 'haml-rails', '~> 1.0'
+
+# Bootstrap
+gem 'bootstrap-sass'
