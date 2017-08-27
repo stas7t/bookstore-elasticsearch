@@ -31,7 +31,7 @@
                 %a.collapse-link{href: "#"} Web design
               %li
                 %a.collapse-link{href: "#"} Web development
-          - if true #user_signed_in?
+          - if user_signed_in?
             %li
               %a{type: "button", 'data-toggle': "collapse", href: "#menu1", 'aria-expanded': "false", 'aria-controls': "menu1"} My account
               %ul#menu1.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
@@ -40,12 +40,12 @@
                 %li
                   %a.collapse-link{href: "#"} Settings
             %li
-              =# link_to "Log out", destroy_user_session_path, method: :delete
+              = link_to "Log out", destroy_user_session_path, method: :delete
           - else
             %li
-              =# link_to "Log in", new_user_session_path 
+              = link_to "Log in", new_user_session_path 
             %li
-              =# link_to "Sign up", new_user_registration_path
+              = link_to "Sign up", new_user_registration_path
       .hidden-xs
         %ul.nav.navbar-nav
           %li
@@ -61,7 +61,7 @@
                 %a{href: "#"} Web design
               %li
                 %a{href: "#"} Web development
-          - if true #user_signed_in?
+          - if user_signed_in?
             %li.dropdown
               %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} My account
               %ul.dropdown-menu
@@ -71,9 +71,9 @@
                   %a{href: "#"} Settings
                 %li.divider{role: "separator"}
                 %li
-                  =# link_to "Log out", destroy_user_session_path, method: :delete
+                  = link_to "Log out", destroy_user_session_path, method: :delete
           - else
             %li
-              =# link_to "Log in", new_user_session_path
+              = link_to "Log in", new_user_session_path
             %li
-              =# link_to "Sign up", new_user_registration_path
+              = link_to "Sign up", new_user_registration_path
