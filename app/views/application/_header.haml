@@ -1,0 +1,79 @@
+%header.navbar.navbar-default
+  .container
+    .navbar-header
+      %button.navbar-toggle.pull-left{type: "button", 'data-toggle': "collapse", 'data-target': "#navbar"}
+        %span.sr-only
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      %a.navbar-brand Bookstore
+      %a.shop-link.pull-right.visible-xs{href: "#"}
+        %span.shop-icon
+          %span.shop-quantity 5
+    %a.shop-link.pull-right.hidden-xs{href: "#"}
+      %span.shop-icon
+        %span.shop-quantity 5
+    #navbar.navbar-collapse.collapse.pl-30{'aria-expanded': "false"}
+      .visible-xs
+        %button.close{type: "button", 'aria-label': "Close"}
+          %span{'aria-hidden': "true"} &times;
+        %ul.nav.navbar-nav
+          %li
+            %a{href: "#"} Home
+          %li
+            %a{type: "button", 'data-toggle': "collapse", href: "#menu", 'aria-expanded': "false", 'aria-controls': "menu"} Shop
+            %ul#menu.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
+              %li
+                %a.collapse-link{href: "#"} Mobile development
+              %li
+                %a.collapse-link{href: "#"} Photo
+              %li
+                %a.collapse-link{href: "#"} Web design
+              %li
+                %a.collapse-link{href: "#"} Web development
+          - if true #user_signed_in?
+            %li
+              %a{type: "button", 'data-toggle': "collapse", href: "#menu1", 'aria-expanded': "false", 'aria-controls': "menu1"} My account
+              %ul#menu1.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
+                %li
+                  %a.collapse-link{href: "#"} Orders
+                %li
+                  %a.collapse-link{href: "#"} Settings
+            %li
+              =# link_to "Log out", destroy_user_session_path, method: :delete
+          - else
+            %li
+              =# link_to "Log in", new_user_session_path 
+            %li
+              =# link_to "Sign up", new_user_registration_path
+      .hidden-xs
+        %ul.nav.navbar-nav
+          %li
+            %a{href: "#"} Home
+          %li.dropdown
+            %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} Shop
+            %ul.dropdown-menu
+              %li
+                %a{href: "#"} Mobile development
+              %li
+                %a{href: "#"} Photo
+              %li
+                %a{href: "#"} Web design
+              %li
+                %a{href: "#"} Web development
+          - if true #user_signed_in?
+            %li.dropdown
+              %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} My account
+              %ul.dropdown-menu
+                %li
+                  %a{href: "#"} Orders
+                %li
+                  %a{href: "#"} Settings
+                %li.divider{role: "separator"}
+                %li
+                  =# link_to "Log out", destroy_user_session_path, method: :delete
+          - else
+            %li
+              =# link_to "Log in", new_user_session_path
+            %li
+              =# link_to "Sign up", new_user_registration_path
