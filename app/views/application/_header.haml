@@ -19,7 +19,7 @@
           %span{'aria-hidden': "true"} &times;
         %ul.nav.navbar-nav
           %li
-            %a{href: "#"} Home
+            = link_to "Home", root_path
           %li
             %a{type: "button", 'data-toggle': "collapse", href: "#menu", 'aria-expanded': "false", 'aria-controls': "menu"} Shop
             %ul#menu.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
@@ -36,9 +36,9 @@
               %a{type: "button", 'data-toggle': "collapse", href: "#menu1", 'aria-expanded': "false", 'aria-controls': "menu1"} My account
               %ul#menu1.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
                 %li
-                  %a.collapse-link{href: "#"} Orders
+                  = link_to "Orders", orders_path
                 %li
-                  %a.collapse-link{href: "#"} Settings
+                  = link_to "Settings", settings_path
             %li
               = link_to "Log out", destroy_user_session_path, method: :delete
           - else
@@ -49,7 +49,7 @@
       .hidden-xs
         %ul.nav.navbar-nav
           %li
-            %a{href: "#"} Home
+            = link_to "Home", root_path
           %li.dropdown
             %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} Shop
             %ul.dropdown-menu
@@ -66,9 +66,9 @@
               %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} My account
               %ul.dropdown-menu
                 %li
-                  %a{href: "#"} Orders
+                  = link_to "Orders", orders_path
                 %li
-                  %a{href: "#"} Settings
+                  = link_to "Settings", settings_path
                 %li.divider{role: "separator"}
                 %li
                   = link_to "Log out", destroy_user_session_path, method: :delete
