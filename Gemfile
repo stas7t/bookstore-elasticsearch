@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'dotenv-rails', :groups => [:development, :test]
+
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
@@ -51,6 +53,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   gem 'rubocop', require: false
+  gem 'letter_opener'
 end
 
 group :test do
@@ -68,6 +71,7 @@ gem 'rails-i18n', '~> 5.0.0'
 
 # Authentication
 gem 'devise'
+gem 'omniauth'
 gem 'omniauth-facebook'
 # gem 'omniauth-google-oauth2'
 
@@ -96,3 +100,6 @@ gem 'haml-rails', '~> 1.0'
 
 # Bootstrap
 gem 'bootstrap-sass'
+
+# Font
+gem 'font-awesome-sass', '~> 4.7.0'
