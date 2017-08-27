@@ -1,21 +1,22 @@
-%h2 Sign up
-= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = devise_error_messages!
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true
-  .field
-    = f.label :password
-    - if @minimum_password_length
-      %em
-        (#{@minimum_password_length} characters minimum)
-    %br/
-    = f.password_field :password, autocomplete: "off"
-  .field
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "off"
-  .actions
-    = f.submit "Sign up"
-= render "devise/shared/links"
+%main.container.general-main-wrap
+  .text-center
+    %h3.general-login-title Sign Up
+    = link_to user_facebook_omniauth_authorize_path, class: "general-login-icon" do
+      %i.fa.fa-facebook-official
+    %p.general-login-text or
+  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "general-form"}) do |f|
+    = devise_error_messages!
+    .form-group.mb-30
+      = f.label :email, class: "control-label input-label"
+      = f.email_field :email, placeholder: "Enter email", class: "form-control"
+    .form-group.mb-30
+      = f.label :password, class: "control-label input-label"
+      = f.password_field :password, autocomplete: "off", placeholder: "Password", class: "form-control"
+    .form-group.mb-30
+      = f.label :confirm_password, class: "control-label input-label"
+      = f.password_field :confirm_password, autocomplete: "off", placeholder: "Confirm password", class: "form-control"
+    .actions.text-center
+      = f.submit "Sign up", class: "button btn btn-default mb-20"
+  %p.general-sign-text.text-center
+    Have an Account?
+    = link_to "Log in", new_user_session_path, class: "in-gold-500"
