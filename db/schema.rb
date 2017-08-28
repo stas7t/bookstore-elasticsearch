@@ -32,10 +32,9 @@ ActiveRecord::Schema.define(version: 20170827134336) do
     t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "provider"
+    t.string "provider", default: "email"
     t.string "uid"
-    t.string "first_name"
-    t.string "last_name"
+    t.string "name"
     t.string "image"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
