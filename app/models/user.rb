@@ -9,6 +9,8 @@ class User < ApplicationRecord
                                  message: 'should be minimum 8 letters, at least 1 uppercase, at least 1 lowercase, at least 1 number. No whitespeses.' }, 
                        unless: ->(user) { user.password.nil? }
 
+  has_many :reviews
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
