@@ -5,12 +5,15 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :omniauthable, omniauth_providers: [:facebook]
 
+  validates :password, format: { with: /\A\S*(?=\S{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\S*\z/,
+                                 message: 'should be minimum 8 letters, at least 1 uppercase, at least 1 lowercase, at least 1 number. No whitespeses.' }, 
+                       unless: ->(user) { user.password.nil? }
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
-      user.first_name = auth.info.first_name
-      user.last_name = auth.info.last_name
+      user.name = auth.info.name
       user.image = auth.info.image
       user.skip_confirmation!
     end
