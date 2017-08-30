@@ -1,0 +1,9 @@
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+    - 'tmp/**/*'
+    - 'db/**/*'
+  TargetRubyVersion: 2.4
+
+Rails:
+  Enabled: true
