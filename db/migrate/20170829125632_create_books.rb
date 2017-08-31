@@ -2,13 +2,13 @@ class CreateBooks < ActiveRecord::Migration[5.1]
   def change
     create_table :books do |t|
       t.string :name
-      t.decimal :price
-      t.integer :quantity
       t.text :description
-      t.decimal :height
-      t.decimal :width
-      t.decimal :depth
       t.integer :year_of_publication
+      t.integer :quantity
+      t.decimal :price,  precision: 5, scale: 2
+      t.decimal :height, precision: 4, scale: 2
+      t.decimal :width,  precision: 4, scale: 2
+      t.decimal :depth,  precision: 4, scale: 2
       t.string :materials
 
       t.timestamps

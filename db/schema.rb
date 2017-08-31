@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170830200953) do
+ActiveRecord::Schema.define(version: 20170831103759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,12 +32,12 @@ ActiveRecord::Schema.define(version: 20170830200953) do
 
   create_table "books", force: :cascade do |t|
     t.string "name"
-    t.decimal "price"
+    t.decimal "price", precision: 5, scale: 2
     t.integer "quantity"
     t.text "description"
-    t.decimal "height"
-    t.decimal "width"
-    t.decimal "depth"
+    t.decimal "height", precision: 4, scale: 2
+    t.decimal "width", precision: 4, scale: 2
+    t.decimal "depth", precision: 4, scale: 2
     t.integer "year_of_publication"
     t.string "materials"
     t.datetime "created_at", null: false
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20170830200953) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.bigint "book_id"
+    t.string "status", default: "unprocessed"
     t.index ["book_id"], name: "index_reviews_on_book_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
