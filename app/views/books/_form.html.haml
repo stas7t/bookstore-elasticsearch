@@ -1,0 +1,33 @@
+= form_for @book, html: {class: "general-form"} do |f|
+  - if @book.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@book.errors.count, "error")} prohibited this book from being saved:"
+      %ul
+        - @book.errors.full_messages.each do |message|
+          %li= message
+  .form-group.mb-30
+    = f.label :title, class: "control-label input-label"
+    = f.text_field :title, class: "form-control"
+  .form-group.mb-30
+    = f.label :description, class: "control-label input-label"
+    = f.text_area :description, size: "60x6", class: "form-control"
+  .form-group.mb-30
+    = f.label :publication_year, class: "control-label input-label"
+    = f.number_field :publication_year, class: "form-control"
+  .form-group.mb-30
+    = f.label :quantity, class: "control-label input-label"
+    = f.number_field :quantity, class: "form-control"
+    = f.label :price, class: "control-label input-label"
+    = f.number_field :price, class: "form-control"
+  .form-group.mb-30
+    = f.label :height, class: "control-label input-label"
+    = f.number_field :height, class: "form-control"
+    = f.label :width, class: "control-label input-label"
+    = f.number_field :width, class: "form-control"
+    = f.label :depth, class: "control-label input-label"
+    = f.number_field :depth, class: "form-control"
+  .form-group.mb-30
+    = f.label :materials, class: "control-label input-label"
+    = f.text_field :materials, class: "form-control"
+  .actions
+    = f.submit 'Save', class: "btn btn-default mb-20"

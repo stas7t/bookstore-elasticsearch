@@ -1,0 +1,42 @@
+%h1.text-center Listing books
+
+%table.table.table-responsive
+  %thead
+    %tr
+      %th.col-sm-1
+      %th
+      %th
+      %th
+      %th
+
+  %tbody
+    - @books.each do |book|
+      %tr
+        %td
+          .form-group.checkbox
+            %label.checkbox-label
+              %input.checkbox-input{type: "checkbox", hidden: "true"}
+              %span.checkbox-icon
+                %i.fa.fa-check
+              %span.checkbox-text
+        %td= link_to book.title, book_path(book), class: "in-gold-500"
+        %td= book_short_description(book)
+        %td= book.publication_year
+        %td= book.quantity
+        %td= book.price
+        %td= "H:#{book.height} x W:#{book.width} x D:#{book.depth}"
+        %td= book.materials.gsub(/["\]\[]/, '')
+        %td
+          - book.authors.each do |author|
+            = "#{author.first_name} #{author.last_name}, "
+        %td
+          - book.categories.each do |category|
+            = category.name
+        %td
+          = link_to 'Edit', edit_book_path(book), class: "font-16 in-gold-500"
+          %span.font-16.in-gold-500 
+            \|
+          = link_to 'Delete', book, method: :delete, data: { confirm: 'Are you sure?' }, class: "font-16 in-gold-500"
+= paginate @books
+.text-center
+  = link_to 'Create', new_book_path, class: "btn btn-default mb-20"

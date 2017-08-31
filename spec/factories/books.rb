@@ -7,7 +7,7 @@ FactoryGirl.define do
     height "9.99"
     width "9.99"
     depth "9.99"
-    year_of_publication 1
+    publication_year 1
     materials "MyString"
     authors ""
     reviews ""

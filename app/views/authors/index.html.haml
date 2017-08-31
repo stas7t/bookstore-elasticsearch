@@ -21,7 +21,7 @@
                 %span.checkbox-text
           %td= author.first_name
           %td= author.last_name
-          %td= author.description
+          %td= author_short_description(author)
           %td
             = link_to 'Edit', edit_author_path(author), class: "font-16 in-gold-500"
             %span.font-16.in-gold-500 
