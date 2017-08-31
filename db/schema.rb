@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170831103759) do
+ActiveRecord::Schema.define(version: 20170831173303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,19 +31,24 @@ ActiveRecord::Schema.define(version: 20170831103759) do
   end
 
   create_table "books", force: :cascade do |t|
-    t.string "name"
-    t.decimal "price", precision: 5, scale: 2
-    t.integer "quantity"
+    t.string "title"
     t.text "description"
+    t.integer "publication_year"
+    t.integer "quantity"
+    t.decimal "price", precision: 5, scale: 2
     t.decimal "height", precision: 4, scale: 2
     t.decimal "width", precision: 4, scale: 2
     t.decimal "depth", precision: 4, scale: 2
-    t.integer "year_of_publication"
     t.string "materials"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "books_categories", force: :cascade do |t|
+    t.bigint "book_id"
     t.bigint "category_id"
-    t.index ["category_id"], name: "index_books_on_category_id"
+    t.index ["book_id"], name: "index_books_categories_on_book_id"
+    t.index ["category_id"], name: "index_books_categories_on_category_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -93,7 +98,8 @@ ActiveRecord::Schema.define(version: 20170831103759) do
 
   add_foreign_key "authors_books", "authors"
   add_foreign_key "authors_books", "books"
-  add_foreign_key "books", "categories"
+  add_foreign_key "books_categories", "books"
+  add_foreign_key "books_categories", "categories"
   add_foreign_key "reviews", "books"
   add_foreign_key "reviews", "users"
 end
