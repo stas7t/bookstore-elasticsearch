@@ -1,0 +1,8 @@
+%p#notice= notice
+
+%h3= "#{@author.first_name} #{@author.last_name}"
+%p= @author.description
+
+= link_to 'Edit', edit_author_path(@author)
+\|
+= link_to 'Back', authors_path

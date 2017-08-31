@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170829142004) do
+ActiveRecord::Schema.define(version: 20170830200953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,13 @@ ActiveRecord::Schema.define(version: 20170829142004) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "authors_books", force: :cascade do |t|
+    t.bigint "author_id"
+    t.bigint "book_id"
+    t.index ["author_id"], name: "index_authors_books_on_author_id"
+    t.index ["book_id"], name: "index_authors_books_on_book_id"
+  end
+
   create_table "books", force: :cascade do |t|
     t.string "name"
     t.decimal "price"
@@ -33,6 +40,14 @@ ActiveRecord::Schema.define(version: 20170829142004) do
     t.decimal "depth"
     t.integer "year_of_publication"
     t.string "materials"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_books_on_category_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -75,6 +90,9 @@ ActiveRecord::Schema.define(version: 20170829142004) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "authors_books", "authors"
+  add_foreign_key "authors_books", "books"
+  add_foreign_key "books", "categories"
   add_foreign_key "reviews", "books"
   add_foreign_key "reviews", "users"
 end
