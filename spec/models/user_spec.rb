@@ -5,13 +5,8 @@ RSpec.describe User, type: :model do
 
   subject { @user }
 
-  it { should respond_to(:email) }
-
-  it '#email returns a string' do
-    expect(@user.email).to match 'user@example.com'
-  end
-
-  it '#name returns a string' do
-    expect(@user.name).to match 'Jon Snow'
-  end
+  it { expect(subject).to validate_presence_of :email }
+  it { expect(subject).to validate_confirmation_of :password }
+  it { expect(subject).to validate_length_of :password }
+  it { expect(subject).to have_many(:reviews) }
 end

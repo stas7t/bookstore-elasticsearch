@@ -11,5 +11,16 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe AuthorsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before :each { @author = FactoryGirl.create(:author) }
+
+  subject { @author }
+
+  describe 'short description' do
+    it 'shortens author description' do
+      expect(helper.author_short_description(subject).length).to eq(50)
+    end
+    it 'ends with ...' do
+      expect(helper.author_short_description(subject)).to end_with('...')
+    end
+  end
 end

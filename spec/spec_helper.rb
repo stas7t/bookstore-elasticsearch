@@ -93,4 +93,8 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+  # FFaker config
+  #config.before(:all)  { FFaker::Random.seed = config.seed }
+  #config.before(:each) { FFaker::Random.reset! }
 end

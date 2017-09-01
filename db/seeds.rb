@@ -36,8 +36,8 @@ authors = Author.all
               height: 7.40,
               width: 4.50,
               depth: 0.90,
-              publication_year: (1990..2017).to_a.sample,
-              materials: FFaker::HipsterIpsum.words,
+              publication_year: FFaker::Vehicle.year,
+              materials: FFaker::Lorem.words.join(', '),
               authors: [authors.sample, authors.sample],
               categories: [categories.sample])
 end
