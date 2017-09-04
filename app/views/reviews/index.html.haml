@@ -1,0 +1,32 @@
+%h1.text-center Listing reviews
+.table-responsive
+  %table.table
+    %thead
+      %tr
+        %th.col-sm-1
+        %th.col-sm-2 Title
+        %th.col-sm-2 Rating
+        %th.col-sm-4 Text
+        %th.col-sm-3
+
+    %tbody
+      - @reviews.each do |review|
+        %tr
+          %td
+            .form-group.checkbox
+              %label.checkbox-label
+                %input.checkbox-input{type: "checkbox", hidden: "true"}
+                %span.checkbox-icon
+                  %i.fa.fa-check
+                %span.checkbox-text
+          %td= review.title
+          %td= review.rating
+          %td= review.text
+          %td
+            = link_to 'Edit', edit_review_path(review), class: "font-16 in-gold-500"
+            %span.font-16.in-gold-500 
+              \|
+            = link_to 'Delete', review, method: :delete, data: { confirm: 'Are you sure?' }, class: "font-16 in-gold-500"
+
+.text-center
+  = link_to 'Create', new_review_path, class: "btn btn-default mb-20"
