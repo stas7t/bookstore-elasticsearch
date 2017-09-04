@@ -1,10 +1,5 @@
 %p#notice= notice
 
-
-= link_to 'Edit', edit_book_path(@book)
-\|
-= link_to 'Back', books_path
-
 %main.container
   %a.general-back-link{href: books_path}
     %i.fa.fa-long-arrow-left.mr-15
@@ -22,16 +17,16 @@
           %a.img-link{href: "#"}
             %img{src: "https://www.smashingmagazine.com/wp-content/uploads/2015/09/smashing-book-5-2-large.jpg"}
     .col-sm-6
-      %h1.mt-res-0 Real-Life Responsive Web Design
-      %p.lead.small Vitaly Friedman, Daniel Mall,Vitaly Friedman
+      %h1.mt-res-0= @book.title
+      %p.lead.small= book_authors(@book)
       .row
         .col-xs-12.col-md-4
-          %p.h1.in-gold-500.mt-10 €32.90
+          %p.h1.in-gold-500.mt-10= @book.price
         .col-xs-5.col-md-3
           .input-group.general-position
             %a.input-link{href: "#"}
               %i.fa.fa-minus.line-height-40
-            %input.form-control.quantity-input{type: "text"}
+            %input.form-control.quantity-input{type: "text", value: @book.quantity}
             %a.input-link{href: "#"}
               %i.fa.fa-plus.line-height-40
         .col-xs-7.col-md-5
@@ -39,51 +34,35 @@
       .general-info-wrap.divider-lg
         %p Description
         %p.lead.small.line-height-2
-          Smashing Book 5: Real-Life Responsive Web Design is our brand new, upcoming book with smart front-end techniques and design patterns derived from real-life responsive projects. With 13 chapters on responsive workflow, SVG, Flexbox, Web fonts, responsive images, responsive email, content strategy, debugging ...
+          = @book.description
           %a.in-gold-500.ml-10{href: "#"} Read More
       .general-info-wrap.divider-lg
         .clearfix
           %p.pull-left Year of publication
-          %p.lead.small.pull-right 2016
+          %p.lead.small.pull-right= @book.publication_year
       .general-info-wrap.divider-lg
         .clearfix
           %p.pull-left Dimensions
-          %p.lead.small.pull-right H:6.4\" x W: 0.9\" x D: 5.0
+          %p.lead.small.pull-right= "H: #{@book.height}\" x W: #{@book.width}\" x D: #{@book.depth}\""
       .general-info-wrap.divider-lg
         .clearfix
           %p.pull-left Materials
-          %p.lead.small.pull-right Hardcove, glossy paper
+          %p.lead.small.pull-right= @book.materials
   .mb-80
-    %h3.in-gold-500.mb-25 Reviews (3)
-    .general-message-wrap.divider-lg
-      .clearfix
-        %img.img-circle.logo-size.inlide-block.pull-left{src: "https://www.smashingmagazine.com/wp-content/uploads/2015/09/smashing-book-5-2-large.jpg"}
-        .ml-70
-          %div
-            .general-message-date.hidden-xs 11/11/16
-            .max-240
-              .general-message-verified Verified Reviewer
-              .general-message-name Rita J. Lewis
-          .mb-15
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-          %p Thank you BookStore, I was very pleased to receive my order for the Moleskine diary so soon after placing the order.
-    .general-message-wrap.divider-lg
-      .clearfix
-        %span.img-circle.logo-size.inlide-block.pull-left.logo-empty M
-        .ml-70
-          %div
-            .general-message-date.hidden-xs 11/11/16
-            .max-240
-              .general-message-verified.pull-right Verified Reviewer
-              .general-message-name May J. Novoa
-          .mb-15
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star.rate-empty
-          %p If ‘Get a better job’ had landed on my desk a year ago, I might have been dismissive of it. Instead I was prepared to be open-minded. There have been many occasions where I turned to career books with practical activities to look for some inspiration when developing education activities for learners or assessment.
+    %h3.in-gold-500.mb-25= "Reviews (#{@book.reviews.size})"
+    - @book.reviews.each do |review|
+      .general-message-wrap.divider-lg
+        .clearfix
+          %img.img-circle.logo-size.inlide-block.pull-left{src: "https://www.smashingmagazine.com/wp-content/uploads/2015/09/smashing-book-5-2-large.jpg"}
+          .ml-70
+            %div
+              .general-message-date.hidden-xs= review.created_at
+              .max-240
+                .general-message-verified Verified Reviewer
+                .general-message-name= review.user.name
+            .mb-15
+              - review.rating.times do
+                %i.fa.fa-star.rate-star
+              - ( 5 - review.rating ).times do
+                %i.fa.fa-star.rate-star.rate-empty
+            %p= review.text
