@@ -2,8 +2,7 @@ require 'rails_helper'
 
 RSpec.describe AuthorsController, type: :controller do
   let(:author_params) { FactoryGirl.attributes_for(:author).stringify_keys }
-  let(:author) { FactoryGirl.build_stubbed(:author) }
-  #let(:author) { FactoryGirl.create(:author) }
+  let(:author) { FactoryGirl.create(:author) }
 
   describe 'GET #show' do
     before do

@@ -2,11 +2,15 @@ require 'rails_helper'
 
 RSpec.describe ReviewsController, type: :controller do
   let(:review_params) { FactoryGirl.attributes_for(:review).stringify_keys }
-  let(:review) { FactoryGirl.build_stubbed(:review) }
-  #let(:review) { FactoryGirl.create(:review) }
+  let(:user) { FactoryGirl.create(:user) }
+  let(:book) { FactoryGirl.create(:book) }
+  let(:review) { FactoryGirl.build(:review) }
 
   describe 'GET #show' do
     before do
+      review.user_id = user.id
+      review.book_id = book.id
+      review.save
       allow(Review).to receive(:find).and_return review
     end
 
