@@ -1,6 +1,10 @@
 module BooksHelper
-  def book_short_description(book)
-    return book.description if book.description.length <= 50
-    book.description.slice(0, 47).concat('...')
+  def book_short_description(book, size = 50)
+    return book.description if book.description.length <= size
+    book.description.slice(0, size - 3).concat('...')
+  end
+
+  def book_authors(book)
+    book.authors.map { |author| author_name(author) }.join(', ')
   end
 end
