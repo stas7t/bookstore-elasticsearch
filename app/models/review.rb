@@ -3,7 +3,6 @@ class Review < ApplicationRecord
   belongs_to :book
 
   validates :title, :text, :rating, presence: true
-  validates :user, :book, presence: true
   validates :status, inclusion: { in: %w[unprocessed approved rejected] }
   validates :rating, numericality: { only_integer: true,
                                      greater_than: 0,
