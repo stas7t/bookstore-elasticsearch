@@ -1,0 +1,11 @@
+.row
+  .col-sm-5
+    .general-img-wrap
+      %img.img-shadow.general-thumbnail-img{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
+  .col-sm-7
+    .mb-60
+      %h1= book.title
+      %p.lead= book_short_description(book, 150)
+      %p.lead.small= book_authors(book)
+      .general-align
+        %button.btn.btn-primary Buy Now
