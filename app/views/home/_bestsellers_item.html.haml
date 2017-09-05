@@ -10,7 +10,7 @@
             %i.fa.fa-shopping-cart.thumb-icon
   .mb-35
     .clearfix
-      %p.pull-right.font-16.in-gold-500= book.price
+      %p.pull-right.font-16.in-gold-500!= "&euro;#{book.price}"
       %p.title.mr-55= book.title
     %span.divider-sm
     %p.lead.small= book_authors(book)

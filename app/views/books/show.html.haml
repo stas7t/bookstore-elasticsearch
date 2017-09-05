@@ -21,7 +21,7 @@
       %p.lead.small= book_authors(@book)
       .row
         .col-xs-12.col-md-4
-          %p.h1.in-gold-500.mt-10= @book.price
+          %p.h1.in-gold-500.mt-10!= "&euro;#{@book.price}"
         .col-xs-5.col-md-3
           .input-group.general-position
             %a.input-link{href: "#"}
