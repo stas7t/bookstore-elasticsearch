@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :books
   resources :reviews
 
+  get 'catalog', to: 'catalog#index'
   get 'xorders', to: 'xorders#index'
   get 'xsettings', to: 'xsettings#index'
 
