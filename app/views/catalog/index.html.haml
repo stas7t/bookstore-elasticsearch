@@ -19,23 +19,23 @@
       %li.mr-35
         %a.filter-link.active{href: "#"}
           All
-          %span.badge.general-badge 135
+          %span.badge.general-badge= Book.count
       %li.mr-35
         %a.filter-link{href: "#"}
           Mobile Development
-          %span.badge.general-badge 135
+          %span.badge.general-badge= Category.where("name = 'Mobile development'").first.books.size
       %li.mr-35
         %a.filter-link{href: "#"}
           Photo
-          %span.badge.general-badge 135
+          %span.badge.general-badge= Category.where("name = 'Photo'").first.books.size
       %li.mr-35
         %a.filter-link{href: "#"}
           Web Design
-          %span.badge.general-badge 135
+          %span.badge.general-badge= Category.where("name = 'Web design'").first.books.size
       %li.mr-35
         %a.filter-link{href: "#"}
           Web Development
-          %span.badge.general-badge 135
+          %span.badge.general-badge= Category.where("name = 'Web development'").first.books.size
   .dropdowns.mb-25.visible-xs
     %p.lead.small.mb-10 Filter by category
     .dropdown
@@ -162,7 +162,7 @@
         .general-thumb-wrap
           .thumbnail.general-thumbnail
             %img.img-shadow.general-thumbnail-img{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
-            .thumb-hover-link
+            .thumb-hover
               .general-thumb-link-wrap
                 %a.thumb-hover-link{href: "#"}
                   %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
