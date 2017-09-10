@@ -1,7 +1,7 @@
 class CatalogController < ApplicationController
   def index
-    @books = Book.first(12)
-    @categories = Category.all
+    @books = Book.order(:title).page params[:page]
+    @categories = Category.order('name')
 
   end
 end
