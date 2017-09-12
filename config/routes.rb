@@ -8,8 +8,6 @@ Rails.application.routes.draw do
   resources :reviews
 
   get 'catalog', to: 'catalog#index'
-  get 'xorders', to: 'xorders#index'
-  get 'xsettings', to: 'xsettings#index'
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 end
