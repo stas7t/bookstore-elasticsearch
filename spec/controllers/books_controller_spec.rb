@@ -2,10 +2,13 @@ require 'rails_helper'
 
 RSpec.describe BooksController, type: :controller do
   let(:book_params) { FactoryGirl.attributes_for(:book).stringify_keys }
-  let(:book) { FactoryGirl.create(:book) }
+  let(:category) { FactoryGirl.create(:category) }
+  let(:book) { FactoryGirl.build(:book) }
 
   describe 'GET #show' do
     before do
+      book.category_id = category.id
+      book.save
       allow(Book).to receive(:find).and_return book
     end
 

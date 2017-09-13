@@ -22,7 +22,7 @@ Category.create(name: 'Web development')
 
 categories = Category.all
 
-10.times do
+24.times do
   Author.create(first_name: FFaker::Name.first_name,
                 last_name: FFaker::Name.last_name,
                 description: FFaker::Lorem.paragraph)
@@ -41,7 +41,7 @@ end
 
 def book_categories(categories)
   selected_categories = []
-  rand(1..3).times do
+  1.times do
     category = categories.sample
     selected_categories << category unless selected_categories.include?(category)
   end
@@ -49,7 +49,7 @@ def book_categories(categories)
 end
 
 
-20.times do
+128.times do
   Book.create(title: FFaker::Book.title,
               price: [4.99, 9.99, 14.99, 19.99, 24.99, 29.99].sample,
               quantity: 1,
@@ -60,7 +60,7 @@ end
               publication_year: rand(2001..2017),
               materials: FFaker::Lorem.words.join(', '),
               authors: book_authors(authors),
-              categories: book_categories(categories))
+              category_id: book_categories(categories)[0].id)
 end
 
 books = Book.all

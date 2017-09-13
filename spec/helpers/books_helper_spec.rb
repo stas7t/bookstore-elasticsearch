@@ -11,7 +11,7 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe BooksHelper, type: :helper do
-  before :each { @book = FactoryGirl.create(:book) }
+  before :each { @book = FactoryGirl.build(:book) }
 
   subject { @book }
 

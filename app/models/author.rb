@@ -1,5 +1,6 @@
 class Author < ApplicationRecord
-  has_and_belongs_to_many :books
+  has_many :author_book
+  has_many :books, through: :author_book
 
   validates :first_name, presence: true
   validates :first_name, :last_name, length: {

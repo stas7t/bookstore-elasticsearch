@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Review, type: :model do
   before :each do 
     @user = FactoryGirl.create(:user)
-    @book = FactoryGirl.create(:book)
+    @book = FactoryGirl.build(:book)
     @review = FactoryGirl.build(:review)
     @review.user_id = @user.id
     @review.book_id = @book.id

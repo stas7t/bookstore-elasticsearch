@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Book, type: :model do
 
-  before :each { @book = FactoryGirl.create(:book) }
+  before :each { @book = FactoryGirl.build(:book) }
 
   subject { @book }
 
@@ -11,7 +11,7 @@ RSpec.describe Book, type: :model do
   it { expect(subject).to validate_presence_of :price }
   it { expect(subject).to validate_uniqueness_of :title }
 
-  it { expect(subject).to have_and_belong_to_many(:authors) }
-  it { expect(subject).to have_and_belong_to_many(:categories) }
+  it { expect(subject).to have_many(:authors) }
+  it { expect(subject).to belong_to(:category) }
   it { expect(subject).to have_many(:reviews) }
 end

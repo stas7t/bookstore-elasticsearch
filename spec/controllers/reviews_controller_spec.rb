@@ -3,11 +3,14 @@ require 'rails_helper'
 RSpec.describe ReviewsController, type: :controller do
   let(:review_params) { FactoryGirl.attributes_for(:review).stringify_keys }
   let(:user) { FactoryGirl.create(:user) }
-  let(:book) { FactoryGirl.create(:book) }
+  let(:category) { FactoryGirl.create(:category) }
+  let(:book) { FactoryGirl.build(:book) }
   let(:review) { FactoryGirl.build(:review) }
 
   describe 'GET #show' do
     before do
+      book.category_id = category.id
+      book.save
       review.user_id = user.id
       review.book_id = book.id
       review.save
