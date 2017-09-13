@@ -24,13 +24,13 @@
             %a{type: "button", 'data-toggle': "collapse", href: "#menu", 'aria-expanded': "false", 'aria-controls': "menu"} Shop
             %ul#menu.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
               %li
-                %a.collapse-link{href: catalog_path} Mobile development
+                %a.collapse-link{href: books_path} Mobile development
               %li
-                %a.collapse-link{href: catalog_path} Photo
+                %a.collapse-link{href: books_path} Photo
               %li
-                %a.collapse-link{href: catalog_path} Web design
+                %a.collapse-link{href: books_path} Web design
               %li
-                %a.collapse-link{href: catalog_path} Web development
+                %a.collapse-link{href: books_path} Web development
           - if user_signed_in?
             %li
               %a{type: "button", 'data-toggle': "collapse", href: "#menu1", 'aria-expanded': "false", 'aria-controls': "menu1"} My account
@@ -54,13 +54,13 @@
             %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} Shop
             %ul.dropdown-menu
               %li
-                %a{href: catalog_path} Mobile development
+                %a{href: books_path} Mobile development
               %li
-                %a{href: catalog_path} Photo
+                %a{href: books_path} Photo
               %li
-                %a{href: catalog_path} Web design
+                %a{href: books_path} Web design
               %li
-                %a{href: catalog_path} Web development
+                %a{href: books_path} Web development
           - if user_signed_in?
             %li.dropdown
               %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} My account

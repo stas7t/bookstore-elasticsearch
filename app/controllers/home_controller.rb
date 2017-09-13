@@ -4,6 +4,6 @@ class HomeController < ApplicationController
     @categories = Category.all
     # Temporary decision
     # TODO: rework to really bestsellers
-    @bestsellers = @categories.map { |category| category.books.first }
+    @bestsellers = Book.last(4)
   end
 end

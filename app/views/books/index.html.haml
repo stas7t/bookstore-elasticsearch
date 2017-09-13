@@ -1,42 +1,48 @@
-%h1.text-center Listing books
+%main.container
+  %h1.general-title-margin Сatalog
+  .hidden-xs.clearfix
+    .dropdowns.pull-right
+      .dropdown.width-240
+        = render 'order_dropdown'
+    %ul.list-inline.pt-10.mb-25.mr-240
+      %li.mr-35
+        %a.filter-link.active{href: "#"}
+          All
+          %span.badge.general-badge= Book.count
+      - @categories.each do |category|
+        = render 'categories_list', category: category
+  .dropdowns.mb-25.visible-xs
+    %p.lead.small.mb-10 Filter by category
+    .dropdown
+      %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
+        All
+        %i.fa.fa-angle-down.dropdown-icon.pull-right
+      %ul.dropdown-menu
+        - @categories.each do |category|
+          = render 'categories_filter', category: category
+    %p.lead.small.mb-10 Sort by
+    .dropdown
+      = render 'order_dropdown'
+  .mb-120  
+    - @books.in_groups_of(4) do |group|
+      .row
+        - group.each do |book|
+          .col-xs-6.col-sm-3
+            .general-thumb-wrap
+              .thumbnail.general-thumbnail
+                %img.img-shadow.general-thumbnail-img{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
+                .thumb-hover
+                  .general-thumb-link-wrap
+                    %a.thumb-hover-link{href: "#"}
+                      %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
+                    %a.thumb-hover-link{href: "#"}
+                      %i.fa.fa-shopping-cart.thumb-icon
+            .general-thumb-info
+              %p.title= book.title
+              %p.font-16.in-gold-500= "€#{book.price}"
+              %span.divider-sm
+              %p.lead.small= book_authors(book)
 
-%table.table.table-responsive
-  %thead
-    %tr
-      %th.col-sm-1
-      %th
-      %th
-      %th
-      %th
-
-  %tbody
-    - @books.each do |book|
-      %tr
-        %td
-          .form-group.checkbox
-            %label.checkbox-label
-              %input.checkbox-input{type: "checkbox", hidden: "true"}
-              %span.checkbox-icon
-                %i.fa.fa-check
-              %span.checkbox-text
-        %td= link_to book.title, book_path(book), class: "in-gold-500"
-        %td= book_short_description(book)
-        %td= book.publication_year
-        %td= book.quantity
-        %td= book.price
-        %td= "H:#{book.height} x W:#{book.width} x D:#{book.depth}"
-        %td= book.materials.gsub(/["\]\[]/, '')
-        %td
-          - book.authors.each do |author|
-            = "#{author.first_name} #{author.last_name}, "
-        %td
-          - book.categories.each do |category|
-            = category.name
-        %td
-          = link_to 'Edit', edit_book_path(book), class: "font-16 in-gold-500"
-          %span.font-16.in-gold-500 
-            \|
-          = link_to 'Delete', book, method: :delete, data: { confirm: 'Are you sure?' }, class: "font-16 in-gold-500"
-= paginate @books
-.text-center
-  = link_to 'Create', new_book_path, class: "btn btn-default mb-20"
+    = link_to_next_page @books, 'Next Page'
+    .text-center
+      %button.btn.btn-primary View More
