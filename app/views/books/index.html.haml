@@ -6,7 +6,7 @@
         = render 'order_dropdown'
     %ul.list-inline.pt-10.mb-25.mr-240
       %li.mr-35
-        %a.filter-link.active{href: "#"}
+        %a.filter-link.active{href: books_path}
           All
           %span.badge.general-badge= Book.count
       - @categories.each do |category|
@@ -33,7 +33,7 @@
                 %img.img-shadow.general-thumbnail-img{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
                 .thumb-hover
                   .general-thumb-link-wrap
-                    %a.thumb-hover-link{href: "#"}
+                    %a.thumb-hover-link{href: book_path(book)}
                       %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
                     %a.thumb-hover-link{href: "#"}
                       %i.fa.fa-shopping-cart.thumb-icon
@@ -43,6 +43,6 @@
               %span.divider-sm
               %p.lead.small= book_authors(book)
 
-    = link_to_next_page @books, 'Next Page'
+    = paginate @books
     .text-center
       %button.btn.btn-primary View More

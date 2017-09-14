@@ -1,7 +1,11 @@
 %p#notice= notice
 
 %main.container
-  %a.general-back-link{href: books_path}
+
+  = link_to books_path(category_id: @current_category, sort_by: @sort_by), class: "general-back-link" do
+    %i.fa.fa-long-arrow-left.mr-15
+    Back to results
+  -#%a.general-back-link{href: books_path}
     %i.fa.fa-long-arrow-left.mr-15
     Back to results
   .row
