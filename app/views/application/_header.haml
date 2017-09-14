@@ -42,7 +42,7 @@
                 %li
                   = link_to "Orders", root_path
                 %li
-                  = link_to "Settings", root_path
+                  = link_to "Settings", settings_path
             %li
               = link_to "Log out", destroy_user_session_path, method: :delete
           - else
@@ -76,7 +76,7 @@
                 %li
                   = link_to "Orders", root_path
                 %li
-                  = link_to "Settings", root_path
+                  = link_to "Settings", settings_path
                 %li.divider{role: "separator"}
                 %li
                   = link_to "Log out", destroy_user_session_path, method: :delete
