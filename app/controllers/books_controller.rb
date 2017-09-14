@@ -1,15 +1,13 @@
 class BooksController < ApplicationController
 
   before_action :set_book,       only: [:show, :edit, :update, :destroy]
-  before_action :set_categories, only: [:index]
+  before_action :set_categories, only: [:index, :show]
   before_action :set_current,    only: [:index, :show]
   after_action  :set_cookies,    only: [:index]
 
   def index
     @books = Book.all.order(params[:sort_by]).page params[:page] unless params[:category_id]
     @books = Book.by_category(params[:category_id]).order(params[:sort_by]).page params[:page] if params[:category_id]
-    #@current_category = params[:category_id]
-    #@sort_by = params[:order_by]
   end
 
   def show; end

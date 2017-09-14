@@ -6,7 +6,7 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      %a.navbar-brand Bookstore
+      %a.navbar-brand{href: root_path} Bookstore
       %a.shop-link.pull-right.visible-xs{href: "#"}
         %span.shop-icon
           %span.shop-quantity 5
@@ -21,28 +21,20 @@
           %li
             = link_to "Home", root_path
           %li
-            %a{type: "button", 'data-toggle': "collapse", href: "#menu", 'aria-expanded': "false", 'aria-controls': "menu"} Shop
-            %ul#menu.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
-              %li
-                -#%a.collapse-link{href: books_path} Mobile development
-                = link_to "Mobile development", books_path(category_id: "1"), class: "collapse-link"
-              %li
-                -#%a.collapse-link{href: books_path} Photo
-                = link_to "Photo", books_path(category_id: "2"), class: "collapse-link"
-              %li
-                -#%a.collapse-link{href: books_path} Web design
-                = link_to "Web design", books_path(category_id: "3"), class: "collapse-link"
-              %li
-                -#%a.collapse-link{href: books_path} Web development
-                = link_to "Web development", books_path(category_id: "4"), class: "collapse-link"
+            %a{type: "button", 'data-toggle': "collapse", href: "#menu_shop", 'aria-expanded': "false", 'aria-controls': "menu_shop"} Shop
+            %ul#menu_shop.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
+              - @categories.each do |category|
+                %li
+                  -#%a.collapse-link{href: books_path} Mobile development
+                  = link_to "#{category.name}", books_path(category_id: category.id), class: "collapse-link"
           - if user_signed_in?
             %li
-              %a{type: "button", 'data-toggle': "collapse", href: "#menu1", 'aria-expanded': "false", 'aria-controls': "menu1"} My account
-              %ul#menu1.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
+              %a{type: "button", 'data-toggle': "collapse", href: "#menu_my_account", 'aria-expanded': "false", 'aria-controls': "menu_my_account"} My account
+              %ul#menu_my_account.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
                 %li
-                  = link_to "Orders", root_path
+                  = link_to "Orders", root_path, class: "collapse-link"
                 %li
-                  = link_to "Settings", settings_path
+                  = link_to "Settings", root_path, class: "collapse-link"
             %li
               = link_to "Log out", destroy_user_session_path, method: :delete
           - else
@@ -57,18 +49,10 @@
           %li.dropdown
             %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} Shop
             %ul.dropdown-menu
-              %li
-                -#%a{href: books_path} Mobile development
-                = link_to "Mobile development", books_path(category_id: "1")
-              %li
-                -#%a{href: books_path} Photo
-                = link_to "Photo", books_path(category_id: "2")
-              %li
-                -#%a{href: books_path} Web design
-                = link_to "Web design", books_path(category_id: "3")
-              %li
-                -#%a{href: books_path} Web development
-                = link_to "Web development", books_path(category_id: "4")
+              - @categories.each do |category|
+                %li
+                  -#%a{href: books_path} Mobile development
+                  = link_to "#{category.name}", books_path(category_id: category.id)
           - if user_signed_in?
             %li.dropdown
               %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} My account
@@ -76,7 +60,7 @@
                 %li
                   = link_to "Orders", root_path
                 %li
-                  = link_to "Settings", settings_path
+                  = link_to "Settings", root_path
                 %li.divider{role: "separator"}
                 %li
                   = link_to "Log out", destroy_user_session_path, method: :delete

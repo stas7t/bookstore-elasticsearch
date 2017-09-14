@@ -60,7 +60,7 @@ end
               publication_year: rand(2001..2017),
               materials: FFaker::Lorem.words.join(', '),
               authors: book_authors(authors),
-              category_id: book_categories(categories)[0].id)
+              category_id: categories.sample.id)
 end
 
 books = Book.all

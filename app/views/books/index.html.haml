@@ -1,28 +1,37 @@
 %main.container
   %h1.general-title-margin Сatalog
+  = @current_category
   .hidden-xs.clearfix
     .dropdowns.pull-right
       .dropdown.width-240
-        = render 'order_dropdown'
+        = render 'sort_by_dropdown'
     %ul.list-inline.pt-10.mb-25.mr-240
       %li.mr-35
-        %a.filter-link.active{href: books_path}
+        -#%a.filter-link.active{href: books_path}
+        = link_to books_path, class: "filter-link #{'active' unless @current_category.length>0}" do
           All
           %span.badge.general-badge= Book.count
       - @categories.each do |category|
-        = render 'categories_list', category: category
+        %li.mr-35
+          -#%a.filter-link{href: "#"}
+          = link_to books_path(category_id: "#{category.id}"), class: "filter-link #{'active' if @current_category == category.id}" do
+            = category.name
+            %span.badge.general-badge= category.books.size
   .dropdowns.mb-25.visible-xs
     %p.lead.small.mb-10 Filter by category
     .dropdown
       %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
+        -#= @categories.find(@current_category).name || 'All'
         All
         %i.fa.fa-angle-down.dropdown-icon.pull-right
       %ul.dropdown-menu
         - @categories.each do |category|
-          = render 'categories_filter', category: category
+          %li
+            -#%a{href: "#"}= category.name
+            = link_to "#{category.name}", books_path(category_id: category.id)
     %p.lead.small.mb-10 Sort by
     .dropdown
-      = render 'order_dropdown'
+      = render 'sort_by_dropdown'
   .mb-120  
     - @books.in_groups_of(4) do |group|
       .row
@@ -43,6 +52,6 @@
               %span.divider-sm
               %p.lead.small= book_authors(book)
 
-    = paginate @books
     .text-center
       %button.btn.btn-primary View More
+      = paginate @books
