@@ -2,9 +2,11 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   resources :authors
-  resources :books
+  resources :books do
+    resources :reviews
+  end
   resources :categories
-  resources :reviews
+  #resources :reviews
 
   get 'catalog', to: 'books#index'
 

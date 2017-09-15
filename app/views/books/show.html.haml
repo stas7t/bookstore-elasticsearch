@@ -1,14 +1,6 @@
-%p#notice= notice
-
 %main.container
 
   = link_to :back, class: "general-back-link" do
-    %i.fa.fa-long-arrow-left.mr-15
-    Back to results
-  -#= link_to books_path(category_id: @current_category, sort_by: @sort_by), class: "general-back-link" do
-    %i.fa.fa-long-arrow-left.mr-15
-    Back to results
-  -#%a.general-back-link{href: books_path}
     %i.fa.fa-long-arrow-left.mr-15
     Back to results
   .row
@@ -56,22 +48,8 @@
           %p.pull-left Materials
           %p.lead.small.pull-right= @book.materials
   .mb-80
-    %h3.in-gold-500.mb-25= "Reviews (#{@book.reviews.size})"
-    = render 'reviews/reviews'
-    = render 'reviews/new' #if user_signed_in?
-    -# @book.reviews.each do |review|
-      .general-message-wrap.divider-lg
-        .clearfix
-          %img.img-circle.logo-size.inlide-block.pull-left{src: "https://www.smashingmagazine.com/wp-content/uploads/2015/09/smashing-book-5-2-large.jpg"}
-          .ml-70
-            %div
-              .general-message-date.hidden-xs= review.created_at
-              .max-240
-                .general-message-verified Verified Reviewer
-                .general-message-name= review.user.name
-            .mb-15
-              - review.rating.times do
-                %i.fa.fa-star.rate-star
-              - ( 5 - review.rating ).times do
-                %i.fa.fa-star.rate-star.rate-empty
-            %p= review.text
+    %h3.in-gold-500.mb-25= "Reviews (#{@book.reviews.count})"
+    = render @book.reviews
+    - if user_signed_in?
+      %h3.in-gold-500.mb-25 Write review
+      = render 'reviews/form'
