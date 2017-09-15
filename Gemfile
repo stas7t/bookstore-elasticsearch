@@ -104,3 +104,6 @@ gem 'bootstrap-sass'
 
 # Font
 gem 'font-awesome-sass', '~> 4.7.0'
+
+# Forms
+gem 'simple_form'
