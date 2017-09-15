@@ -2,7 +2,10 @@
 
 %main.container
 
-  = link_to books_path(category_id: @current_category, sort_by: @sort_by), class: "general-back-link" do
+  = link_to :back, class: "general-back-link" do
+    %i.fa.fa-long-arrow-left.mr-15
+    Back to results
+  -#= link_to books_path(category_id: @current_category, sort_by: @sort_by), class: "general-back-link" do
     %i.fa.fa-long-arrow-left.mr-15
     Back to results
   -#%a.general-back-link{href: books_path}
