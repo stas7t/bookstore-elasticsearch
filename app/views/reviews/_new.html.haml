@@ -1,0 +1,16 @@
+.general-message-wrap.divider.form
+  %h3 Write review
+  = form_for Review.new do |f|
+    .form-group
+      = f.hidden_field :book_id, value: @book.id
+      = f.hidden_field :user_id, value: 1 #current_user.id
+    .form-group.mb-30
+      = f.label :title, class: "control-label input-label"
+      = f.text_field :title, class: "form-control"
+      = f.label :rating, class: "control-label input-label"
+      = f.number_field :rating, class: "form-control"
+    .form-group.mb-30
+      = f.label :text, class: "control-label input-label"
+      = f.text_area :text, size: "60x6", class: "form-control"
+    .actions
+      = f.submit 'Save', class: "btn btn-default mb-20"
