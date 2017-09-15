@@ -19,17 +19,7 @@
       %h1.mt-res-0= @book.title
       %p.lead.small= book_authors(@book)
       .row
-        .col-xs-12.col-md-4
-          %p.h1.in-gold-500.mt-10!= "&euro;#{@book.price}"
-        .col-xs-5.col-md-3
-          .input-group.general-position
-            %a.input-link{href: "#"}
-              %i.fa.fa-minus.line-height-40
-            %input.form-control.quantity-input{type: "text", value: @book.quantity}
-            %a.input-link{href: "#"}
-              %i.fa.fa-plus.line-height-40
-        .col-xs-7.col-md-5
-          %button.btn.btn-default.pull-right.general-position Add to Cart
+        = render 'form'
       .general-info-wrap.divider-lg
         %p Description
         %p.lead.small.line-height-2

@@ -3,7 +3,7 @@
     %img.img-circle.logo-size.inlide-block.pull-left{src: "https://www.smashingmagazine.com/wp-content/uploads/2015/09/smashing-book-5-2-large.jpg"}
     .ml-70
       %div
-        .general-message-date.hidden-xs= review.created_at
+        .general-message-date.hidden-xs= review.created_at.strftime("%d/%m/%y")
         .max-240
           .general-message-verified Verified Reviewer
           .general-message-name= review.user.name
