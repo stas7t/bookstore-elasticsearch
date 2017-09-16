@@ -29,9 +29,11 @@
     %p.lead.small.mb-10 Sort by
     .dropdown
       = render 'sort_by'
-  .mb-120  
-    = render 'books'
+  .mb-120
+    #books
+      = render 'books'
 
-    .text-center
-      %button.btn.btn-primary View More
-      = paginate @books
+    #paginator.text-center
+      = link_to_next_page @books, 'View More', remote: true, id: 'view_more', class: "btn btn-primary"
+      -#%button.btn.btn-primary View More
+      -#= paginate @books
