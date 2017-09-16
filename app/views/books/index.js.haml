@@ -1,0 +1,5 @@
+:plain
+  $('#books').append("#{escape_javascript(render 'books')}");
+  $('#paginator').html("#{escape_javascript(link_to_next_page(@books,'View More',
+  remote: true, id: 'view_more', class: 'btn btn-primary'))}");
+  if (!$('#view_more').length) { $('#paginator').remove(); }

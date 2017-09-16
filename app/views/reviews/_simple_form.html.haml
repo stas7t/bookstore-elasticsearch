@@ -1,8 +1,12 @@
-= simple_form_for @book.reviews.build, url: book_reviews_path(@book.id), method: :post, html: { class: 'form-group width-65' } do |f|
+= simple_form_for @book.reviews.build, url: book_reviews_path(@book.id), method: :post, html: { class: 'width-70p' } do |f|
   = render 'flash'
-  = f.input :book_id, label: false, input_html: { value: @book.id, type: 'hidden' }
-  = f.input :user_id, label: false, input_html: { value: current_user.id, type: 'hidden' }
-  = f.input :rating, label: "Score", collection: 1..5, prompt: "Rate a book"
-  = f.input :title
-  = f.input :text, label: "Review"
-  = f.button :submit, "Post", class: "btn btn-default mb-20 pull-right"
+  .form-group
+    = f.input :book_id, label: false, input_html: { value: @book.id, type: 'hidden' }
+    = f.input :user_id, label: false, input_html: { value: current_user.id, type: 'hidden' }
+  .form-group
+    = f.input :rating, required:  false, label: "Score", collection: 1..5, prompt: "Rate a book"
+    = f.input :title, required:  false
+  .form-group.mb-30
+    = f.input :text, required:  false, label: "Review"
+  .actions
+    = f.button :submit, "Post", class: "btn btn-default mb-20 pull-right mb-55"
