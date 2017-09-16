@@ -1,9 +1,14 @@
 class ReviewsController < ApplicationController
   def create
-    @book = Book.find(params[:book_id])
-    @review = @book.reviews.create(review_params)
+    @review = Review.new(review_params)
 
-    redirect_to book_path(@book)
+    if @review.save
+      flash[:success] = 'Review was created'
+    else
+      flash[:danger] = @review.errors.full_messages.join('. ').gsub('Text', 'Review')
+    end
+
+    redirect_back(fallback_location: root_path)
   end
 
   private

@@ -1,8 +1,8 @@
 %main.container
-
-  = link_to :back, class: "general-back-link" do
-    %i.fa.fa-long-arrow-left.mr-15
-    Back to results
+  - unless current_page?(:back)
+    = link_to :back, class: "general-back-link" do
+      %i.fa.fa-long-arrow-left.mr-15
+      Back to results
   .row
     .col-sm-6
       .product-gallery
@@ -42,4 +42,5 @@
     = render @book.reviews
     - if user_signed_in?
       %h3.in-gold-500.mb-25 Write review
-      = render 'reviews/form'
+      -#= render 'reviews/form'
+      = render 'reviews/simple_form'
