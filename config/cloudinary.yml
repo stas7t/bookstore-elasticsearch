@@ -1,0 +1,10 @@
+development: 
+  cloud_name: "rg-bookstore"
+  api_key: "214577444842165"
+  api_secret: "geaLrYv-OldiktTd0AdMDH-eaZ0"
+
+
+production:
+  cloud_name: "rg-bookstore"
+  api_key: "214577444842165"
+  api_secret: "geaLrYv-OldiktTd0AdMDH-eaZ0"

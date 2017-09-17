@@ -88,6 +88,7 @@ gem 'kaminari'
 
 # Solution for file uploads
 gem 'carrierwave', '~> 1.0'
+gem 'cloudinary'
 
 # State machines for Ruby classes
 gem 'aasm'
