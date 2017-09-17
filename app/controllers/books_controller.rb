@@ -2,7 +2,6 @@ class BooksController < ApplicationController
   before_action :set_book,       only: [:show, :edit, :update, :destroy]
   before_action :set_categories, only: [:index, :show]
   before_action :set_current,    only: [:index]
-  include SortOptions
 
   def index
     @books = if @current_category.id
@@ -39,12 +38,12 @@ class BooksController < ApplicationController
                           Category.new(id: nil, name: 'All')
                         end
     @sort_by = params[:sort_by]
-    if params[:sort_by] && SortOptions.sort_options.keys.include?(params[:sort_by].to_sym)
-      @sort_name = SortOptions.sort_options[@sort_by.to_sym][:name]
-      @sort_option = SortOptions.sort_options[@sort_by.to_sym][:option]
+    if params[:sort_by] && SORT_OPTIONS.keys.include?(params[:sort_by].to_sym)
+      @sort_name   = SORT_OPTIONS[@sort_by.to_sym][:name]
+      @sort_option = SORT_OPTIONS[@sort_by.to_sym][:query]
     else
-      @sort_name = 'Newest first'
-      @sort_option = 'created_at DESC'
+      @sort_name   = SORT_OPTIONS[:newest_first][:name]
+      @sort_option = SORT_OPTIONS[:newest_first][:query]
     end
   end
 end

@@ -2,6 +2,6 @@
   = @sort_name
   %i.fa.fa-angle-down.dropdown-icon.pull-right
 %ul.dropdown-menu
-  - SortOptions::sort_options.each do |k, v|
+  - SORT_OPTIONS.each do |type, option|
     %li
-      = link_to v[:name], books_path(category_id: @current_category.id, sort_by: k)
+      = link_to option[:name], books_path(category_id: @current_category.id, sort_by: type)

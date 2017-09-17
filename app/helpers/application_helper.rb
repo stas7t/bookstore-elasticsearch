@@ -1,5 +1,5 @@
 module ApplicationHelper
-  def categories 
+  def categories
     Category.order('name')
   end
 end

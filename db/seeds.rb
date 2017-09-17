@@ -6,14 +6,21 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+AuthorBook.delete_all
+Author.delete_all
+Review.delete_all
+Book.delete_all
+Category.delete_all
 
-
-User.create!(email: FFaker::Internet.safe_email,
-             password: "test123XX",
-             name: FFaker::Name.name,
-             image: FFaker::Avatar.image)
+8.times do
+  User.create!(email: FFaker::Internet.safe_email,
+               password: "test#{rand(100...999)}XX",
+               name: FFaker::Name.name,
+               image: FFaker::Avatar.image)
+end
 
 user = User.last
+users = User.all
 
 Category.create(name: 'Mobile development')
 Category.create(name: 'Photo')
@@ -22,7 +29,7 @@ Category.create(name: 'Web development')
 
 categories = Category.all
 
-24.times do
+32.times do
   Author.create(first_name: FFaker::Name.first_name,
                 last_name: FFaker::Name.last_name,
                 description: FFaker::Lorem.paragraph)
@@ -49,11 +56,11 @@ def book_categories(categories)
 end
 
 
-128.times do
+256.times do
   Book.create(title: FFaker::Book.title,
               price: [4.99, 9.99, 14.99, 19.99, 24.99, 29.99].sample,
               quantity: 1,
-              description: FFaker::Book.description,
+              description: FFaker::Lorem.paragraphs.join('. ') + FFaker::Lorem.paragraphs.join('. '),
               height: rand(7.5...10.0).floor(2),
               width: rand(4.5...5.5).floor(2),
               depth: rand(0.3...4.0).floor(2),
@@ -72,7 +79,7 @@ books.each do |book|
                   text: FFaker::Lorem.sentences.join('. '),
                   rating: rand(1..5),
                   book_id: book.id,
-                  user_id: user.id)
+                  user_id: users.sample.id)
   end
 end
 
