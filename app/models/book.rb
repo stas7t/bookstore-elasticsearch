@@ -2,6 +2,8 @@ class Book < ApplicationRecord
   belongs_to :category
   has_many :authorships
   has_many :authors, through: :authorships
+  has_many :order_items
+  has_many :orders, through: :order_items
   has_many :reviews
 
   validates :title, :price, presence: true
