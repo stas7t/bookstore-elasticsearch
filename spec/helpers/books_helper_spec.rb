@@ -15,12 +15,4 @@ RSpec.describe BooksHelper, type: :helper do
 
   subject { @book }
 
-  describe 'short description' do
-    it 'shortens book description' do
-      expect(helper.book_short_description(subject).length).to eq(50)
-    end
-    it 'ends with ...' do
-      expect(helper.book_short_description(subject)).to end_with('...')
-    end
-  end
 end

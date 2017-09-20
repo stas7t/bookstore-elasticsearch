@@ -15,13 +15,6 @@ ActiveRecord::Schema.define(version: 20170913194020) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "author_books", force: :cascade do |t|
-    t.bigint "author_id"
-    t.bigint "book_id"
-    t.index ["author_id"], name: "index_author_books_on_author_id"
-    t.index ["book_id"], name: "index_author_books_on_book_id"
-  end
-
   create_table "authors", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -30,11 +23,18 @@ ActiveRecord::Schema.define(version: 20170913194020) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "authorships", id: false, force: :cascade do |t|
+    t.bigint "author_id"
+    t.bigint "book_id"
+    t.index ["author_id", "book_id"], name: "index_authorships_on_author_id_and_book_id"
+    t.index ["author_id"], name: "index_authorships_on_author_id"
+    t.index ["book_id"], name: "index_authorships_on_book_id"
+  end
+
   create_table "books", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.integer "publication_year"
-    t.integer "quantity"
     t.decimal "price", precision: 5, scale: 2
     t.decimal "height", precision: 4, scale: 2
     t.decimal "width", precision: 4, scale: 2
@@ -85,14 +85,12 @@ ActiveRecord::Schema.define(version: 20170913194020) do
     t.string "provider", default: "email"
     t.string "uid"
     t.string "name"
-    t.string "image"
+    t.string "avatar"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "author_books", "authors"
-  add_foreign_key "author_books", "books"
   add_foreign_key "books", "categories"
   add_foreign_key "reviews", "books"
   add_foreign_key "reviews", "users"

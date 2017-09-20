@@ -6,26 +6,19 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-AuthorBook.delete_all
-Author.delete_all
-Review.delete_all
-Book.delete_all
-Category.delete_all
-
 8.times do
   User.create!(email: FFaker::Internet.safe_email,
                password: "test#{rand(100...999)}XX",
                name: FFaker::Name.name,
-               image: FFaker::Avatar.image)
+               avatar: FFaker::Avatar.image)
 end
 
 user = User.last
 users = User.all
 
-Category.create(name: 'Mobile development')
-Category.create(name: 'Photo')
-Category.create(name: 'Web design')
-Category.create(name: 'Web development')
+['Mobile development', 'Photo', 'Web design', 'Web development'].each do |category|
+  Category.create(name: category)
+end
 
 categories = Category.all
 
@@ -46,33 +39,30 @@ def book_authors(authors)
   selected_authors
 end
 
-def book_categories(categories)
-  selected_categories = []
-  1.times do
-    category = categories.sample
-    selected_categories << category unless selected_categories.include?(category)
-  end
-  selected_categories
-end
-
+used_book_titles = []
 
 256.times do
-  Book.create(title: FFaker::Book.title,
-              price: [4.99, 9.99, 14.99, 19.99, 24.99, 29.99].sample,
-              quantity: 1,
+  title = FFaker::Book.title
+  used_book_titles.include?(title) ? title << " #{rand(1..5)}" : used_book_titles << title
+
+  Book.create!(title: title,
+              price: "#{rand(1..99)}.99",
               description: FFaker::Lorem.paragraphs.join('. ') + FFaker::Lorem.paragraphs.join('. '),
               height: rand(7.5...10.0).floor(2),
               width: rand(4.5...5.5).floor(2),
               depth: rand(0.3...4.0).floor(2),
               publication_year: rand(2001..2017),
               materials: FFaker::Lorem.words.join(', '),
-              authors: book_authors(authors),
               category_id: categories.sample.id)
 end
 
 books = Book.all
 
 books.each do |book|
+  book_authors(authors).each do |author|
+    Authorship.create!(author_id: author.id, book_id: book.id)
+  end
+
   rand(1..4).times do
     user = User.last
     Review.create!(title: FFaker::Lorem.words.join(', '),

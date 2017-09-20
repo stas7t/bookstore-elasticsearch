@@ -22,9 +22,8 @@ class BooksController < ApplicationController
   end
 
   def book_params
-    params.require(:book).permit(:title, :price, :quantity, :description,
-                                 :height, :width, :depth, :publication_year,
-                                 :materials)
+    params.require(:book).permit(:title, :price, :publication_year, :description,
+                                 :height, :width, :depth, :materials)
   end
 
   def set_categories
