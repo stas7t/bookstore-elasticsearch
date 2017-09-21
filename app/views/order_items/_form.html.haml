@@ -1,0 +1,14 @@
+= form_for @book.order_items.build, url: book_order_items_path(@book.id), method: :post do |form|
+  .col-xs-5.col-md-3
+    .input-group.general-position
+      %a.input-link.pt-7#minus{href: ""}
+        %i.fa.fa-minus.line-height-40
+      = form.hidden_field :book_id, value: @book.id
+      -#= form.hidden_field :order_id, value: current_order.id
+      = form.text_field :quantity, value: 1, class: "form-control quantity-input"
+      %a.input-link.pt-7#plus{href: ""}
+        %i.fa.fa-plus.line-height-40
+  .col-xs-7.col-md-5
+    = form.submit 'Add to Cart',        class: "btn btn-default pull-right general-position"
+
+-#= form_with(model: [ @book, @book.order_items.build ]) do |form|

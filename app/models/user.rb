@@ -9,6 +9,7 @@ class User < ApplicationRecord
             format: { with: /\A\S(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\S*\z/,
                       message: 'should contain at least 1 uppercase, at least 1 lowercase, at least 1 number and no whitespeses.' }
 
+  has_many :orders
   has_many :reviews
 
   def self.from_omniauth(auth)
@@ -16,7 +17,7 @@ class User < ApplicationRecord
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
       user.name = auth.info.name
-      user.image = auth.info.image
+      user.avatar = auth.info.image
       user.skip_confirmation!
     end
   end

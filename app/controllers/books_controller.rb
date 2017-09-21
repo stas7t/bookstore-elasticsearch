@@ -13,6 +13,7 @@ class BooksController < ApplicationController
 
   def show
     @reviews = @book.reviews
+    @order_item = OrderItem.new
   end
 
   private

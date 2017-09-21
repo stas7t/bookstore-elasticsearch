@@ -5,7 +5,7 @@
   .col-sm-7
     .mb-60
       %h1= book.title
-      %p.lead= book_short_description(book, 150)
+      %p.lead= truncate(book.description, length: 150)
       %p.lead.small= book_authors(book)
       .general-align
         %button.btn.btn-primary Buy Now
