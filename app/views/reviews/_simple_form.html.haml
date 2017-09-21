@@ -1,5 +1,4 @@
 = simple_form_for @book.reviews.build, url: book_reviews_path(@book.id), method: :post, html: { class: 'width-70p' } do |f|
-  = render 'flash'
   .form-group
     = f.input :book_id, label: false, input_html: { value: @book.id, type: 'hidden' }
     = f.input :user_id, label: false, input_html: { value: current_user.id, type: 'hidden' }

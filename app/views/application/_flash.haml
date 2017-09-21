@@ -1,4 +1,6 @@
--flash.each do |type, message|
-  .alert.alert-dismissable{:class => "alert-#{type}"}
-    %a.close{href: "#", 'data-dismiss': "alert", 'aria-label': "close"} &times;
-    =message
+%section
+  .container
+    -flash.each do |type, message|
+      .alert.alert-dismissable{:class => "alert-#{type}"}
+        %a.close{href: "#", 'data-dismiss': "alert", 'aria-label': "close"} &times;
+        =message

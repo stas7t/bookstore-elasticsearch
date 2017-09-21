@@ -3,7 +3,7 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
 
     if @review.save
-      flash[:success] = 'Review was created'
+      flash[:success] = 'Thanks for Review. It will be published as soon as Admin will approve it.'
     else
       flash[:danger] = @review.errors.full_messages.join('. ').gsub('Text', 'Review')
     end
