@@ -24,8 +24,6 @@
         = current_order.user_id
         = current_order.book_ids
         = current_order.order_item_ids
-        .col-xs-12.col-md-4
-          %p.h1.in-gold-500.mt-10= "€#{@book.price}"
         = render 'order_items/form'
       .general-info-wrap.divider-lg
         %p Description

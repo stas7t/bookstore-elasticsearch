@@ -13,15 +13,3 @@ $(document).on 'turbolinks:load', ->
       $(this).html content
       $('#read_more').hide()
     false
-
-$(document).on 'turbolinks:load', ->
-  $('#minus').click (event) ->
-    event.preventDefault()
-    quantity = +$('input.quantity-input').val()
-    if quantity > 1
-      $('input.quantity-input').val(quantity - 1)
-
-  $('#plus').click (event) ->
-    event.preventDefault()
-    quantity = +$('input.quantity-input').val()
-    $('input.quantity-input').val(quantity + 1)

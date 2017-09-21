@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_book,       only: [:show, :edit, :update, :destroy]
+  before_action :set_book,       only: [:show]
   before_action :set_categories, only: [:index, :show]
   before_action :set_current,    only: [:index]
 
@@ -9,6 +9,7 @@ class BooksController < ApplicationController
              else
                Book.order(@sort_option).page params[:page]
              end
+    @order_item = OrderItem.new
   end
 
   def show
@@ -18,13 +19,13 @@ class BooksController < ApplicationController
 
   private
 
-  def set_book
-    @book = Book.find(params[:id])
-  end
-
   def book_params
     params.require(:book).permit(:title, :price, :publication_year, :description,
                                  :height, :width, :depth, :materials)
+  end
+
+  def set_book
+    @book = Book.find(params[:id])
   end
 
   def set_categories

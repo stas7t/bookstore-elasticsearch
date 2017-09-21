@@ -8,4 +8,7 @@
       %p.lead= truncate(book.description, length: 150)
       %p.lead.small= book_authors(book)
       .general-align
-        %button.btn.btn-primary Buy Now
+        = form_for OrderItem.new, method: :post do |form|
+          = form.hidden_field :book_id, value: book.id
+          = form.hidden_field :quantity, value: 1
+          = form.submit 'Buy Now', class: "btn btn-primary"

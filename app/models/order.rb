@@ -4,7 +4,7 @@ class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
   has_many :books, through: :order_items
 
-  after_create :set_number
+  after_create :set_number, :set_status
 
   scope :in_progress, -> { where status: 'in_progress' }
   scope :in_queue,    -> { where status: 'in_queue'    }
@@ -16,5 +16,9 @@ class Order < ApplicationRecord
 
   def set_number
     update(number: "R#{id.to_s.rjust(8, '0')}")
+  end
+
+  def set_status
+    update(status: 'in_progress')
   end
 end

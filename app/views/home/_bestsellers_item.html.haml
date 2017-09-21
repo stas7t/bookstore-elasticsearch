@@ -6,8 +6,11 @@
         .general-thumb-link-wrap
           %a.thumb-hover-link{href: book_path(book)}
             %i.fa.fa-eye.thumb-icon.pt-10{'aria-hidden': "true"}
-          %a.thumb-hover-link{href: "#"}
+          %a.thumb-hover-link{href: "", onclick: "$(this).siblings('form').submit()"}
             %i.fa.fa-shopping-cart.thumb-icon.pt-10
+          = form_for OrderItem.new, method: :post do |form|
+            = form.hidden_field :book_id, value: book.id
+            = form.hidden_field :quantity, value: 1
   .mb-35
     .clearfix
       %p.pull-right.font-16.in-gold-500= "€#{book.price}"

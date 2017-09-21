@@ -1,17 +1,11 @@
 Rails.application.routes.draw do
   root to: 'home#index'
 
-  resources :authors
   resources :books do
-    resources :reviews
-    resources :order_items
+    resources :reviews, only: [:create, :destroy]
   end
-  resources :categories
-  resources :orders do
-    resources :order_items
-  end
-
-  #resources :reviews
+  resources :orders
+  resources :order_items, only: [:create, :destroy]
 
   get 'catalog', to: 'books#index'
   get 'cart', to: 'cart#show'

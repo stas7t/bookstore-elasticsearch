@@ -1,0 +1,28 @@
+%table.table.table-hover
+  %tr.no-hover
+    %th.col-pic.pl-0
+      %span.in-grey-600 Product
+    %th.col-title
+    %th.col-price
+      %span.in-grey-600 Price
+    %th.col-quantity
+      %span.in-grey-600 Quantity
+    %th.col-total
+      %span.in-grey-600 SubTotal
+    %th.col-close
+  - @order_items.each do |order_item|
+    %tr
+      %td
+        .general-img-wrap-table
+          %img.cart-img-shadow.pull-left{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
+      %td
+        %p.title= order_item.book.title
+      %td
+        %span.font-16.in-gold-500= "€#{order_item.book.price}"
+      %td
+        = render 'cart/quantity', order_item: order_item
+      %td
+        %span.font-16.in-gold-500= "€#{order_item.book.price * order_item.quantity}"
+      %td
+        = button_to order_item, method: :delete, class: 'close general-cart-close' do
+          %span{'aria-hidden': "true"} &times;

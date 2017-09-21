@@ -4,9 +4,17 @@ class OrderItemsController < ApplicationController
   def create
     @order_item = OrderItem.new(order_item_params)
 
-    save_order if @order.id.nil?
-    @order_item.order_id = @order.id
-    @order_item.save!
+    assign_order_to_user if current_user && @current_order.user_id.nil?
+    save_current_order if @current_order.id.nil?
+    @order_item.order_id = @current_order.id
+    @order_item.save
+
+    redirect_back(fallback_location: root_path)
+  end
+
+  def destroy
+    @order_item = @current_order.order_items.find(params[:id])
+    @order_item.destroy
 
     redirect_back(fallback_location: root_path)
   end
@@ -18,12 +26,15 @@ class OrderItemsController < ApplicationController
   end
 
   def set_current_order
-    @order = current_order
+    @current_order = current_order
   end
 
-  def save_order
-    @order.status = 'in_progress'
-    @order.save
+  def save_current_order
+    @current_order.save
     session[:order_id] = @order.id
+  end
+
+  def assign_order_to_user
+    @current_order.update_attributes(user_id: current_user.id)
   end
 end

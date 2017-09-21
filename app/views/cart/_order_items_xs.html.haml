@@ -1,0 +1,23 @@
+- @order_items.each do |order_item|
+  .general-cart-item.divider-lg-bottom
+    = button_to order_item, method: :delete, class: 'close general-cart-close' do
+      %span{'aria-hidden': "true"} &times;
+    .general-img-wrap-table
+      %img.cart-img-shadow{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
+    %p.title= order_item.book.title
+    %table.table
+      %tr
+        %td
+          %span.in-grey-600 Price
+        %td
+          %span.font-16.in-gold-500= "€#{order_item.book.price}"
+      %tr
+        %td.vertical-middle
+          %span.in-grey-600 Quantity
+        %td
+          = render 'cart/quantity', order_item: order_item
+      %tr
+        %td
+          %span.in-grey-600 SubTotal
+        %td
+          %span.font-16.in-gold-500= "€#{order_item.book.price * order_item.quantity}"
