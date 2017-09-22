@@ -1,0 +1,134 @@
+%main.container.general-main-wrap
+  %h1.general-title-margin Checkout
+  %ul.steps.list-inline
+    %li.step.done
+      %span.step-number
+        %i.fa.fa-check.step-icon
+      %span.step-text.hidden-xs Address
+    %li.step-divider
+    %li.step
+      %span.step-number 2
+      %span.step-text.hidden-xs Delivery
+    %li.step-divider
+    %li.step
+      %span.step-number 3
+      %span.step-text.hidden-xs Payment
+    %li.step-divider
+    %li.step
+      %span.step-number 4
+      %span.step-text.hidden-xs Confirm
+    %li.step-divider
+    %li.step.active
+      %span.step-number 5
+      %span.step-text.hidden-xs Complete
+  .text-center.mb-40
+    %h3.general-subtitle Thank You for your Order!
+    %p.fw-300 An order confirmation has been has been sent to John Doe0411@gmail.com
+  .row.mb-20
+    .col-sm-6
+      .visible-xs
+        %p.general-order-number.mb-0 Order #R25314582
+        %p.general-address.mb-30 October 29, 2016
+      %p.general-address
+        John Doe
+        %span.general-edit edit
+        %br
+        44 Fifth Ave v231
+        %br
+        New York NY 1001
+        %br
+        United States
+        %br
+        Phone +16507599755
+    .col-sm-6.hidden-xs.text-right
+      %p.general-order-number.mb-0 Order #R25314582
+      %p.general-address.mb-30 October 29, 2016
+  .visible-xs
+    .general-cart-item.divider-lg
+      .general-img-wrap-table
+        %img.cart-img-shadow{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
+      %p.title Android Programming for Beginners
+      %P.in-grey-600.fw-300 A recipe-based book to help you efficiently create amazing PHP-based applications with Laravel 5.x
+      %table.table
+        %tr
+          %td
+            %span.in-grey-600 Price
+          %td
+            %span.font-16.in-gold-500 €28.50
+        %tr
+          %td.vertical-middle
+            %span.in-grey-600 Quantity
+          %td
+            %span 1
+        %tr
+          %td
+            %span.in-grey-600 SubTotal
+          %td
+            %span.font-16.in-gold-500 €32.90
+    .general-cart-item.divider-lg.mb-55
+      .general-img-wrap-table
+        %img.cart-img-shadow{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
+      %p.title Android Programming for Beginners
+      %table.table
+        %tr
+          %td
+            %span.in-grey-600 Price
+          %td
+            %span.font-16.in-gold-500 €28.50
+        %tr
+          %td.vertical-middle
+            %span.in-grey-600 Quantity
+          %td
+            %span 1
+        %tr
+          %td
+            %span.in-grey-600 SubTotal
+          %td
+            %span.font-16.in-gold-500 €32.90
+  .hidden-xs.divider-lg.pt-20
+    %table.table.table-hover
+      %thead
+        %tr
+          %th
+            %span.in-grey-600 Book
+          %th.col-method
+          %th
+            %span.in-grey-600 Price
+          %th
+            %span.in-grey-600 Quantity
+          %th
+            %span.in-grey-600 Total
+      %tbody
+        %tr
+          %td
+            .general-img-wrap-table
+              %img.cart-img-shadow.pull-left{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
+          %td
+            %p.title Android Programming for Beginners
+            %p.in-grey-600.fw-300 Maximize the potential of Bootstrap with a collection of real-world site projects for better, faster, more responsive web applications
+          %td
+            %span.font-16.in-gold-500 €28.50
+          %td
+            %span.ml-30 1
+          %td
+            %span.font-16.in-gold-500 €32.90
+  .text-center.general-text-right
+    %p.in-gold-500.font-18 Order Summary
+    %table.general-summary-table.general-summary-table-right.general-text-right
+      %tr
+        %td
+          %p.font-16 Subtotal:
+        %td
+          %p.font-16 €117.69
+      %tr
+        %td
+          %p.font-16 Coupon:
+        %td
+          %p.font-16 €0.00
+      %tr
+        %td
+          %strong.font-18 Order Total:
+        %td
+          %strong.font-18 €117.69
+  .text-center
+    %button.btn.btn-default.mb-20 Back to Store

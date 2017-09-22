@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   get 'catalog', to: 'books#index'
   get 'cart', to: 'cart#show'
+  get 'checkout', to: 'checkout#index'
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 end

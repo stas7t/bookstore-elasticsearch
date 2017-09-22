@@ -32,5 +32,7 @@
                 %strong.font-18 Order Total:
               %td
                 %strong.font-18 €117.69
-          %button.btn.btn-default.mb-20.visible-xs-inline-block Checkout
-  %button.btn.btn-default.mb-20.hidden-xs.center-block Checkout
+          -#%button.btn.btn-default.mb-20.visible-xs-inline-block Checkout
+          = link_to "Checkout", checkout_path, class: "btn btn-default mb-20 visible-xs-inline-block"
+  -#%button.btn.btn-default.mb-20.hidden-xs.center-block Checkout
+  = link_to "Checkout", checkout_path, class: "btn btn-default mb-20 hidden-xs center-block"
