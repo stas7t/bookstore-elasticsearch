@@ -1,6 +1,6 @@
-class CreateAddresses < ActiveRecord::Migration[5.1]
+class CreateBillingAddresses < ActiveRecord::Migration[5.1]
   def change
-    create_table :addresses do |t|
+    create_table :billing_addresses do |t|
       t.string :first_name
       t.string :last_name
       t.string :address
@@ -8,7 +8,6 @@ class CreateAddresses < ActiveRecord::Migration[5.1]
       t.string :country
       t.string :zip
       t.string :phone
-      t.string :type
 
       t.timestamps
     end

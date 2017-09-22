@@ -3,6 +3,11 @@ class Order < ApplicationRecord
 
   has_many :order_items, dependent: :destroy
   has_many :books, through: :order_items
+  has_one :billing_address
+  has_one :shipping_address
+  has_one :delivery
+  has_one :credit_card
+  has_one :coupon
 
   after_create :set_number, :set_status
 

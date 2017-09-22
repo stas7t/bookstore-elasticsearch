@@ -41,9 +41,9 @@ end
 
 used_book_titles = []
 
-256.times do
+256.times do |index|
   title = FFaker::Book.title
-  used_book_titles.include?(title) ? title << " #{rand(1..5)}" : used_book_titles << title
+  used_book_titles.include?(title) ? title << " #{index}" : used_book_titles << title
 
   Book.create!(title: title,
               price: "#{rand(1..99)}.99",
