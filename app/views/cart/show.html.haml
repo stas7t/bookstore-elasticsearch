@@ -11,7 +11,7 @@
           %label.input-label Enter Your Coupon Code
           %input.form-control.mb-30{type: "text", placeholder: "Enter Your Coupon Code "}
           %div
-            %button.btn.btn-primary.mr-5.mb-15.visible-xs-inline-block Apply Coupon
+            -#%button.btn.btn-primary.mr-5.mb-15.visible-xs-inline-block Apply Coupon
             %button.btn.btn-primary.mb-15.res-block Update cart
       .col-sm-8
         .res-mr-200.text-center.general-text-right
@@ -35,4 +35,5 @@
           -#%button.btn.btn-default.mb-20.visible-xs-inline-block Checkout
           = link_to "Checkout", checkout_path, class: "btn btn-default mb-20 visible-xs-inline-block"
   -#%button.btn.btn-default.mb-20.hidden-xs.center-block Checkout
-  = link_to "Checkout", checkout_path, class: "btn btn-default mb-20 hidden-xs center-block"
+  .text-center
+    = link_to "Checkout", checkout_path, class: "btn btn-default mb-20 hidden-xs"

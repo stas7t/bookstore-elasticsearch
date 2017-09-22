@@ -31,7 +31,7 @@ class OrderItemsController < ApplicationController
 
   def save_current_order
     @current_order.save
-    session[:order_id] = @order.id
+    session[:order_id] = @current_order.id
   end
 
   def assign_order_to_user
