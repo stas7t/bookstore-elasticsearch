@@ -17,6 +17,23 @@ class Order < ApplicationRecord
   scope :delivered,   -> { where status: 'delivered'   }
   scope :canceled,    -> { where status: 'canceled'    }
 
+  include AASM
+
+  aasm column: 'checkout_step' do
+    state :address, initial: true
+    state :delivery
+    state :payment
+    state :confirm
+    state :complete
+
+    event :next_step do
+      transitions from: :address, to: :delivery
+      transitions from: :delivery, to: :payment
+      transitions from: :payment, to: :confirm
+      transitions from: :confirm, to: :complete
+    end
+  end
+
   private
 
   def set_number
