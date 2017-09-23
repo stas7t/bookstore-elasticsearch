@@ -93,6 +93,9 @@ gem 'cloudinary'
 # State machines for Ruby classes
 gem 'aasm'
 
+# Step-By-Step Wizard Controllers
+gem 'wicked'
+
 # An interface to the ImageMagick and GraphicsMagick image processing libraries
 gem 'mini_magick'
 

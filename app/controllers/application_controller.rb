@@ -28,4 +28,22 @@ class ApplicationController < ActionController::Base
     current_order
   end
 
+  protected
+
+  def after_sign_in_path_for(resource)
+    if request.env['omniauth.origin']
+      request.env['omniauth.origin'] || stored_location_for(resource) || root_path
+    else
+      sign_in_url = new_user_session_url
+      if request.referer == sign_in_url
+        super
+      else
+        stored_location_for(resource) || request.referer || root_path
+      end
+    end
+  end
+
+  def after_sign_up_path_for(resource)
+    after_sign_in_path_for(resource)
+  end
 end

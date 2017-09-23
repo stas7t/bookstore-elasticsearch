@@ -6,7 +6,7 @@ class User < ApplicationRecord
          :confirmable, :omniauthable, omniauth_providers: [:facebook]
 
   validates :password,
-            format: { with: /\A\S(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\S*\z/,
+            format: { with: /\A\S(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\S*\z/i,
                       message: 'should contain at least 1 uppercase, at least 1 lowercase, at least 1 number and no whitespeses.' }
 
   has_many :orders

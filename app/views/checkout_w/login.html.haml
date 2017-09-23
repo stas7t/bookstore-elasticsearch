@@ -1,0 +1,36 @@
+%main.container.general-main-wrap
+  .row
+    .col-md-6.col-xs-12.mb-40
+      .text-center
+        %h3.general-subtitle.mt-0 Returning Customer
+        %a.general-login-icon{ href: user_facebook_omniauth_authorize_path }
+          %i.fa.fa-facebook-official
+        %p.general-login-text or
+      = form_for(User.new, url: user_session_path, html: { class: 'general-form' }) do |f|
+        .form-group.mb-40
+          %h4.general-login-title Log In with Password
+          = f.label :email, 'Enter Email', class: 'control-label input-label'
+          = f.email_field :email, placeholder: 'Enter Email', autofocus: true, class: 'form-control'
+        .form-group.mb-40
+          = f.label :password, class: 'control-label input-label'
+          = f.password_field :password, placeholder: 'Password', class: 'form-control'
+          %a.help-block.in-gold-500{ href: new_user_password_path } Forgot password?
+        .actions
+          = f.submit 'Log In with Password', class: 'btn btn-default mb-20'
+    .col-md-6.col-xs-12.mb-40
+      .text-center
+        %h3.general-subtitle.mt-0 New Customer
+        %a.general-login-icon{href: user_facebook_omniauth_authorize_path}
+          %i.fa.fa-facebook-official
+        %p.general-login-text or
+      = form_for(User.new, url: user_registration_path, html: { class: 'general-form' }) do |f|
+        .form-group.mb-40
+          %h4.general-login-title.mb-5 Quick Register
+          %p.general-login-text.mt-0 You'll be able to create password later
+          = f.label :email, 'Enter Email', class: 'control-label input-label'
+          = f.email_field :email, placeholder: 'Enter Email', class: 'form-control'
+          - password = Devise.friendly_token
+          = f.hidden_field :password, value: password
+          = f.hidden_field :password_confirmation, value: password
+        .actions
+          = f.submit 'Continue to Checkout', class: 'btn btn-default mb-20'

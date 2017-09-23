@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   resources :orders
   resources :order_items, only: [:create, :destroy]
 
+  resources :checkout_w
+
   get 'catalog', to: 'books#index'
   get 'cart', to: 'cart#show'
   get 'checkout', to: 'checkout#index'
