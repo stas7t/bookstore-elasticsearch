@@ -110,5 +110,6 @@ gem 'bootstrap-sass'
 gem 'font-awesome-sass', '~> 4.7.0'
 
 # Forms
-gem "rectify"
+gem 'country_select'
+gem 'rectify'
 gem 'simple_form'
