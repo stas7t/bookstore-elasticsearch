@@ -1,16 +1,17 @@
 = simple_form_for @form, url: wizard_path do |f|
   .row
     .col-md-6
-      = f.input :user_id, label: false, input_html: { value: @user.id, type: 'hidden' }
-      = f.input :first_name
-      = f.input :last_name
-      = f.input :address
-      = f.input :city
-      = f.input :country
-      = f.input :zip
-      = f.input :phone
+      = f.fields_for :billing_address do |ba|
+        = ba.input :user_id, label: false, input_html: { value: @user.id, type: 'hidden' }
+        = ba.input :first_name
+        = ba.input :last_name
+        = ba.input :address
+        = ba.input :city
+        = ba.input :country
+        = ba.input :zip
+        = ba.input :phone
     .col-md-6
-      = f.fields_for @shipping_address do |sa|
+      = f.fields_for :shipping_address do |sa|
         = sa.input :user_id, label: false, input_html: { value: @user.id, type: 'hidden' }
         = sa.input :first_name
         = sa.input :last_name

@@ -9,6 +9,9 @@ class Order < ApplicationRecord
   has_one :credit_card
   has_one :coupon
 
+  accepts_nested_attributes_for :billing_address
+  accepts_nested_attributes_for :shipping_address
+
   after_create :set_number, :set_status
 
   scope :in_progress, -> { where status: 'in_progress' }

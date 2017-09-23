@@ -112,4 +112,6 @@ gem 'font-awesome-sass', '~> 4.7.0'
 # Forms
 gem 'country_select'
 gem 'rectify'
+gem 'reform', '>= 2.2.0'
+gem 'reform-rails'
 gem 'simple_form'
