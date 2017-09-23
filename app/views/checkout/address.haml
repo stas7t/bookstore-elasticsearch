@@ -1,4 +1,28 @@
-%main.container
+= simple_form_for @form, url: wizard_path do |f|
+  .row
+    .col-md-6
+      = f.input :user_id, label: false, input_html: { value: @user.id, type: 'hidden' }
+      = f.input :first_name
+      = f.input :last_name
+      = f.input :address
+      = f.input :city
+      = f.input :country
+      = f.input :zip
+      = f.input :phone
+    .col-md-6
+      = f.fields_for @shipping_address do |sa|
+        = sa.input :user_id, label: false, input_html: { value: @user.id, type: 'hidden' }
+        = sa.input :first_name
+        = sa.input :last_name
+        = sa.input :address
+        = sa.input :city
+        = sa.input :country
+        = sa.input :zip
+        = sa.input :phone
+  = f.submit
+= link_to "Save and Continue", next_wizard_path, class: 'btn btn-default mb-20'
+
+-#%main.container
   %h1.general-title-margin Checkout
   %ul.steps.list-inline
     %li.step.active

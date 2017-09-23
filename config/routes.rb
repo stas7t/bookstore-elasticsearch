@@ -7,11 +7,27 @@ Rails.application.routes.draw do
   resources :orders
   resources :order_items, only: [:create, :destroy]
 
-  resources :checkout_w
-
   get 'catalog', to: 'books#index'
-  get 'cart', to: 'cart#show'
-  get 'checkout', to: 'checkout#index'
+  get 'cart',    to: 'cart#show'
+
+  #post 'checkout_w/address', to: 'checkout_w/address#edit'
+
+  resources :checkout
+
+  namespace :checkout do
+    get   'address',             to: 'address#edit'
+    post  'address',             to: 'address#edit'
+    patch 'address',             to: 'address#update'
+    post  'same_address',        to: 'address#same_address'
+    get   'delivery',            to: 'delivery#edit'
+    patch 'delivery',            to: 'delivery#update'
+    post  'apply_delivery_cost', to: 'delivery#apply_delivery_cost'
+    get   'payment',             to: 'payment#edit'
+    patch 'payment',             to: 'payment#update'
+    get   'confirm',             to: 'confirm#show'
+    post  'confirm',             to: 'confirm#update'
+    get   'complete',            to: 'complete#show'
+  end
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 end
