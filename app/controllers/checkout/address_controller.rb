@@ -1,10 +1,10 @@
 class Checkout::AddressController < ApplicationController
   def edit
-    @form = AddressForm.new(current_order)
+    @form = AddressForm.new(a_params)
   end
 
   def update
-    @form = AddressForm.new(current_order)
+    @form = AddressForm.new(a_params)
     next_step if @form.valid?
     # return working_with_object if @form.valid?
     # render :edit
@@ -25,5 +25,10 @@ class Checkout::AddressController < ApplicationController
 
   def same_address
     current_order.use_same_address
+  end
+
+
+  def a_params
+    params.require(:address_form).permit(:first_name, :last_name, :address, :city, :country, :zip, :phone, :user_id, :order_id)
   end
 end

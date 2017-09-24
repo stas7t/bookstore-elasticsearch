@@ -1,4 +1,4 @@
-= simple_form_for @form, url: { action: 'update' }, validate: true do |f|
+-#= simple_form_for @form, url: { action: 'update' }, validate: true do |f|
   .row
     .col-md-6
       = f.fields_for :billing_address do
@@ -20,4 +20,16 @@
         = sa.input :country
         = sa.input :zip
         = sa.input :phone
+  = f.submit
+
+
+= simple_form_for @form, url: { action: 'update' } do |f|
+  = f.input :user_id, label: false, input_html: { value: current_order.id, type: 'hidden' }
+  = f.input :first_name
+  = f.input :last_name
+  = f.input :address
+  = f.input :city
+  = f.input :country
+  = f.input :zip
+  = f.input :phone
   = f.submit

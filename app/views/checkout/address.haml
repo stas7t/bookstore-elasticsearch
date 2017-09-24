@@ -1,4 +1,29 @@
-= simple_form_for @form, url: wizard_path do |f|
+%main.container.general-main-wrap
+  .row
+    .col-md-6.col-xs-12
+      = simple_form_for @form_b, url: wizard_path do |f|
+        = f.input :user_id, label: false, input_html: { value: @user.id, type: 'hidden' }
+        = f.input :first_name
+        = f.input :last_name
+        = f.input :address
+        = f.input :city
+        = f.input :country
+        = f.input :zip
+        = f.input :phone
+        = f.submit
+    .col-md-6.col-xs-12
+      = simple_form_for @form_s, url: wizard_path do |f|
+        = f.input :user_id, label: false, input_html: { value: @user.id, type: 'hidden' }
+        = f.input :first_name
+        = f.input :last_name
+        = f.input :address
+        = f.input :city
+        = f.input :country
+        = f.input :zip
+        = f.input :phone
+        = f.submit
+
+-#= simple_form_for @form, url: wizard_path do |f|
   .row
     .col-md-6
       = f.fields_for :billing_address do |ba|
