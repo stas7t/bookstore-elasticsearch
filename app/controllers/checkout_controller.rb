@@ -1,47 +1,96 @@
 class CheckoutController < ApplicationController
   include Wicked::Wizard
 
-  steps :login, :address, :delivery, :payment, :confirm, :complete
+  steps :login, :addresses, :delivery, :payment, :confirm, :complete
 
   def show
-    @user = current_user
-    @order = current_order
-    #@billing_address = @order.build_billing_address
-    #@shipping_address = @order.build_shipping_address
-    case step
-    when :login
-      skip_step if current_user
-    when :address
-      @form_b = AddressForm.new()
-      @form_s = AddressForm.new()
-      #@form = AddressForm.new(current_order)
-      #render 'checkout/address'
-      #return
-      #@form = AddressForm.new(@order)
-      #@b_address = @user.billing_address
-      #@s_address = @user.shipping_address
-    end
+    return redirect_to catalog_path if no_items_in_cart?
+    send("show_#{step}") unless step == 'wicked_finish'
     render_wizard
   end
 
   def update
-    @form_b = AddressForm.new(b_params)
-    @form_s = AddressForm.new(s_params)
-    @user = current_user
-    @order = current_order
-    #@billing_address = @order.build_billing_address
-    #@shipping_address = @order.build_shipping_address
-    #@billing_address.update_attributes!(ba_params)
-    #@shipping_address.update_attributes(sa_params)
-    render_wizard @form_b && @form_s
+    send("update_#{step}")
+    redirect_to next_wizard_path unless performed?
   end
 
-  def b_params
-    params.require(:address).permit(billind_address_attributes: [:first_name, :last_name, :address, :city, :country, :zip, :phone])
+  private
+
+  def no_items_in_cart?
+    current_order.order_items.empty? && step != :complete
   end
 
-  def s_params
-    params.require(:address).permit(shipping_address_attributes: [:first_name, :last_name, :address, :city, :country, :zip, :phone])
+  # show
+  def show_login
+    return jump_to(next_step) if user_signed_in?
+    cookies[:from_checkout] = { value: true, expires: 1.day.from_now }
+  end
+
+  def show_addresses
+    @addresses = AddressesForm.new(show_addresses_params)
+  end
+
+  def show_delivery
+    return jump_to(previous_step) unless current_order.addresses.presence
+    @deliveries = Delivery.all
+  end
+
+  def show_payment
+    return jump_to(previous_step) unless current_order.delivery
+    @credit_card = current_order.credit_card || CreditCard.new
+  end
+
+  def show_confirm
+    return jump_to(previous_step) unless current_order.credit_card
+    show_addresses
+  end
+
+  def show_complete
+    return jump_to(previous_step) unless flash[:complete_order]
+    @order = current_user.orders.processing_order.decorate
+  end
+
+  def fast_authentification!
+    return unless user_signed_in? and step != :login
+    jump_to(:login) unless user_signed_in?
+  end
+
+  def show_addresses_params # take data from settings if persist
+    return { user_id: current_user.id } if current_order.addresses.empty?
+    { order_id: current_order.id }
+  end
+
+  # update
+  def update_addresses
+    @addresses = AddressesForm.new(addresses_params)
+    render_wizard unless @addresses.save
+  end
+
+  def update_delivery
+    current_order.update_attributes(order_params)
+    flash[:notice] = t('delivery.pickup') if current_order.delivery_id.nil?
+  end
+
+  def update_payment
+    @credit_card = CreditCard.new(credit_card_params)
+    render_wizard unless @credit_card.save
+  end
+
+  def update_confirm
+    flash[:complete_order] = true
+    session[:order_id] = nil if current_order.finalize
+  end
+
+  def order_params
+    params.require(:order).permit(:delivery_id)
+  end
+
+  def credit_card_params
+    params.require(:credit_card).permit(:number, :name, :mm_yy, :cvv)
+  end
+
+  def addresses_params
+    params.require(:addresses_form)
   end
 end
 

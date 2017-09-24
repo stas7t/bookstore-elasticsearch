@@ -20,7 +20,7 @@
       %td
         %span.font-16.in-gold-500= "€#{order_item.book.price}"
       %td
-        = render 'cart/quantity', order_item: order_item
+        = render 'carts/quantity', order_item: order_item
       %td
         %span.font-16.in-gold-500= "€#{order_item.book.price * order_item.quantity}"
       %td

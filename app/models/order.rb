@@ -1,16 +1,22 @@
 class Order < ApplicationRecord
   belongs_to :user, optional: true
+  belongs_to :delivery, optional: true
+  belongs_to :credit_card, optional: true
 
   has_many :order_items, dependent: :destroy
   has_many :books, through: :order_items
-  has_one :billing_address
-  has_one :shipping_address
-  has_one :delivery
-  has_one :credit_card
+
+  has_many :addresses
+  has_one :billing
+  has_one :shipping
+
+  #---
+  # has_one :billing_address
+  # has_one :shipping_address
+  # has_one :delivery
+  #has_one :credit_card
   has_one :coupon
 
-  #accepts_nested_attributes_for :billing_address
-  #accepts_nested_attributes_for :shipping_address
 
   after_create :set_number, :set_status
 
@@ -19,23 +25,6 @@ class Order < ApplicationRecord
   scope :in_delivery, -> { where status: 'in_delivery' }
   scope :delivered,   -> { where status: 'delivered'   }
   scope :canceled,    -> { where status: 'canceled'    }
-
-  include AASM
-
-  aasm column: 'checkout_step' do
-    state :address, initial: true
-    state :delivery
-    state :payment
-    state :confirm
-    state :complete
-
-    event :next_step do
-      transitions from: :address, to: :delivery
-      transitions from: :delivery, to: :payment
-      transitions from: :payment, to: :confirm
-      transitions from: :confirm, to: :complete
-    end
-  end
 
   private
 
