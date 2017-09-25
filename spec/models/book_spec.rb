@@ -7,7 +7,6 @@ RSpec.describe Book, type: :model do
   subject { @book }
 
   it { expect(subject).to validate_presence_of :title }
-  it { expect(subject).to validate_presence_of :quantity }
   it { expect(subject).to validate_presence_of :price }
   it { expect(subject).to validate_uniqueness_of :title }
 

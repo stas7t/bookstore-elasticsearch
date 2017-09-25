@@ -1,4 +1,4 @@
-- items_count = current_order.order_items.count
+- items_count = current_order.order_items.sum(:quantity)
 - if items_count > 0
   %span.shop-icon
     %span.shop-quantity= items_count

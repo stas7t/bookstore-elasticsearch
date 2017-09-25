@@ -15,10 +15,6 @@ class AddressesForm
   # Access the expense record after it's saved
   attr_reader :params, :relation, :use_billing
 
-  # Validations
-
-
-  # GGGG
   def initialize(params = false)
     @save = false
     @params = params
@@ -72,8 +68,8 @@ class AddressesForm
   end
 
   def valid?
-    billing.valid?
     shipping.valid?
+    billing.valid? && shipping.valid?
   end
 
   def params_for(type)
