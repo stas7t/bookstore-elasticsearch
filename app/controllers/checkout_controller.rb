@@ -4,8 +4,22 @@ class CheckoutController < ApplicationController
   steps :login, :address, :delivery, :payment, :confirm, :complete
 
   def show
-    return redirect_to catalog_path if no_items_in_cart?
-    send("show_#{step}") unless step == 'wicked_finish'
+    # return redirect_to catalog_path if no_items_in_cart?
+    # send("show_#{step}") unless step == 'wicked_finish'
+    case step
+    when :login 
+      show_login
+    when :address
+      show_address
+    when :delivery
+      show_delivery
+    when :payment
+      show_payment
+    when :confirm
+      show_confirm
+    when :complete
+      show_confirm
+    end
     render_wizard
   end
 
