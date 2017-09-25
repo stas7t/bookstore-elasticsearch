@@ -1,26 +1,6 @@
 %main.container.general-main-wrap
   %h1.general-title-margin Checkout
-  %ul.steps.list-inline
-    %li.step.done
-      %span.step-number
-        %i.fa.fa-check.step-icon
-      %span.step-text.hidden-xs Address
-    %li.step-divider
-    %li.step
-      %span.step-number 2
-      %span.step-text.hidden-xs Delivery
-    %li.step-divider
-    %li.step
-      %span.step-number 3
-      %span.step-text.hidden-xs Payment
-    %li.step-divider
-    %li.step
-      %span.step-number 4
-      %span.step-text.hidden-xs Confirm
-    %li.step-divider
-    %li.step.active
-      %span.step-number 5
-      %span.step-text.hidden-xs Complete
+  = render 'steps'
   .text-center.mb-40
     %h3.general-subtitle Thank You for your Order!
     %p.fw-300 An order confirmation has been has been sent to John Doe0411@gmail.com

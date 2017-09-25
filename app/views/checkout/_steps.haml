@@ -1,0 +1,11 @@
+%ul.steps.list-inline
+  - wizard_steps[1,5].each_with_index do |step, index|
+    %li.step{ class: step_state(step)}
+      = link_to wizard_path(step), class: 'step-link' do
+        %span.step-number
+          = index + 1 unless step_done?(step)
+          - if step_done?(step)
+            %i.fa.fa-check.step-icon
+        %span.step-text.hidden-xs= step.capitalize
+    -unless step == :complete
+      %li.step-divider

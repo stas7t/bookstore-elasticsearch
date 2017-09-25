@@ -1,7 +1,6 @@
 class Order < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :delivery, optional: true
-  belongs_to :credit_card, optional: true
 
   has_many :order_items, dependent: :destroy
   has_many :books, through: :order_items
@@ -10,12 +9,8 @@ class Order < ApplicationRecord
   has_one :billing
   has_one :shipping
 
-  #---
-  # has_one :billing_address
-  # has_one :shipping_address
-  # has_one :delivery
-  #has_one :credit_card
   has_one :coupon
+  has_one :credit_card
 
 
   after_create :set_number, :set_status

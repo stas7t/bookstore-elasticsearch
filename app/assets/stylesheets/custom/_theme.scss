@@ -378,6 +378,11 @@
     margin-left: 0;
   }
 }
+.step-link {
+  &:hover {
+    text-decoration: none;
+  }
+}
 .steps .step-divider {
   position: relative;
   vertical-align: middle;

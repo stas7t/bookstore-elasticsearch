@@ -1,25 +1,6 @@
 %main.container.mb-res-50
   %h1.general-title-margin Checkout
-  %ul.steps.list-inline
-    %li.step.active
-      %span.step-number 1
-      %span.step-text.hidden-xs Address
-    %li.step-divider
-    %li.step
-      %span.step-number 2
-      %span.step-text.hidden-xs Delivery
-    %li.step-divider
-    %li.step
-      %span.step-number 3
-      %span.step-text.hidden-xs Payment
-    %li.step-divider
-    %li.step
-      %span.step-number 4
-      %span.step-text.hidden-xs Confirm
-    %li.step-divider
-    %li.step
-      %span.step-number 5
-      %span.step-text.hidden-xs Complete
+  = render 'steps'
   %h3.general-subtitle Credit Card
   %form.max-600.mb-80
     .form-group.has-error
@@ -41,23 +22,7 @@
           %input#firstName.form-control{name: "cvc", type: "number", placeholder: "CVV"}
           %i.fa.fa-question-circle.general-form-help
   .general-text-align
-    %p.in-gold-500.font-18 Order Summary
-    %table.general-summary-table
-      %tr
-        %td
-          %p.font-16 Subtotal:
-        %td
-          %p.font-16 €117.69
-      %tr
-        %td
-          %p.font-16 Coupon:
-        %td
-          %p.font-16 €0.00
-      %tr
-        %td
-          %strong.font-18 Order Total:
-        %td
-          %strong.font-18 €117.69
+    = render 'order_summary'
   .text-center
     -#%button.btn.btn-default.mb-80 Save and Continue
     = link_to "Save and Continue", next_wizard_path, class: 'btn btn-default mb-80'
