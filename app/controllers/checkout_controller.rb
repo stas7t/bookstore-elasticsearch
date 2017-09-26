@@ -47,7 +47,7 @@ class CheckoutController < ApplicationController
 
   def show_payment
     return jump_to(previous_step) unless current_order.delivery
-    @credit_card = current_order.credit_card || CreditCard.new
+    @credit_card = current_order.credit_card || current_user.credit_card || CreditCard.new
   end
 
   def show_confirm
@@ -57,7 +57,7 @@ class CheckoutController < ApplicationController
 
   def show_complete
     return jump_to(previous_step) unless flash[:complete_order]
-    @order = current_user.orders.processing_order.decorate
+    @order = current_user.orders#.processing_order.decorate
   end
 
   # update
@@ -74,11 +74,13 @@ class CheckoutController < ApplicationController
   def update_payment
     @credit_card = CreditCard.new(credit_card_params)
     render_wizard unless @credit_card.save
+    current_order.update_attributes(credit_card_id: @credit_card.id)
   end
 
   def update_confirm
     flash[:complete_order] = true
-    session[:order_id] = nil if current_order.finalize
+    current_order.place_in_queue
+    session[:order_id] = nil if current_order.status == 'in_queue'
   end
 
   # params
@@ -87,14 +89,14 @@ class CheckoutController < ApplicationController
   end
 
   def credit_card_params
-    params.require(:credit_card).permit(:number, :name_on_card, :month, :year, :cvv)
+    params.require(:credit_card).permit(:number, :name_on_card, :month_year, :cvv)
   end
 
   def addresses_params
     params.require(:addresses_form)
   end
 
-  def show_addresses_params # take data from settings if persist
+  def show_addresses_params
     return { user_id: current_user.id } if current_order.addresses.empty?
     { order_id: current_order.id }
   end

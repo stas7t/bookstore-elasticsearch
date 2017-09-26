@@ -73,4 +73,10 @@ books.each do |book|
   end
 end
 
+Delivery.create(name: 'Delivery Next Day!', time: '3 to  7 days', price:  5.00)
+Delivery.create(name: 'Pick Up In-Store',   time: '5 to 20 days', price: 10.00)
+Delivery.create(name: 'Expressit',          time: '2 to  3 days', price: 15.00)
 
+Coupon.create(code: 'TEST',       discount: 0.01)
+Coupon.create(code: 'WINTERSALE', discount: 5.00)
+Coupon.create(code: 'RUBYGARAGE', discount: 7.50)
