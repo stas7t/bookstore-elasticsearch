@@ -27,6 +27,17 @@ class Order < ApplicationRecord
     update(status: 'in_queue')
   end
 
+  def sub_total
+    order_items.to_a.sum(&:total)
+  end
+
+  def total
+    coupon_discount = coupon ? coupon.discount : 0.00
+    delivery_price = delivery ? delivery.price : 0.00
+
+    sub_total - coupon_discount + delivery_price
+  end
+
   private
 
   def set_number

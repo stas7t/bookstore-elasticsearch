@@ -1,15 +1,11 @@
-= form_for @book.reviews.build, url: book_reviews_path(@book.id), method: :post, html: { class: 'width-70p' } do |form|
+= simple_form_for @book.reviews.build, url: book_reviews_path(@book.id), method: :post, html: { class: 'width-70p' } do |f|
   .form-group
-    = form.hidden_field :user_id, value: @book.id
-    = form.hidden_field :user_id, value: current_user.id
+    = f.input :book_id, label: false, input_html: { value: @book.id, type: 'hidden' }
+    = f.input :user_id, label: false, input_html: { value: current_user.id, type: 'hidden' }
+  .form-group
+    = f.input :rating, required:  false, label: "Score", collection: 1..5, prompt: "Rate a book"
+    = f.input :title, required:  false
   .form-group.mb-30
-    = form.label        :rating, "Score", class: "control-label input-label"
-    = form.number_field :rating, class: "form-control"
-  .form-group.mb-30
-    = form.label        :title, class: "control-label input-label"
-    = form.text_field   :title,  class: "form-control"
-  .form-group.mb-30
-    = form.label        :text, "Review", class: "control-label input-label"
-    = form.text_area    :text,   class: "form-control", size: "60x6"
+    = f.input :text, required:  false, label: "Review"
   .actions
-    = form.submit 'Post',        class: "btn btn-default mb-20"
+    = f.button :submit, "Post", class: "btn btn-default mb-20 pull-right mb-55"

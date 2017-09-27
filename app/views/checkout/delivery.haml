@@ -1,6 +1,7 @@
 %main.container.general-main-wrap
   %h1.general-title-margin Checkout
   = render 'steps'
+  %h3.general-subtitle Shipping method
   = form_for current_order, url: wizard_path do |form|
     %table.table.table-hover
       %thead
@@ -25,6 +26,8 @@
             %td
               %span.font-16.in-gold-500= number_to_euro option.object.price
     .general-text-align
-      = render 'order_summary'
+      %p.in-gold-500.font-18 Order Summary
+      %table.general-summary-table
+        = render 'order_summary'
     .actions.text-center
       = form.submit 'Save and Continue', class: 'btn btn-default mb-20'

@@ -1,24 +1,20 @@
-%p.in-gold-500.font-18 Order Summary
-%table.general-summary-table
-  %tr
-    %td
-      %p.font-16 Item Total:
-    %td
-      %p.font-16 €117.69
-  - if current_order.coupon
-    %tr
-      %td
-        %p.font-16 Coupone:
-      %td
-        %p.font-16= "- #{number_to_euro current_order.coupon.discount}"
-  - if step_done?(:delivery) || step_active?(:delivery)
-    %tr
-      %td
-        %p.font-16 Shipping:
-      %td
-        %p.font-16= shipping_price
-  %tr
-    %td
-      %strong.font-18 Order Total:
-    %td
-      %strong.font-18 €117.69
+%tr
+  %td
+    %p.font-16 Item Total:
+  %td
+    %p.font-16= number_to_euro current_order.sub_total
+%tr
+  %td
+    %p.font-16 Coupone:
+  %td
+    %p.font-16= coupon_discount
+%tr
+  %td
+    %p.font-16 Shipping:
+  %td
+    %p.font-16= shipping_price
+%tr
+  %td
+    %strong.font-18 Order Total:
+  %td
+    %strong.font-18= number_to_euro current_order.total

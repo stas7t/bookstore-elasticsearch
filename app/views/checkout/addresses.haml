@@ -1,4 +1,4 @@
-%main.container
+%main.container.general-main-wrap
   %h1.general-title-margin Checkout
   = render 'steps'
   = simple_form_for @addresses, url: wizard_path, method: :put, class: 'res-mb-100' do |form|
@@ -44,6 +44,8 @@
               %i.fa.fa-check
             %span.checkbox-text= 'Use Billing Adress'
     .general-text-align.mb-60
-      = render 'order_summary'
+      %p.in-gold-500.font-18 Order Summary
+      %table.general-summary-table
+        = render 'order_summary'
     .actions.text-center
       = form.submit "Save and Continue", class: 'btn btn-default mb-20'

@@ -5,43 +5,43 @@
     .col-sm-3
       %h3.general-subtitle Shipping Address
       %p.general-address
-        John Doe
-        %span.general-edit edit
+        = "#{current_order.shipping.first_name} #{current_order.shipping.last_name}"
+        = link_to "edit", checkout_path(:addresses), class: "general-edit"
         %br
-        44 Fifth Ave v231
+        = current_order.shipping.address
         %br
-        New York NY 1001
+        = "#{current_order.shipping.city} #{current_order.shipping.zip}"
         %br
-        United States
+        = current_order.shipping.country
         %br
-        Phone +16507599755
+        = "Phone #{current_order.shipping.phone}"
     .col-sm-3
       %h3.general-subtitle Billing Address
       %p.general-address
-        John Doe
-        %span.general-edit edit
+        = "#{current_order.billing.first_name} #{current_order.billing.last_name}"
+        = link_to "edit", checkout_path(:addresses), class: "general-edit"
         %br
-        44 Fifth Ave v231
+        = current_order.billing.address
         %br
-        New York NY 1001
+        = "#{current_order.billing.city} #{current_order.billing.zip}"
         %br
-        United States
+        = current_order.billing.country
         %br
-        Phone +16507599755
+        = "Phone #{current_order.billing.phone}"
     .col-sm-3
       %h3.general-subtitle Shipments
       %p.general-address
-        Delivery Next Day!
-        %span.general-edit edit
+        = current_order.delivery.name
+        = link_to "edit", checkout_path(:delivery), class: "general-edit"
         %br
-        By train
+        = current_order.delivery.time
     .col-sm-3
       %h3.general-subtitle Payment Information
       %p.general-address
-        ** ** ** 8756
-        %span.general-edit edit
+        = "**** **** **** #{current_order.credit_card.number.last(4)}"
+        = link_to "edit", checkout_path(:payment), class: "general-edit"
         %br
-        12/2018
+        = current_order.credit_card.month_year
   .visible-xs
     .general-cart-item.divider-lg
       .general-img-wrap-table
@@ -103,21 +103,23 @@
           %th
             %span.in-grey-600 Total
       %tbody
-        %tr
-          %td
-            .general-img-wrap-table
-              %img.cart-img-shadow.pull-left{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
-          %td
-            %p.title Android Programming for Beginners
-            %p.in-grey-600.fw-300 Maximize the potential of Bootstrap with a collection of real-world site projects for better, faster, more responsive web applications
-          %td
-            %span.font-16.in-gold-500 €28.50
-          %td
-            %span.ml-30 1
-          %td
-            %span.font-16.in-gold-500 €32.90
+        - current_order.order_items.each do |order_item|
+          %tr
+            %td
+              .general-img-wrap-table
+                %img.cart-img-shadow.pull-left{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
+            %td
+              %p.title= order_item.book.title
+              %p.in-grey-600.fw-300 Maximize the potential of Bootstrap with a collection of real-world site projects for better, faster, more responsive web applications
+            %td
+              %span.font-16.in-gold-500= number_to_euro order_item.book.price
+            %td
+              %span.ml-30= order_item.quantity
+            %td
+              %span.font-16.in-gold-500= number_to_euro order_item.total
   .text-center.general-text-right
-    = render 'order_summary'
+    %p.in-gold-500.font-18 Order Summary
+    %table.general-summary-table.general-summary-table-right.general-text-right
+      = render 'order_summary'
   .text-center
-    -#%button.btn.btn-default.mb-20 Place Order
     = button_to "Place Order", wizard_path, method: :put, class: 'btn btn-default mb-20'

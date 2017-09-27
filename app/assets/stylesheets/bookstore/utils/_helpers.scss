@@ -67,6 +67,9 @@
 .mt-10 {
   margin-top: 10px;
 }
+.mt-80 {
+  margin-top: 80px;
+}
 
 @each $size in (5, 10, 15, 20, 35, 55, 240) {
   .mr-#{$size} {

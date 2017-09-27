@@ -1,9 +1,9 @@
-%main.container.mb-res-50
+%main.container.general-main-wrap.mb-res-50
   %h1.general-title-margin Checkout
   = render 'steps'
   %h3.general-subtitle Credit Card
   -#%form.max-600.mb-80
-  = simple_form_for @credit_card, url: wizard_path, method: :put, html: {:class => 'max-600 mb-80'} do |form|
+  = simple_form_for @credit_card, url: wizard_path, method: :put, html: {class: 'max-600'} do |form|
     -#= form.input :order_id, label: false, input_html: { value: current_order.id, type: 'hidden' }
     = form.input :number, required: false, label: 'Card Number', placeholder: 'Card Number'
     .row
@@ -12,13 +12,12 @@
       .col-sm-3
         = form.input :month_year, label: 'MM / YY', required: false, placeholder: 'MM / YY'
       .col-sm-3
-        = form.input :cvv, required: false, placeholder: 'CVV', input_html: { class: 'relative' }
-        %i.fa.fa-question-circle.general-form-help
-
-    .general-text-align
-      = render 'order_summary'
-    .actions.text-center
-      = form.submit 'Save and Continue', class: 'btn btn-default mb-80'
-      -#%button.btn.btn-default.mb-80 Save and Continue
-
-= params
+        = form.input :cvv, label: 'CVV', required: false, placeholder: 'CVV', input_html: { class: 'relative' }
+        %i.fa.fa-question-circle.general-form-help.pr-15{'data-toggle': 'tooltip', 'data-placement': :top, title: 'Credit card tooltip'}
+    .general-text-align.mt-80
+      %p.in-gold-500.font-18 Order Summary
+      %table.general-summary-table
+        = render 'order_summary'
+      .pull-right
+        = form.submit 'Save and Continue', class: 'btn btn-default mb-80'
+        -#%button.btn.btn-default.mb-80 Save and Continue

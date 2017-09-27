@@ -18,12 +18,6 @@
       %h1.mt-res-0= @book.title
       %p.lead.small= book_authors(@book)
       .row
-        = current_order.id
-        = current_order.number
-        = current_order.status
-        = current_order.user_id
-        = current_order.book_ids
-        = current_order.order_item_ids
         = render 'order_items/form'
       .general-info-wrap.divider-lg
         %p Description
@@ -47,5 +41,4 @@
     = render @book.reviews
     - if user_signed_in?
       %h3.in-gold-500.mb-25 Write review
-      -#= render 'reviews/form'
-      = render 'reviews/simple_form'
+      = render 'reviews/form'

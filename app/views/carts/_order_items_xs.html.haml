@@ -10,7 +10,7 @@
         %td
           %span.in-grey-600 Price
         %td
-          %span.font-16.in-gold-500= "€#{order_item.book.price}"
+          %span.font-16.in-gold-500= number_to_euro order_item.book.price
       %tr
         %td.vertical-middle
           %span.in-grey-600 Quantity
@@ -20,4 +20,4 @@
         %td
           %span.in-grey-600 SubTotal
         %td
-          %span.font-16.in-gold-500= "€#{order_item.book.price * order_item.quantity}"
+          %span.font-16.in-gold-500= number_to_euro order_item.total

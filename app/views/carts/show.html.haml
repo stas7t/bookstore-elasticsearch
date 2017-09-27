@@ -1,8 +1,9 @@
 %main.container.general-main-wrap
   %h1.general-title-margin Cart
   - if current_order.order_items.empty?
-    %p.font-16 Cart is empty
-    = link_to "Go to Store", catalog_path(), class: "btn btn-default mb-20"
+    .text-center
+      %p.font-18 Cart is empty
+      = link_to "Go to Store", catalog_path(), class: "btn btn-default mb-20"
   -else
     .visible-xs
       = render 'order_items_xs'
@@ -15,29 +16,12 @@
             %label.input-label Enter Your Coupon Code
             %input.form-control.mb-30{type: "text", placeholder: "Enter Your Coupon Code "}
             %div
-              -#%button.btn.btn-primary.mr-5.mb-15.visible-xs-inline-block Apply Coupon
-              %button.btn.btn-primary.mb-15.res-block Update cart
+              %button.btn.btn-primary.mb-15.res-block Apply Coupon
         .col-sm-8
           .res-mr-200.text-center.general-text-right
             %p.in-gold-500.font-18 Order Summary
             %table.general-summary-table.general-summary-table-right.general-text-right
-              %tr
-                %td
-                  %p.font-16 Subtotal:
-                %td
-                  %p.font-16 €117.69
-              %tr
-                %td
-                  %p.font-16 Coupon:
-                %td
-                  %p.font-16 €0.00
-              %tr
-                %td
-                  %strong.font-18 Order Total:
-                %td
-                  %strong.font-18 €117.69
-            -#%button.btn.btn-default.mb-20.visible-xs-inline-block Checkout
+              = render 'checkout/order_summary'
             = link_to "Checkout", checkout_path(:login), class: "btn btn-default mb-20 visible-xs-inline-block"
-    -#%button.btn.btn-default.mb-20.hidden-xs.center-block Checkout
     .text-center
       = link_to "Checkout", checkout_path(:login), class: "btn btn-default mb-20 hidden-xs"

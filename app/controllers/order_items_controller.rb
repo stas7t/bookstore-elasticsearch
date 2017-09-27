@@ -1,5 +1,6 @@
 class OrderItemsController < ApplicationController
   before_action :set_current_order
+  before_action :set_order_item, only: %i[update destroy]
 
   def create
     @order_item = OrderItem.new(order_item_params)
@@ -12,8 +13,14 @@ class OrderItemsController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def update
+    @order_item.update_attributes(order_item_params)
+    @order_items = current_order.order_items
+
+    redirect_back(fallback_location: root_path)
+  end
+
   def destroy
-    @order_item = @current_order.order_items.find(params[:id])
     @order_item.destroy
 
     redirect_back(fallback_location: root_path)
@@ -23,6 +30,10 @@ class OrderItemsController < ApplicationController
 
   def order_item_params
     params.require(:order_item).permit(:quantity, :book_id)
+  end
+
+  def set_order_item
+    @order_item = current_order.order_items.find(params[:id])
   end
 
   def set_current_order
