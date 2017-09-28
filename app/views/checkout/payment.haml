@@ -17,7 +17,7 @@
     .general-text-align.mt-80
       %p.in-gold-500.font-18 Order Summary
       %table.general-summary-table
-        = render 'order_summary'
+        = render 'order_summary', order: current_order
       .pull-right
         = form.submit 'Save and Continue', class: 'btn btn-default mb-80'
         -#%button.btn.btn-default.mb-80 Save and Continue

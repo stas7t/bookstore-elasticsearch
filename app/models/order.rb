@@ -24,7 +24,7 @@ class Order < ApplicationRecord
   scope :canceled,    -> { where status: 'canceled'    }
 
   def place_in_queue
-    update(status: 'in_queue')
+    update(status: 'in_queue', completed_at: Time.now)
   end
 
   def sub_total

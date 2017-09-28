@@ -57,7 +57,7 @@ class CheckoutController < ApplicationController
 
   def show_complete
     return jump_to(previous_step) unless flash[:complete_order]
-    @order = current_user.orders#.processing_order.decorate
+    @order = current_user.orders.in_queue.last#.processing_order.decorate
   end
 
   # update

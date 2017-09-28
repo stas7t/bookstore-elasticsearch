@@ -13,13 +13,13 @@ module CheckoutHelper
     past_step?(current_step)
   end
 
-  def coupon_discount
-    return number_to_euro 0.00 unless current_order.coupon
-    number_to_euro current_order.coupon.discount
+  def coupon_discount(order)
+    return number_to_euro 0.00 unless order.coupon
+    "- #{number_to_euro order.coupon.discount}"
   end
 
-  def shipping_price
-    return number_to_euro 0.00 unless current_order.delivery
-    number_to_euro current_order.delivery.price
+  def shipping_price(order)
+    return number_to_euro 0.00 unless order.delivery
+    number_to_euro order.delivery.price
   end
 end
