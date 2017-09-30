@@ -5,8 +5,16 @@ class AddressesController < ApplicationController
 
   def create
     @addresses = AddressesForm.new(addresses_params)
-    status = @addresses.save ? :created : :found
-    render :index, object: @addresses.errors
+    @addresses.save
+
+    render :index
+  end
+
+  def update
+    @addresses = AddressesForm.new(addresses_params)
+    @addresses.save
+
+    render :index
   end
 
   private

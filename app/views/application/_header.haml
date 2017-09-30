@@ -29,9 +29,9 @@
               %a{type: "button", 'data-toggle': "collapse", href: "#menu_my_account", 'aria-expanded': "false", 'aria-controls': "menu_my_account"} My account
               %ul#menu_my_account.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
                 %li
-                  = link_to "Orders", root_path, class: "collapse-link"
+                  = link_to "Orders", orders_path, class: "collapse-link"
                 %li
-                  = link_to "Settings", root_path, class: "collapse-link"
+                  = link_to "Settings", settings_addresses_path, class: "collapse-link"
             %li
               = link_to "Log out", destroy_user_session_path, method: :delete
           - else
@@ -56,7 +56,7 @@
                 %li
                   = link_to "Orders", orders_path
                 %li
-                  = link_to "Settings", root_path
+                  = link_to "Settings", settings_addresses_path
                 %li.divider{role: "separator"}
                 %li
                   = link_to "Log out", destroy_user_session_path, method: :delete

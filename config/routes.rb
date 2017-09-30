@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get  'catalog',            to: 'books#index'
   get  'settings/addresses', to: 'addresses#index'
   post 'settings/addresses', to: 'addresses#create'
+  put  'settings/addresses', to: 'addresses#update'
   get  'settings/privacy',   to: 'users#index'
   put  'settings/privacy',   to: 'users#update'
 
@@ -14,7 +15,7 @@ Rails.application.routes.draw do
   resources :credit_card
   resources :orders, only: %i[index show]
   resources :order_items, only: %i[create update destroy]
-  #resources :users, only: %i[update destroy]
 
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_for :users,
+             controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 end
