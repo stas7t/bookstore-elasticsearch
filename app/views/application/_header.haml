@@ -7,9 +7,6 @@
         %span.icon-bar
         %span.icon-bar
       %a.navbar-brand{href: root_path} Bookstore
-      - if current_user
-        = "#{current_user.id} #{current_user.email}"
-      = "ordrid:#{current_order.id} uid:#{current_order.user_id}"
       %a.shop-link.pull-right.visible-xs{href: cart_path}
         = render 'shop_icon'
     %a.shop-link.pull-right.hidden-xs{href: cart_path}
@@ -26,7 +23,6 @@
             %ul#menu_shop.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
               - categories.each do |category|
                 %li
-                  -#%a.collapse-link{href: books_path} Mobile development
                   = link_to "#{category.name}", books_path(category_id: category.id), class: "collapse-link"
           - if user_signed_in?
             %li
@@ -52,7 +48,6 @@
             %ul.dropdown-menu
               - categories.each do |category|
                 %li
-                  -#%a{href: books_path} Mobile development
                   = link_to "#{category.name}", books_path(category_id: category.id)
           - if user_signed_in?
             %li.dropdown

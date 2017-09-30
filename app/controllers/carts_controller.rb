@@ -1,10 +1,12 @@
 class CartsController < ApplicationController
   def show
-    @order_items = current_order.order_items.order('book_id')
+    @order = Order.new(order_item_ids: session[:cart],
+                       coupon_id: session[:coupon])
   end
 
   def update
-    current_order.update_attributes(coupon_id: coupon.id) if coupon
+    session[:coupon] = coupon.id
+
     redirect_to cart_path, notice: coupon ? 'Coupon applied' : 'Invalid coupon'
   end
 

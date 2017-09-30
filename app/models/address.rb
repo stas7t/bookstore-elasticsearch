@@ -10,7 +10,7 @@ class Address < ApplicationRecord
 
   validates :address,
             presence: true,
-            format: { with: /\A[a-zA-Z \-\,]*\z/,
+            format: { with: /\A[a-zA-Z0-9 \-\,]*\z/,
                       message: 'Consist of a-z, A-Z, 0-9,’,’, ‘-’, ‘ ’ only, no special symbols' },
             length: { maximum: 50 }
 

@@ -65,7 +65,7 @@
                 %img.cart-img-shadow.pull-left{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
             %td
               %p.title= order_item.book.title
-              %p.in-grey-600.fw-300 Maximize the potential of Bootstrap with a collection of real-world site projects for better, faster, more responsive web applications
+              %p.in-grey-600.fw-300= order_item.book.description.split('.').first
             %td
               %span.font-16.in-gold-500= number_to_euro order_item.book.price
             %td

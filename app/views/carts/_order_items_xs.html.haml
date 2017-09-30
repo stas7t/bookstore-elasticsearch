@@ -1,4 +1,4 @@
-- @order_items.each do |order_item|
+- @order.order_items.each do |order_item|
   .general-cart-item.divider-lg-bottom
     = button_to order_item, method: :delete, class: 'close general-cart-close' do
       %span{'aria-hidden': "true"} &times;

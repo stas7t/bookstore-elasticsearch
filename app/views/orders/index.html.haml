@@ -7,13 +7,13 @@
       %i.fa.fa-angle-down.dropdown-icon.pull-right
     %ul.dropdown-menu
       %li
-        %a{href: "#"} Newest first
+        %a{href: "#"} Waiting for processing
       %li
-        %a{href: "#"} Popular first
+        %a{href: "#"} In delivery
       %li
-        %a{href: "#"} Price: Low to hight
+        %a{href: "#"} Delivered
       %li
-        %a{href: "#"} Price: Low to hight
+        %a{href: "#"} Canceled
   .visible-xs
     - @orders.each do |order|
       .general-cart-item.divider-lg-bottom.pt-0
@@ -27,7 +27,7 @@
             %td
               %span.in-grey-600 Completed at
             %td
-              %span.in-grey-900.font-16.fw-300= order.updated_at.strftime("%Y-%m-%d")
+              %span.in-grey-900.font-16.fw-300= order.completed_at.strftime("%Y-%m-%d")
           %tr
             %td
               %span.in-grey-600 Status
@@ -55,10 +55,10 @@
         - @orders.each do |order|
           %tr
             %td
-              = link_to order_path(order) do
+              = link_to order_path(order), class: "nav-link" do
                 %span.general-order-number= order.number
             %td
-              %span.in-grey-900.font-16.fw-300= order.updated_at.strftime("%Y-%m-%d")
+              %span.in-grey-900.font-16.fw-300= order.completed_at.strftime("%Y-%m-%d")
             %td
               %span.font-16.in-grey-900.fw-300= order.status.capitalize
             %td

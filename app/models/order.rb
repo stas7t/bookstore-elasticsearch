@@ -7,13 +7,9 @@ class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
   has_many :books, through: :order_items
 
-  has_many :addresses
+  has_many :addresses, dependent: :destroy
   has_one :billing
   has_one :shipping
-
-  # has_one :coupon
-  # has_one :credit_card
-
 
   after_create :set_number, :set_status
 
@@ -24,7 +20,7 @@ class Order < ApplicationRecord
   scope :canceled,    -> { where status: 'canceled'    }
 
   def place_in_queue
-    update(status: 'in_queue', completed_at: Time.now)
+    update(status: 'in_queue', completed_at: Time.current)
   end
 
   def sub_total
