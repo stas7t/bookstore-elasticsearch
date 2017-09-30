@@ -1,0 +1,9 @@
+%p.in-gold-500.font-18.mb-25 Remove Account
+.general-settings-btn
+  = button_to 'Remove Account', registration_path(@user), class: 'btn btn-default mb-20', data: { confirm: "Are you sure?" }, method: :delete
+.form-group.checkbox.general-settings-checkbox
+  %label.checkbox-label#remove_account
+    %input.checkbox-input{type: "checkbox", hidden: "true"}
+    %span.checkbox-icon
+      %i.fa.fa-check
+    %span.checkbox-text I understand that all data will be lost

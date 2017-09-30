@@ -6,8 +6,6 @@
     %li.tab-item{role: "presentation"}
       = link_to 'Privacy', settings_privacy_path, class: 'tab-link'
   .tab-content
-    =# render 'shared/addresses_form'
-
     = simple_form_for @addresses, url: settings_addresses_path, method: :put, class: 'res-mb-100' do |form|
       .hidden-xs.hidden-sm
         .row

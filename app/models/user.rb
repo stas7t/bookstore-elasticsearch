@@ -5,17 +5,25 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :omniauthable, omniauth_providers: [:facebook]
 
+  attr_accessor :skip_password_validation
+
+  validates :email,
+            presence: true,
+            format: { with: /@/,
+                      message: 'not valid' }
+
   validates :password,
             format: { with: /\A\S(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\S*\z/i,
-                      message: 'should contain at least 1 uppercase, at least 1 lowercase, at least 1 number and no whitespeses.' }
+                      message: 'should contain at least 1 uppercase, at least 1 lowercase, at least 1 number and no whitespeses.' },
+            unless: :skip_password_validation
 
-  has_many :orders
-  has_many :reviews
-  has_many :addresses
+  has_many :orders, dependent: :nullify
+  has_many :reviews, dependent: :nullify
+  has_many :addresses, dependent: :destroy
 
-  has_one :billing
-  has_one :shipping
-  has_one :credit_card
+  has_one :billing, dependent: :destroy
+  has_one :shipping, dependent: :destroy
+  has_one :credit_card, dependent: :destroy
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

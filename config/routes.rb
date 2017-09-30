@@ -4,8 +4,14 @@ Rails.application.routes.draw do
   get  'settings/addresses', to: 'addresses#index'
   post 'settings/addresses', to: 'addresses#create'
   put  'settings/addresses', to: 'addresses#update'
-  get  'settings/privacy',   to: 'users#index'
-  put  'settings/privacy',   to: 'users#update'
+  get  'settings/privacy',   to: 'users#edit'
+
+  resource :user, only: %i[edit] do
+    collection do
+      patch 'update_email'
+      patch 'update_password'
+    end
+  end
 
   resources :books, only: %i[index show] do
     resources :reviews, only: :create

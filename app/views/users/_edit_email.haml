@@ -1,0 +1,7 @@
+%p.in-gold-500.font-18.mb-25 Email
+= form_for(@user, url: { action: "update_email" }, html: {class: 'general-form-md email' }) do |f|
+  .form-group.mb-35
+    = f.label :email, 'Enter Email', class: 'control-label input-label'
+    = f.email_field :email, autofocus: true, autocomplete: "off", class: 'form-control', value: current_user.email
+  .general-text-align
+    = f.submit 'Save', class: 'btn btn-default mb-35'
