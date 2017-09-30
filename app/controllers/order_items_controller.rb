@@ -1,12 +1,13 @@
 class OrderItemsController < ApplicationController
   before_action :set_current_order
   before_action :set_order_item, only: %i[update destroy]
+  before_action :save_current_order, only: %i[create]
 
   def create
     @order_item = OrderItem.new(order_item_params)
 
     assign_order_to_user if current_user && @current_order.user_id.nil?
-    save_current_order if @current_order.id.nil?
+    #save_current_order if @current_order.id.nil?
     @order_item.order_id = @current_order.id
     @order_item.save
 

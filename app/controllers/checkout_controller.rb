@@ -33,7 +33,9 @@ class CheckoutController < ApplicationController
   private
 
   def assign_order_to_user
-    current_order.update_attributes(user_id: current_user.id) if current_order.user_id.nil?
+    if user_signed_in? && current_order.user_id.nil?
+      current_order.update_attributes(user_id: current_user.id)
+    end
   end
 
   # show
@@ -62,8 +64,9 @@ class CheckoutController < ApplicationController
   end
 
   def show_complete
-    return jump_to(previous_step) unless flash[:complete_order]
-    @order = current_user.orders.in_queue.last#.processing_order.decorate
+    return jump_to(previous_step) unless session[:complete_order]
+    @order = current_user.orders.in_queue.last
+    session[:complete_order] = false
   end
 
   # update
@@ -84,10 +87,11 @@ class CheckoutController < ApplicationController
   end
 
   def update_confirm
-    flash[:complete_order] = true
+    session[:complete_order] = true
     current_order.update_attributes(user_id: current_user.id)
     current_order.place_in_queue
     session[:order_id] = nil if current_order.status == 'in_queue'
+    current_order('complete')
   end
 
   # params
