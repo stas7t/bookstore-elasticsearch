@@ -1,4 +1,6 @@
 class BooksController < ApplicationController
+  load_and_authorize_resource
+
   before_action :set_order_item, only: %i[index show]
   before_action :set_categories, only: %i[index show]
   before_action :set_current_category, only: %i[index]

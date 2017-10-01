@@ -1,5 +1,6 @@
 class OrderItemsController < ApplicationController
-  before_action :set_order_item, only: %i[update destroy]
+  load_and_authorize_resource
+  # before_action :set_order_item, only: %i[update destroy]
 
   def create
     @order_item = OrderItem.create(order_item_params)

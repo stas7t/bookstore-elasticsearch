@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-
+  load_and_authorize_resource
   before_action :authenticate_user!
 
   def edit
@@ -19,7 +19,6 @@ class UsersController < ApplicationController
       flash[:danger] = @user.errors.full_messages.to_sentence
       render :edit
     end
-
   end
 
   def update_password
