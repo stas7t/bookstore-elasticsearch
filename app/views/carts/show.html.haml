@@ -1,7 +1,7 @@
 %main.container.general-main-wrap
   %h1.general-title-margin Cart
-  -# items = OrderItem.where(id: session[:cart])
-  - if @order.order_item_ids.empty?
+  - items = OrderItem.where(id: session[:cart])
+  - if items.empty?
     .text-center
       %p.font-18 Cart is empty
       = link_to "Go to Store", catalog_path(), class: "btn btn-default mb-20"

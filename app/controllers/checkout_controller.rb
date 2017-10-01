@@ -36,8 +36,7 @@ class CheckoutController < ApplicationController
                           coupon_id: session[:coupon],
                           user_id: current_user.id)
     session[:order_id] = @order.id
-    session[:cart] = nil
-    session[:coupon] = nil
+
   end
 
   # show
@@ -90,10 +89,10 @@ class CheckoutController < ApplicationController
 
   def update_confirm
     session[:order_complete] = true
-    # current_order.update_attributes(user_id: current_user.id)
     current_order.place_in_queue
-    session[:order_id] = nil #if current_order.status == 'in_queue'
-    # current_order('complete')
+    session[:order_id] = nil
+    session[:cart] = nil
+    session[:coupon] = nil
   end
 
   # params
