@@ -19,6 +19,8 @@ class Order < ApplicationRecord
   scope :delivered,   -> { where status: 'delivered'   }
   scope :canceled,    -> { where status: 'canceled'    }
 
+  scope :payed,       -> { where.not status: %w[in_progress canceled] }
+
   def place_in_queue
     update(status: 'in_queue', completed_at: Time.current)
   end
