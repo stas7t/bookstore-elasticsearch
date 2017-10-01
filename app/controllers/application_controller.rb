@@ -3,13 +3,6 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_order
 
-  private
-
-  def current_order
-    return Order.new unless session[:order_id]
-    Order.find(session[:order_id])
-  end
-
   protected
 
   def after_sign_in_path_for(resource)
@@ -19,5 +12,12 @@ class ApplicationController < ActionController::Base
     else
       super
     end
+  end
+
+  private
+
+  def current_order
+    return Order.new unless session[:order_id]
+    Order.find(session[:order_id])
   end
 end

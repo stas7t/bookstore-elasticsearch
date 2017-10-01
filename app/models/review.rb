@@ -8,18 +8,14 @@ class Review < ApplicationRecord
                                      greater_than: 0,
                                      less_than_or_equal_to: 5 }
   validates :title, length: {
-    minimum: 1,
     maximum: 80,
     wrong_length: 'Invalid length',
-    too_long: "%{count} characters is the maximum allowed",
-    too_short: "must have at least %{count} characters"
+    too_long: "%{count} characters is the maximum allowed"
   }
   validates :text, length: {
-    minimum: 1,
     maximum: 500,
     wrong_length: 'Invalid length',
-    too_long: "%{count} characters is the maximum allowed",
-    too_short: "must have at least %{count} characters"
+    too_long: "%{count} characters is the maximum allowed"
   }
   validates :title, :text,
             format: { with: %r/\A[a-zA-Z0-9 \n\r!#$%&'*+-\/=?^_`{|}~]*\z/,
@@ -27,4 +23,5 @@ class Review < ApplicationRecord
 
   scope :unprocessed, -> { where status: 'unprocessed' }
   scope :processed, -> { where status: 'approved' || 'rejected' }
+  scope :approved, -> { where status: 'approved' }
 end

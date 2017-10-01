@@ -2,9 +2,7 @@
   %h1.general-title-margin Checkout
   = render 'steps'
   %h3.general-subtitle Credit Card
-  -#%form.max-600.mb-80
   = simple_form_for @credit_card, url: wizard_path, method: :put, html: {class: 'max-600'} do |form|
-    -#= form.input :order_id, label: false, input_html: { value: current_order.id, type: 'hidden' }
     = form.input :number, required: false, label: 'Card Number', placeholder: 'Card Number'
     .row
       .col-sm-6
@@ -20,4 +18,3 @@
         = render 'order_summary', order: current_order
       .pull-right
         = form.submit 'Save and Continue', class: 'btn btn-default mb-80'
-        -#%button.btn.btn-default.mb-80 Save and Continue

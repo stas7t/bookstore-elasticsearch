@@ -1,0 +1,9 @@
+= f.input :user_id, label: false, input_html: { value: current_user.id, type: 'hidden' }
+= f.input :order_id, label: false, input_html: { value: current_order.id, type: 'hidden' }
+= f.input :first_name, required: false
+= f.input :last_name, required: false
+= f.input :address, required: false
+= f.input :city, required: false
+= f.input :zip, required: false
+= f.input :country, required: false, prompt: "Select country"
+= f.input :phone, required: false, placeholder: 'Example +355661234567'
