@@ -5,8 +5,8 @@ FactoryGirl.define do
     end
 
     rating 5
-    title 'Review title'
-    text 'Review text'
+    sequence(:title) { |i| "Review title #{i}" }
+    sequence(:text) { |i| "Review text #{i}" }
     association :book
     association :user
 
