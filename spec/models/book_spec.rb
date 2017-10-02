@@ -13,7 +13,7 @@ RSpec.describe Book, type: :model do
 
   it { expect(subject).to validate_numericality_of(:price)}
   it { expect(subject).to validate_numericality_of(:height) }
-  it { expect(subject).to validate_numericality_of(:weight) }
+  it { expect(subject).to validate_numericality_of(:width) }
   it { expect(subject).to validate_numericality_of(:depth) }
 
   it { expect(subject).to belong_to(:category) }

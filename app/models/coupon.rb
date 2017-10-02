@@ -4,7 +4,7 @@ class Coupon < ApplicationRecord
   before_create :activate
   
   validates :code, presence: true, uniqueness: true
-  validates :discount, presence: true
+  validates :discount, presence: true, numericality: true
 
   def activate
     self.active = true

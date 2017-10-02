@@ -6,8 +6,9 @@ class Book < ApplicationRecord
   has_many :orders, through: :order_items
   has_many :reviews
 
-  validates :title, :price, presence: true
-  validates :title, uniqueness: true
+  validates :title, presence: true, uniqueness: true
+  validates :price, presence: true, numericality: true
+  validates :height, :width, :depth, numericality: true
 
   paginates_per 12
 
