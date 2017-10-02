@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :user do
-    email FFaker::Internet.safe_email
+    sequence(:email) { |i| "email#{i}@email.com" }
     name 'Jon Snow'
     password 'test123XX'
   end

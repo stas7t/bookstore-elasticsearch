@@ -1,14 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe BooksController, type: :controller do
-  let(:book_params) { FactoryGirl.attributes_for(:book).stringify_keys }
-  let(:category) { FactoryGirl.create(:category) }
-  let(:book) { FactoryGirl.build(:book) }
+  let(:book) { FactoryGirl.create(:book) }
+
+  describe 'GET #index' do
+    before { get :index }
+
+    it 'return a success response' do
+      expect(response.status).to eq(200)
+      expect(response).to render_template :index
+    end
+
+    it 'assign @books' do
+      expect(assigns(:books)).not_to be_nil
+    end
+  end
 
   describe 'GET #show' do
     before do
-      book.category_id = category.id
-      book.save
       allow(Book).to receive(:find).and_return book
     end
 
@@ -24,6 +33,7 @@ RSpec.describe BooksController, type: :controller do
 
     it 'renders :show template' do
       get :show, params: { id: book.id }
+      expect(response.status).to eq(200)
       expect(response).to render_template :show
     end
   end
