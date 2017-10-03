@@ -19,10 +19,10 @@ gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
-gem 'therubyracer', platforms: :ruby
+gem 'therubyracer', '~> 0.12.3', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -38,11 +38,10 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'factory_girl_rails'
-  gem 'ffaker'
-  gem 'rspec-rails'
+  gem 'byebug', '~> 9.1', platforms: %i[mri mingw x64_mingw]
+  gem 'factory_girl_rails', '~> 4.8'
+  gem 'ffaker', '~> 2.7'
+  gem 'rspec-rails', '~> 3.6', '>= 3.6.1'
 end
 
 group :development do
@@ -50,18 +49,18 @@ group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+  gem 'spring', '~> 2.0', '>= 2.0.2'
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   gem 'rubocop', require: false
-  gem 'letter_opener'
+  gem 'letter_opener', '~> 1.4', '>= 1.4.1'
 end
 
 group :test do
-  gem 'capybara'
-  gem 'database_cleaner'
-  gem 'shoulda-matchers'
-  gem 'rails-controller-testing'
+  gem 'capybara', '~> 2.15', '>= 2.15.2'
+  gem 'database_cleaner', '~> 1.6', '>= 1.6.1'
+  gem 'rails-controller-testing', '~> 1.0', '>= 1.0.2'
+  gem 'shoulda-matchers', '~> 3.1', '>= 3.1.2'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -71,48 +70,47 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'rails-i18n', '~> 5.0.0'
 
 # Authentication
-gem 'devise'
-gem 'omniauth'
-gem 'omniauth-facebook'
-# gem 'omniauth-google-oauth2'
+gem 'devise', '~> 4.3'
+gem 'omniauth', '~> 1.7', '>= 1.7.1'
+gem 'omniauth-facebook', '~> 4.0'
 
 # authorization
-# gem 'cancan', '~> 1.6', '>= 1.6.10'
 gem 'cancancan', '~> 2.0'
 
 # CRM
-gem 'activeadmin', github: 'activeadmin'
+gem 'activeadmin', '~> 1.1'
 
 # Paginator
-gem 'kaminari'
+gem 'kaminari', '~> 1.0', '>= 1.0.1'
 
 # Solution for file uploads
-gem 'carrierwave', '~> 1.0'
-gem 'cloudinary'
+gem 'fog-aws', '~> 1.4'
+gem 'carrierwave', '~> 1.2'
 
 # State machines for Ruby classes
-gem 'aasm'
+#gem 'aasm'
 
 # Step-By-Step Wizard Controllers
-gem 'wicked'
+gem 'wicked', '~> 1.3', '>= 1.3.2'
 
 # An interface to the ImageMagick and GraphicsMagick image processing libraries
-gem 'mini_magick'
+gem 'mini_magick', '~> 4.8'
 
 # Use Haml templating engine
-gem 'haml'
+gem 'haml', '~> 5.0', '>= 5.0.3'
 gem 'haml-rails', '~> 1.0'
 
 # Bootstrap
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
 
 # Font
 gem 'font-awesome-sass', '~> 4.7.0'
 
 # Forms
-gem 'country_select'
-gem 'rectify'
-gem 'reform', '>= 2.2.0'
-gem 'reform-rails'
-gem 'simple_form'
-gem 'virtus'
+gem 'country_select', '~> 3.1', '>= 3.1.1'
+gem 'simple_form', '~> 3.5'
+gem 'virtus', '~> 1.0', '>= 1.0.5'
+
+# gem 'rectify', '~> 0.10.0'
+# gem 'reform', '>= 2.2.0'
+# gem 'reform-rails', '~> 0.1.7'
