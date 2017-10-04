@@ -5,6 +5,7 @@ class Ability
     user ||= User.new
     if user.persisted?
       can :read, [Author, Book, Category, Coupon, Delivery, Image]
+      can :update, [Book]
       can :read, Review
       can :create, Review
       can %i[read create update], [Order, Address, CreditCard], user_id: user.id

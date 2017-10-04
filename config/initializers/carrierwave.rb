@@ -1,4 +1,6 @@
 CarrierWave.configure do |config|
+  require 'carrierwave/orm/activerecord'
+
   config.fog_provider = 'fog/aws'                        # required
   config.fog_credentials = {
     provider:              'AWS',                        # required

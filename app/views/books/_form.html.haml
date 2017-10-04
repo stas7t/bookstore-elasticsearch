@@ -1,0 +1,13 @@
+= form_for @book, html: { multipart: true } do |f|
+  - if @book.errors.any?
+    %h3 Some errors were found:
+    %ul
+      - @book.errors.full_messages.each do |message|
+        %li= message
+  %p
+    %label Book cover
+    = image_tag(@book.cover_url) if @book.cover?
+    = f.file_field :cover
+    = f.hidden_field :cover_cache
+    = f.submit 'Upload'
+ 

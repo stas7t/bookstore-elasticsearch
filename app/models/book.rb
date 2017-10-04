@@ -12,6 +12,8 @@ class Book < ApplicationRecord
 
   paginates_per 12
 
+  mount_uploader :cover, ImageUploader
+
   scope :by_category, ->(category_id) { where category_id: category_id }
 
   def sales
