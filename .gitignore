@@ -25,3 +25,4 @@
 .env
 
 /public/uploads
+/public/system

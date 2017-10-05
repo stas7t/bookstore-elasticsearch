@@ -6,11 +6,13 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-2.times do
+avatar_colors = %w[grey blue green orange pink]
+
+4.times do
   User.create!(email: FFaker::Internet.safe_email,
                password: "test#{rand(100...999)}XX",
                name: FFaker::Name.name,
-               avatar: FFaker::Avatar.image)
+               remote_avatar_url: "https://s3.eu-central-1.amazonaws.com/stas7t-bookstore/avatars/default_avatar_#{avatar_colors.sample}.png")
 end
 
 user = User.last
@@ -53,8 +55,9 @@ used_book_titles = []
               depth: rand(0.3...4.0).floor(2),
               publication_year: rand(2001..2017),
               materials: FFaker::Lorem.words.join(', '),
-              category_id: categories.sample.id),
+              category_id: categories.sample.id,
               remote_cover_url: "https://s3.eu-central-1.amazonaws.com/stas7t-bookstore/covers/Cover_#{rand(1..56).to_s.rjust(4, '0')}.png"
+              )
 end
 
 books = Book.all

@@ -87,6 +87,8 @@ gem 'kaminari', '~> 1.0', '>= 1.0.1'
 gem 'fog-aws', '~> 1.4'
 gem 'carrierwave', '~> 1.2'
 
+gem 'letter_avatar'
+
 # State machines for Ruby classes
 #gem 'aasm'
 

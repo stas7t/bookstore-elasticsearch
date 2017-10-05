@@ -5,8 +5,9 @@
       %div
         .general-message-date.hidden-xs= review.created_at.strftime("%d/%m/%y")
         .max-240
-          .general-message-verified Verified Reviewer
-          .general-message-name= review.user.name
+          - if review.user.book_ids.include?(@book.id)
+            .general-message-verified Verified Reviewer
+          .general-message-name= review.user.name || review.user.email.split('@').first
       .mb-15
         - review.rating.times do
           %i.fa.fa-star.rate-star

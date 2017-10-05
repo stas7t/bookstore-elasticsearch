@@ -13,6 +13,7 @@ class Book < ApplicationRecord
   paginates_per 12
 
   mount_uploader :cover, ImageUploader
+  mount_uploaders :images, ImageUploader
 
   scope :by_category, ->(category_id) { where category_id: category_id }
 
@@ -21,7 +22,8 @@ class Book < ApplicationRecord
   end
 
   def self.bestsellers(category_id = nil)
-    return Book.all.sort_by(&:sales).reverse unless category_id
-    Book.by_category(category_id).sort_by(&:sales).reverse
+    Book.all
+    #return Book.all.sort_by(&:sales).reverse unless category_id
+    #Book.by_category(category_id).sort_by(&:sales).reverse
   end
 end

@@ -17,20 +17,39 @@ class User < ApplicationRecord
                       message: 'should contain at least 1 uppercase, at least 1 lowercase, at least 1 number and no whitespeses.' },
             unless: :skip_password_validation
 
-  has_many :orders, dependent: :nullify
-  has_many :reviews, dependent: :nullify
+  has_many :orders, dependent: :destroy
+  has_many :order_items, through: :orders, dependent: :destroy
+  has_many :books, through: :order_items, dependent: :destroy
+  has_many :reviews, dependent: :destroy
   has_many :addresses, dependent: :destroy
 
   has_one :billing, dependent: :destroy
   has_one :shipping, dependent: :destroy
   has_one :credit_card, dependent: :destroy
 
+  mount_uploader :avatar, AvatarUploader
+
+  before_save do |user|
+    unless user.billing.nil?
+      user.name = "#{user.billing.first_name} #{user.billing.last_name}" if user.name.nil?
+    end
+
+    unless user.provider == 'facebook'
+      av_name = user.name || user.email
+      av_img = LetterAvatar.generate av_name, 200
+
+      File.open(av_img) do |f|
+        user.avatar = f
+      end
+    end
+  end
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
       user.name = auth.info.name
-      user.avatar = auth.info.image
+      user.remote_avatar_url = auth.info.image
       user.skip_confirmation!
     end
   end
@@ -41,5 +60,28 @@ class User < ApplicationRecord
         user.email = data['email'] if user.email.blank?
       end
     end
+  end
+
+  private
+
+  def set_name
+    return if billing.nil?
+    update(name: name_from_address) if name.nil?
+  end
+
+  def set_avatar
+    return if provider == 'facebook'
+    av_name = name || name_from_address || email
+    av_img = LetterAvatar.generate av_name, 200
+
+    File.open(av_img) do |f|
+      # u.avatar = f
+      update(avatar: f)
+    end
+  end
+
+  def name_from_address
+    return if billing.nil?
+    "#{billing.first_name} #{billing.last_name}"
   end
 end
