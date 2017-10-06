@@ -31,7 +31,7 @@ class User < ApplicationRecord
 
   before_save do |user|
     unless user.billing.nil?
-      user.name = "#{user.billing.first_name} #{user.billing.last_name}" if user.name.nil?
+      user.name = name_from_address if user.name.nil?
     end
 
     unless user.provider == 'facebook'
@@ -64,24 +64,7 @@ class User < ApplicationRecord
 
   private
 
-  def set_name
-    return if billing.nil?
-    update(name: name_from_address) if name.nil?
-  end
-
-  def set_avatar
-    return if provider == 'facebook'
-    av_name = name || name_from_address || email
-    av_img = LetterAvatar.generate av_name, 200
-
-    File.open(av_img) do |f|
-      # u.avatar = f
-      update(avatar: f)
-    end
-  end
-
   def name_from_address
-    return if billing.nil?
     "#{billing.first_name} #{billing.last_name}"
   end
 end
