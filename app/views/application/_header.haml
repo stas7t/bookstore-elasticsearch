@@ -23,7 +23,7 @@
             %ul#menu_shop.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
               - categories.each do |category|
                 %li
-                  = link_to "#{category.name}", books_path(category_id: category.id), class: "collapse-link"
+                  = link_to "#{category.name}", catalog_path(category_id: category.id), class: "collapse-link"
           - if user_signed_in?
             %li
               %a{type: "button", 'data-toggle': "collapse", href: "#menu_my_account", 'aria-expanded': "false", 'aria-controls': "menu_my_account"} My account
@@ -48,7 +48,7 @@
             %ul.dropdown-menu
               - categories.each do |category|
                 %li
-                  = link_to "#{category.name}", books_path(category_id: category.id)
+                  = link_to "#{category.name}", catalog_path(category_id: category.id)
           - if user_signed_in?
             %li.dropdown
               %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} My account

@@ -4,7 +4,7 @@ RSpec.describe Address, type: :model do
   include_examples 'address_validations'
 
   describe 'scopes' do
-    before(:all) { FactoryGirl.create_list(:address, 5) }
+    before(:all) { FactoryGirl.create_list(:address, 20) }
 
     describe 'billing' do
       subject { Address.billing }
