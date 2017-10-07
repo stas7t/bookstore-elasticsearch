@@ -22,7 +22,7 @@ class Book < ApplicationRecord
   end
 
   def self.bestsellers(category_id = nil)
-    Book.all
+    Book.by_category(category_id)
     #return Book.all.sort_by(&:sales).reverse unless category_id
     #Book.by_category(category_id).sort_by(&:sales).reverse
   end

@@ -2,7 +2,8 @@
   %p.lead.small= book.category.name
   .general-thumb-wrap
     .thumbnail.general-thumbnail
-      %img.img-shadow.general-thumbnail-img{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
+      = image_tag(book.cover, class: "img-shadow general-thumbnail-img", alt: "design-book")
+      -#%img.img-shadow.general-thumbnail-img{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
       .thumb-hover
         .general-thumb-link-wrap
           %a.thumb-hover-link{href: book_path(book)}

@@ -2,7 +2,6 @@ FactoryGirl.define do
   factory :book do
     transient do
       cost 99.99
-      category_name { FactoryGirl.create(:category).id }
     end
 
     price 1.0
@@ -14,11 +13,6 @@ FactoryGirl.define do
     depth 0.8
     materials 'paper, silk'
     category
-
-    before(:create) do |book, evaluator|
-      book.category_id = (Category.find_by(name: evaluator.category_name) ||
-        FactoryGirl.create(:category, name: evaluator.category_name)).id
-    end
 
     after(:create) do |book, evaluator|
       book.price = evaluator.price

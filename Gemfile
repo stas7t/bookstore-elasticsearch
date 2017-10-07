@@ -60,6 +60,8 @@ group :test do
   gem 'capybara', '~> 2.15', '>= 2.15.2'
   gem 'database_cleaner', '~> 1.6', '>= 1.6.1'
   gem 'rails-controller-testing', '~> 1.0', '>= 1.0.2'
+#  gem 'selenium-webdriver', '= 2.53.4'
+  gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 3.1', '>= 3.1.2'
 end
 

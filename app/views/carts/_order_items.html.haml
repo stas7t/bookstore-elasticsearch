@@ -14,9 +14,12 @@
     %tr
       %td
         .general-img-wrap-table
-          %img.cart-img-shadow.pull-left{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
+          = link_to book_path(order_item.book) do
+            = image_tag(order_item.book.cover, class: "cart-img-shadow pull-left", alt: "design-book")
+          -#%img.cart-img-shadow.pull-left{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
       %td
-        %p.title= order_item.book.title
+        = link_to book_path(order_item.book), class: 'title-link' do
+          %p.title= order_item.book.title
       %td
         %span.font-16.in-gold-500= number_to_euro order_item.book.price
       %td

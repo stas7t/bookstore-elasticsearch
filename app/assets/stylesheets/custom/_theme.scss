@@ -481,7 +481,13 @@
     color: $grey-900;
   }
 }
-
+.title-link {
+  color: $grey-900;
+  &:hover {
+    text-decoration: none;
+    color: $gold-500;
+  }
+}
 
 
 @media (min-width: $grid-float-breakpoint) {
