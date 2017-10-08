@@ -157,7 +157,7 @@ ActiveRecord::Schema.define(version: 20171008165855) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.bigint "book_id"
-    t.string "status", default: "unprocessed"
+    t.integer "status", default: 0
     t.index ["book_id"], name: "index_reviews_on_book_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
