@@ -19,7 +19,7 @@ RSpec.feature 'Catalog', type: :feature do
     expect(page.current_path).to eq catalog_path
   end
 
-  scenario 'Change a filter by theme' do
+  xscenario 'Change a filter by theme' do
     visit catalog_path
     within('div.hidden-xs.clearfix') do
       find('ul.list-inline').all('a.filter-link').last.click
