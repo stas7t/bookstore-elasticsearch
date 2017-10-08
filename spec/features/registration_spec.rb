@@ -7,6 +7,7 @@ feature 'Registration' do
       fill_in 'Password confirmation', with: 'Pp12345678'
       click_button('Sign up')
     end
+    expect(page.current_path).to eq root_path
     expect(page).not_to have_content 'Sign up'
     expect(page).to have_content 'Log out'
     expect(page).to have_content 'Welcome! You have signed up successfully.'
