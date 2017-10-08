@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   root to: 'home#index'
   get  'catalog',            to: 'books#index'
   get  'settings/addresses', to: 'addresses#index'
@@ -22,6 +23,7 @@ Rails.application.routes.draw do
   resources :orders, only: %i[index show]
   resources :order_items, only: %i[create update destroy]
 
+  devise_for :admins
   devise_for :users,
              controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 end

@@ -80,7 +80,8 @@ gem 'omniauth-facebook', '~> 4.0'
 gem 'cancancan', '~> 2.0'
 
 # CRM
-gem 'activeadmin', '~> 1.1'
+# gem 'activeadmin', '~> 1.1'
+gem 'rails_admin', '~> 1.2'
 
 # Paginator
 gem 'kaminari', '~> 1.0', '>= 1.0.1'

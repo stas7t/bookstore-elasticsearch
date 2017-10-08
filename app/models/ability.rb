@@ -3,17 +3,18 @@ class Ability
 
   def initialize(user)
     user ||= User.new
-    if user.persisted?
-      can :read, [Author, Book, Category, Coupon, Delivery, Image]
+    if user.is_a? Admin
+      can :access, :rails_admin
+      can :dashboard
+    elsif user.is_a?(User) && user.persisted?
+      can :read, [Author, Book, Category, Coupon, Delivery]
       can :update, [Book]
-      can :read, Review
-      can :create, Review
+      can %i[read create], Review
       can %i[read create update], [Order, Address, CreditCard], user_id: user.id
       can :manage, OrderItem
       can :manage, User, id: user.id
     else
-      can :read, Review
-      can :read, [Author, Book, Category, Image]
+      can :read, [Author, Book, Category, Review]
       can :manage, OrderItem
     end
   end
