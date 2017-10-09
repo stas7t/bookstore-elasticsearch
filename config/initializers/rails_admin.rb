@@ -38,4 +38,81 @@ RailsAdmin.config do |config|
     # history_index
     # history_show
   end
+
+  [Address, Admin, Authorship, Billing, CreditCard, OrderItem, Shipping, User].each do |model|
+    config.excluded_models << model
+  end
+
+  config.model Book do
+    list do
+      field :cover do
+        formatted_value do
+          bindings[:view].tag(:img, { src: bindings[:object].cover_url.url(:thumb) }) << value
+        end
+      end
+      field :category
+      field :title
+      field :authors
+      field :description
+      field :price
+    end
+
+    show do
+      field :title
+      field :description
+      field :price
+      field :publication_year
+      field :height
+      field :width
+      field :depth
+      field :materials
+      field :authors
+      field :category
+      field :cover, :carrierwave
+      field :images, :carrierwave
+    end
+
+    edit do
+      field :title
+      field :description
+      field :price
+      field :publication_year
+      field :height
+      field :width
+      field :depth
+      field :materials
+      field :authors
+      field :category
+      field :cover, :carrierwave
+      field :images, :carrierwave
+    end
+  end
+
+  config.model Review do
+    list do
+      scopes [:unprocessed, :processed]
+      field :book
+      field :title
+      field :created_at
+      field :user
+      field :status
+    end
+
+    edit do
+      field :status
+    end
+  end
+
+  config.model Order do
+    list do
+      scopes [:in_progress, :delivered, :canceled]
+      field :number
+      field :created_at
+      field :status
+    end
+
+    edit do
+      field :status
+    end
+  end
 end

@@ -13,16 +13,19 @@ class Order < ApplicationRecord
 
   after_create :set_number, :set_status
 
-  scope :in_progress, -> { where status: 'in_progress' }
+  enum status: %i[in_progress in_queue in_delivery delivered canceled]
+
+  # scope :in_progress, -> { where status: 'in_progress' }
   scope :in_queue,    -> { where status: 'in_queue'    }
   scope :in_delivery, -> { where status: 'in_delivery' }
   scope :delivered,   -> { where status: 'delivered'   }
   scope :canceled,    -> { where status: 'canceled'    }
 
+  scope :in_progress, -> { where status: %w[in_queue in_delivery] }
   scope :payed,       -> { where.not status: %w[in_progress canceled] }
 
   def place_in_queue
-    update(status: 'in_queue', completed_at: Time.current)
+    update(status: 1, completed_at: Time.current)
   end
 
   def sub_total
@@ -43,6 +46,6 @@ class Order < ApplicationRecord
   end
 
   def set_status
-    update(status: 'in_progress')
+    update(status: 0)
   end
 end
