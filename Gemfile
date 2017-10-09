@@ -40,7 +40,7 @@ gem 'jbuilder', '~> 2.5'
 group :development, :test do
   gem 'byebug', '~> 9.1', platforms: %i[mri mingw x64_mingw]
   gem 'factory_girl_rails', '~> 4.8'
-  gem 'ffaker', '~> 2.7'
+  # gem 'ffaker', '~> 2.7'
   gem 'rspec-rails', '~> 3.6', '>= 3.6.1'
 end
 
@@ -119,3 +119,10 @@ gem 'virtus', '~> 1.0', '>= 1.0.5'
 # gem 'rectify', '~> 0.10.0'
 # gem 'reform', '>= 2.2.0'
 # gem 'reform-rails', '~> 0.1.7'
+
+gem 'rails_12factor'
+gem 'ffaker', '~> 2.7'
+gem 'railties'
+gem 'sendgrid-ruby'
+
+ruby "2.4.1"
