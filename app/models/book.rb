@@ -5,6 +5,7 @@ class Book < ApplicationRecord
   has_many :order_items, dependent: :destroy
   has_many :orders, through: :order_items, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_many :images, dependent: :destroy
 
   validates :title, presence: true, uniqueness: true
   validates :price, presence: true, numericality: true
@@ -13,7 +14,6 @@ class Book < ApplicationRecord
   paginates_per 12
 
   mount_uploader :cover, ImageUploader
-  mount_uploaders :images, ImageUploader
 
   scope :by_category, ->(category_id) { where category_id: category_id }
 
