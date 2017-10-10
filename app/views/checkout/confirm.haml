@@ -12,7 +12,7 @@
         %br
         = "#{current_order.shipping.city} #{current_order.shipping.zip}"
         %br
-        = current_order.shipping.country
+        = current_order.shipping.country_name
         %br
         = "Phone #{current_order.shipping.phone}"
     .col-sm-3
@@ -25,7 +25,7 @@
         %br
         = "#{current_order.billing.city} #{current_order.billing.zip}"
         %br
-        = current_order.billing.country
+        = current_order.billing.country_name
         %br
         = "Phone #{current_order.billing.phone}"
     .col-sm-3

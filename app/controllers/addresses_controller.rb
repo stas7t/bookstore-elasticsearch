@@ -3,13 +3,6 @@ class AddressesController < ApplicationController
     @addresses = AddressesForm.new(user_id: current_user.id)
   end
 
-  def create
-    @addresses = AddressesForm.new(addresses_params)
-    @addresses.save
-
-    render :index
-  end
-
   def update
     @addresses = AddressesForm.new(addresses_params)
     @addresses.save

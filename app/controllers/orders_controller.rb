@@ -2,9 +2,7 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @orders = current_user.orders
-                          .where.not(status: 'in_progress')
-                          .order('created_at desc')
+    @orders = current_user.orders.placed
   end
 
   def show

@@ -13,6 +13,6 @@ class CartsController < ApplicationController
   private
 
   def coupon
-    @coupon ||= Coupon.find_by(code: params[:code])
+    @coupon ||= Coupon.find_by(active: true, code: params[:code])
   end
 end

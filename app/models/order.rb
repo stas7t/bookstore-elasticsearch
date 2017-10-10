@@ -11,18 +11,16 @@ class Order < ApplicationRecord
   has_one :billing
   has_one :shipping
 
-  after_create :set_number, :set_status
+  after_create :set_number_and_status
 
   enum status: %i[in_progress in_queue in_delivery delivered canceled]
 
-  # scope :in_progress, -> { where status: 'in_progress' }
-  scope :in_queue,    -> { where status: 'in_queue'    }
-  scope :in_delivery, -> { where status: 'in_delivery' }
+  scope :in_progress, -> { where status: %w[in_queue in_delivery] }
   scope :delivered,   -> { where status: 'delivered'   }
   scope :canceled,    -> { where status: 'canceled'    }
 
-  scope :in_progress, -> { where status: %w[in_queue in_delivery] }
   scope :payed,       -> { where.not status: %w[in_progress canceled] }
+  scope :placed, -> { where(status: %w[in_queue in_delivery delivered canceled]).order('created_at desc') }
 
   def place_in_queue
     update(status: 1, completed_at: Time.current)
@@ -41,11 +39,7 @@ class Order < ApplicationRecord
 
   private
 
-  def set_number
-    update(number: "R#{id.to_s.rjust(8, '0')}")
-  end
-
-  def set_status
-    update(status: 0)
+  def set_number_and_status
+    update(number: "R#{id.to_s.rjust(8, '0')}", status: 0)
   end
 end

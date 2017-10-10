@@ -29,7 +29,7 @@ class BooksController < ApplicationController
 
   def book_params
     params.require(:book).permit(:title, :price, :publication_year, :materials,
-                                 :description, :height, :width, :depth, :cover, :cover_cache)
+                                 :description, :height, :width, :depth, :cover, :cover_cache, {images: []}, :images_cache)
   end
 
   def set_order_item

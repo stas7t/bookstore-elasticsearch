@@ -6,6 +6,7 @@ class CheckoutController < ApplicationController
   before_action :set_order
 
   def show
+    return redirect_to root_path if session[:cart].nil? && step == :addresses
     case step
     when :login     then login
     when :addresses then show_addresses

@@ -28,4 +28,9 @@ class Address < ApplicationRecord
 
   scope :shipping, -> { where(type: 'Shipping') }
   scope :billing, -> { where(type: 'Billing') }
+
+  def country_name
+    country_full = ISO3166::Country[country]
+    country_full.translations[I18n.locale.to_s] || country_full.name
+  end
 end
