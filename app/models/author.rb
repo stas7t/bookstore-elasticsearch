@@ -1,6 +1,6 @@
 class Author < ApplicationRecord
-  has_many :authorships
-  has_many :books, through: :authorships
+  has_many :authorships, dependent: :destroy
+  has_many :books, through: :authorships, dependent: :destroy
 
   validates :first_name, presence: true
   validates :first_name, :last_name, length: {

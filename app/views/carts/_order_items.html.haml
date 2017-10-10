@@ -16,7 +16,6 @@
         .general-img-wrap-table
           = link_to book_path(order_item.book) do
             = image_tag(order_item.book.cover, class: "cart-img-shadow pull-left", alt: "design-book")
-          -#%img.cart-img-shadow.pull-left{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
       %td
         = link_to book_path(order_item.book), class: 'title-link' do
           %p.title= order_item.book.title

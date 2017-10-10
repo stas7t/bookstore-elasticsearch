@@ -3,17 +3,19 @@
   %p.lead.small.mb-10.visible-xs Sort by
   .dropdowns.dropdown.general-order-dropdown
     %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
-      Waiting for processing
+      = @active_filter
       %i.fa.fa-angle-down.dropdown-icon.pull-right
     %ul.dropdown-menu
       %li
-        %a{href: "#"} Waiting for processing
+        = link_to 'All', orders_path(order_status: 'all')
       %li
-        %a{href: "#"} In delivery
+        = link_to 'Waiting for processing', orders_path(order_status: 'in_queue')
       %li
-        %a{href: "#"} Delivered
+        = link_to 'In delivery', orders_path(order_status: 'in_delivery')
       %li
-        %a{href: "#"} Canceled
+        = link_to 'Delivered', orders_path(order_status: 'delivered')
+      %li
+        = link_to 'Canceled', orders_path(order_status: 'canceled')
   .visible-xs
     - @orders.each do |order|
       .general-cart-item.divider-lg-bottom.pt-0

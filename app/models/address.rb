@@ -11,7 +11,8 @@ class Address < ApplicationRecord
   validates :address,
             presence: true,
             format: { with: /\A[a-zA-Z0-9 \-\,]*\z/,
-                      message: 'Consist of a-z, A-Z, 0-9,’,’, ‘-’, ‘ ’ only, no special symbols' },
+                      message: 'Consist of a-z, A-Z, 0-9,’,’, ‘-’, ‘ ’ only, \
+                      no special symbols' },
             length: { maximum: 50 }
 
   validates :zip,
@@ -27,7 +28,7 @@ class Address < ApplicationRecord
             length: { maximum: 15 }
 
   scope :shipping, -> { where(type: 'Shipping') }
-  scope :billing, -> { where(type: 'Billing') }
+  scope :billing,  -> { where(type: 'Billing') }
 
   def country_name
     country_full = ISO3166::Country[country]

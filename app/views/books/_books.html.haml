@@ -5,7 +5,6 @@
         .general-thumb-wrap
           .thumbnail.general-thumbnail
             = image_tag(book.cover, class: "img-shadow general-thumbnail-img", alt: "design-book")
-            -#%img.img-shadow.general-thumbnail-img{src: "https://s3.eu-central-1.amazonaws.com/stas7t-bookstore/covers/Cover_0007.png", alt: "design-book"}
             .thumb-hover
               .general-thumb-link-wrap
                 %a.thumb-hover-link{href: book_path(book)}
@@ -17,6 +16,6 @@
                   = form.hidden_field :quantity, value: 1
         .general-thumb-info
           %p.title= book.title
-          %p.font-16.in-gold-500= "€#{book.price}"
+          %p.font-16.in-gold-500= number_to_euro book.price
           %span.divider-sm
           %p.lead.small= book_authors(book)

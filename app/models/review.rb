@@ -9,16 +9,17 @@ class Review < ApplicationRecord
   validates :title, length: {
     maximum: 80,
     wrong_length: 'Invalid length',
-    too_long: "%{count} characters is the maximum allowed"
+    too_long: '%{count} characters is the maximum allowed'
   }
   validates :text, length: {
     maximum: 500,
     wrong_length: 'Invalid length',
-    too_long: "%{count} characters is the maximum allowed"
+    too_long: '%{count} characters is the maximum allowed'
   }
   validates :title, :text,
             format: { with: %r/\A[a-zA-Z0-9 \n\r!#$%&'*+-\/=?^_`{|}~]*\z/,
-                      message: "must consist of a-z, A-Z, 0-9, or one of !#$%&'*+-/=?^_`{|}~" }
+                      message: "must consist of a-z, A-Z, 0-9, or \
+                      one of !#$%&'*+-/=?^_`{|}~" }
 
   enum status: %i[unprocessed approved rejected]
 

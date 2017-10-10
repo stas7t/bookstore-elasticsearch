@@ -1,18 +1,6 @@
 class AddressesForm
   include ActiveModel::Model
-  # include ActiveModel::Validations
-  include Virtus.model
 
-  # Attributes (DSL provided by Virtus)
-  attribute :first_name, String
-  attribute :last_name,  String
-  attribute :address,    String
-  attribute :city,       String
-  attribute :country,    String
-  attribute :zip,        String
-  attribute :phone,      String
-
-  # Access the expense record after it's saved
   attr_reader :params, :relation, :use_billing
 
   def initialize(params = false)

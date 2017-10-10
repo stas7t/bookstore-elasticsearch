@@ -11,8 +11,8 @@ avatar_colors = %w[grey blue green orange pink]
 4.times do
   User.create!(email: FFaker::Internet.safe_email,
                password: "test#{rand(100...999)}XX",
-               name: FFaker::Name.name,
-               remote_avatar_url: "https://s3.eu-central-1.amazonaws.com/stas7t-bookstore/avatars/default_avatar_#{avatar_colors.sample}.png")
+               name: FFaker::Name.name
+               # remote_avatar_url: "https://s3.eu-central-1.amazonaws.com/stas7t-bookstore/avatars/default_avatar_#{avatar_colors.sample}.png")
 end
 
 user = User.last
@@ -68,10 +68,10 @@ books.each do |book|
   end
 
   rand(1..4).times do
-    user = User.last
     Review.create!(title: FFaker::Lorem.words.join(', '),
                   text: FFaker::Lorem.sentences.join('. '),
                   rating: rand(1..5),
+                  status: rand(0..2),
                   book_id: book.id,
                   user_id: users.sample.id)
   end

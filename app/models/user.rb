@@ -10,11 +10,12 @@ class User < ApplicationRecord
   validates :email,
             presence: true,
             format: { with: /@/,
-                      message: 'not valid' }
+                      message: 'ivalid format' }
 
   validates :password,
             format: { with: /\A\S(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\S*\z/i,
-                      message: 'should contain at least 1 uppercase, at least 1 lowercase, at least 1 number and no whitespeses.' },
+                      message: 'should contain at least 1 uppercase, at least \
+                      1 lowercase, at least 1 number and no whitespeses.' },
             unless: :skip_password_validation
 
   has_many :orders, dependent: :destroy

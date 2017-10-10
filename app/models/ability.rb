@@ -4,12 +4,9 @@ class Ability
   def initialize(user)
     user ||= User.new
     if user.is_a? Admin
-      # can :access, :rails_admin
-      # can :dashboard
       can :manage, :all
     elsif user.is_a?(User) && user.persisted?
       can :read, [Author, Book, Category, Coupon, Delivery]
-      can :update, [Book]
       can %i[read create], Review
       can %i[read create update], [Order, Address, CreditCard], user_id: user.id
       can :manage, OrderItem

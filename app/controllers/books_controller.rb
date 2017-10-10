@@ -16,6 +16,7 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
+    @reviews = @book.reviews.approved
   end
 
   def update
@@ -29,7 +30,9 @@ class BooksController < ApplicationController
 
   def book_params
     params.require(:book).permit(:title, :price, :publication_year, :materials,
-                                 :description, :height, :width, :depth, :cover, :cover_cache, {images: []}, :images_cache)
+                                 :description, :height, :width, :depth,
+                                 :cover, :cover_cache,
+                                 { images: [] }, :images_cache)
   end
 
   def set_order_item
@@ -41,8 +44,9 @@ class BooksController < ApplicationController
   end
 
   def set_current_category
-    @current_category = if params[:category_id] && Category.ids.include?(params[:category_id].to_i)
-                          @categories.find(params[:category_id])
+    category_id = params[:category_id]
+    @current_category = if category_id && Category.ids.include?(category_id.to_i)
+                          @categories.find(category_id)
                         else
                           Category.new(id: nil, name: 'All')
                         end

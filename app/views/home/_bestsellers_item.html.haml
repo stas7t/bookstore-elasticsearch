@@ -3,7 +3,6 @@
   .general-thumb-wrap
     .thumbnail.general-thumbnail
       = image_tag(book.cover, class: "img-shadow general-thumbnail-img", alt: "design-book")
-      -#%img.img-shadow.general-thumbnail-img{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
       .thumb-hover
         .general-thumb-link-wrap
           %a.thumb-hover-link{href: book_path(book)}
@@ -15,7 +14,7 @@
             = form.hidden_field :quantity, value: 1
   .mb-35
     .clearfix
-      %p.pull-right.font-16.in-gold-500= "€#{book.price}"
+      %p.pull-right.font-16.in-gold-500= number_to_euro book.price
       %p.title.mr-55= book.title
     %span.divider-sm
     %p.lead.small= book_authors(book)

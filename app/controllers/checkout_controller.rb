@@ -37,10 +37,8 @@ class CheckoutController < ApplicationController
                           coupon_id: session[:coupon],
                           user_id: current_user.id)
     session[:order_id] = @order.id
-
   end
 
-  # show
   def login
     return jump_to(next_step) if user_signed_in?
     cookies[:from_checkout] = { value: true, expires: 1.day.from_now }
@@ -71,7 +69,6 @@ class CheckoutController < ApplicationController
     session[:order_complete] = false
   end
 
-  # update
   def update_addresses
     @addresses = AddressesForm.new(addresses_params)
     render_wizard unless @addresses.save
@@ -96,7 +93,6 @@ class CheckoutController < ApplicationController
     session[:coupon] = nil
   end
 
-  # params
   def order_params
     params.require(:order).permit(:delivery_id)
   end

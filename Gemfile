@@ -60,13 +60,12 @@ group :test do
   gem 'capybara', '~> 2.15', '>= 2.15.2'
   gem 'database_cleaner', '~> 1.6', '>= 1.6.1'
   gem 'rails-controller-testing', '~> 1.0', '>= 1.0.2'
-#  gem 'selenium-webdriver', '= 2.53.4'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 3.1', '>= 3.1.2'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 # Rails Internationalization
 gem 'rails-i18n', '~> 5.0.0'
@@ -93,7 +92,7 @@ gem 'carrierwave', '~> 1.2'
 gem 'letter_avatar'
 
 # State machines for Ruby classes
-#gem 'aasm'
+# gem 'aasm'
 
 # Step-By-Step Wizard Controllers
 gem 'wicked', '~> 1.3', '>= 1.3.2'
@@ -116,13 +115,12 @@ gem 'country_select', '~> 3.1', '>= 3.1.1'
 gem 'simple_form', '~> 3.5'
 gem 'virtus', '~> 1.0', '>= 1.0.5'
 
-# gem 'rectify', '~> 0.10.0'
-# gem 'reform', '>= 2.2.0'
-# gem 'reform-rails', '~> 0.1.7'
+group :production do
+  gem 'rails_12factor'
+  gem 'railties'
+  gem 'sendgrid-ruby'
+end
 
-gem 'rails_12factor'
 gem 'ffaker', '~> 2.7'
-gem 'railties'
-gem 'sendgrid-ruby'
 
-ruby "2.4.1"
+ruby '2.4.1'

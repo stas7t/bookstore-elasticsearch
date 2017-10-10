@@ -47,7 +47,7 @@ RailsAdmin.config do |config|
     list do
       field :cover do
         formatted_value do
-          bindings[:view].tag(:img, { src: bindings[:object].cover_url.url(:thumb) }) << value
+          bindings[:view].tag(:img, src: bindings[:object].cover_url.url(:thumb)) << value
         end
       end
       field :category
@@ -90,7 +90,7 @@ RailsAdmin.config do |config|
 
   config.model Review do
     list do
-      scopes [:unprocessed, :processed]
+      scopes %i[unprocessed processed]
       field :book
       field :title
       field :created_at
@@ -105,7 +105,7 @@ RailsAdmin.config do |config|
 
   config.model Order do
     list do
-      scopes [:in_progress, :delivered, :canceled]
+      scopes %i[in_progress delivered canceled]
       field :number
       field :created_at
       field :status
