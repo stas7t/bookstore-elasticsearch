@@ -27,5 +27,5 @@
     .mb-35
       %h3 Best Sellers
       .row
-        - @bestsellers.each do |book|
+        - @bestsellers.compact.each do |book|
           = render 'bestsellers_item', book: book

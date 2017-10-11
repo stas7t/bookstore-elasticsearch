@@ -22,8 +22,8 @@ class Book < ApplicationRecord
   end
 
   def self.bestsellers(category_id = nil)
-    Book.by_category(category_id)
-    # return Book.all.sort_by(&:sales).reverse unless category_id
-    # Book.by_category(category_id).sort_by(&:sales).reverse
+    best = Order.payed.joins(:order_items).group(:book_id)
+                .order('sum("order_items"."quantity") DESC').count.keys
+    Book.find(best)
   end
 end
