@@ -39,7 +39,7 @@ RailsAdmin.config do |config|
     # history_show
   end
 
-  [Address, Admin, Authorship, Billing, CreditCard, OrderItem, Shipping, User].each do |model|
+  [Address, Admin, Authorship, Billing, CreditCard, OrderItem, Shipping].each do |model|
     config.excluded_models << model
   end
 
