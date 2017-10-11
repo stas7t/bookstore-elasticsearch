@@ -3,10 +3,9 @@ source 'https://rubygems.org'
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
-
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.2'
@@ -64,6 +63,14 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1', '>= 3.1.2'
 end
 
+group :production do
+  gem 'rails_12factor'
+  gem 'railties'
+  gem 'sendgrid-ruby'
+end
+
+gem 'ffaker', '~> 2.7'
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
@@ -78,7 +85,7 @@ gem 'omniauth-facebook', '~> 4.0'
 # authorization
 gem 'cancancan', '~> 2.0'
 
-# CRM
+# Admin panel
 # gem 'activeadmin', '~> 1.1'
 gem 'rails_admin', '~> 1.2'
 
@@ -100,7 +107,7 @@ gem 'wicked', '~> 1.3', '>= 1.3.2'
 # An interface to the ImageMagick and GraphicsMagick image processing libraries
 gem 'mini_magick', '~> 4.8'
 
-# Use Haml templating engine
+# Templating engine
 gem 'haml', '~> 5.0', '>= 5.0.3'
 gem 'haml-rails', '~> 1.0'
 
@@ -114,13 +121,5 @@ gem 'font-awesome-sass', '~> 4.7.0'
 gem 'country_select', '~> 3.1', '>= 3.1.1'
 gem 'simple_form', '~> 3.5'
 gem 'virtus', '~> 1.0', '>= 1.0.5'
-
-group :production do
-  gem 'rails_12factor'
-  gem 'railties'
-  gem 'sendgrid-ruby'
-end
-
-gem 'ffaker', '~> 2.7'
 
 ruby '2.4.1'
