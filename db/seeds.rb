@@ -11,8 +11,7 @@ avatar_colors = %w[grey blue green orange pink]
 4.times do
   User.create!(email: FFaker::Internet.safe_email,
                password: "test#{rand(100...999)}XX",
-               name: FFaker::Name.name
-               # remote_avatar_url: "https://s3.eu-central-1.amazonaws.com/stas7t-bookstore/avatars/default_avatar_#{avatar_colors.sample}.png")
+               name: FFaker::Name.name)
 end
 
 user = User.last
