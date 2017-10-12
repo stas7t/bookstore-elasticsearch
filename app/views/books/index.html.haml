@@ -6,12 +6,12 @@
         = render 'sort_by'
     %ul.list-inline.pt-10.mb-25.mr-240
       %li.mr-35
-        = link_to catalog_path, class: "filter-link #{'active' unless @current_category.id}" do
+        = link_to catalog_path(sort_by: params[:sort_by]), class: "filter-link #{'active' unless @current_category.id}" do
           All
           %span.badge.general-badge= Book.count
       - categories.each do |category|
         %li.mr-35
-          = link_to catalog_path(category_id: "#{category.id}"), class: "filter-link #{'active' if category.id == @current_category.id}" do
+          = link_to catalog_path(category_id: "#{category.id}", sort_by: params[:sort_by]), class: "filter-link #{'active' if category.id == @current_category.id}" do
             = category.name
             %span.badge.general-badge= category.books.size
   .dropdowns.mb-25.visible-xs

@@ -1,26 +1,24 @@
 class BooksController < ApplicationController
   load_and_authorize_resource
 
-  before_action :set_order_item, only: %i[index show update]
-  before_action :set_categories, only: %i[index show]
+  before_action :set_book,             only: %i[show update]
+  before_action :set_order_item,       only: %i[index show update]
+  before_action :set_categories,       only: %i[index show]
   before_action :set_current_category, only: %i[index]
-  before_action :set_sort_options, only: %i[index]
+  before_action :set_active_sort_name, only: %i[index]
 
   def index
-    @books = if @current_category.id
-               Book.by_category(@current_category.id).order(@sort_option).page params[:page]
-             else
-               Book.order(@sort_option).page params[:page]
-             end
+    @books = Book.all
+    @books = @books.by_category(@current_category.id) if @current_category.id.present?
+    @books = @books.includes(:order_items) if params[:sort_by] == 'popular_first'
+    @books = @books.order(sort_option).page(params[:page])
   end
 
   def show
-    @book = Book.find(params[:id])
     @reviews = @book.reviews.approved
   end
 
   def update
-    @book = Book.find(params[:id])
     @book.update_attributes(book_params)
 
     render :show
@@ -31,8 +29,11 @@ class BooksController < ApplicationController
   def book_params
     params.require(:book).permit(:title, :price, :publication_year, :materials,
                                  :description, :height, :width, :depth,
-                                 :cover, :cover_cache,
-                                 { images: [] }, :images_cache)
+                                 :cover, :cover_cache)
+  end
+
+  def set_book
+    @book = Book.find(params[:id])
   end
 
   def set_order_item
@@ -44,21 +45,24 @@ class BooksController < ApplicationController
   end
 
   def set_current_category
-    category_id = params[:category_id]
-    @current_category = if category_id && Category.ids.include?(category_id.to_i)
-                          @categories.find(category_id)
-                        else
-                          Category.new(id: nil, name: 'All')
-                        end
+    @current_category = Category.find_by(id: params[:category_id]) || Category.new(id: nil, name: 'All')
   end
 
-  def set_sort_options
-    if params[:sort_by] && SORT_OPTIONS.keys.include?(params[:sort_by].to_sym)
-      @sort_name   = SORT_OPTIONS[params[:sort_by].to_sym][:name]
-      @sort_option = SORT_OPTIONS[params[:sort_by].to_sym][:query]
-    else
-      @sort_name   = SORT_OPTIONS[:newest_first][:name]
-      @sort_option = SORT_OPTIONS[:newest_first][:query]
+  def sort_option
+    unless SORT_OPTIONS.keys.include?(option_param)
+      return SORT_OPTIONS[:newest_first][:query]
     end
+    SORT_OPTIONS[option_param][:query]
+  end
+
+  def set_active_sort_name
+    unless SORT_OPTIONS.keys.include?(option_param)
+      return @active_sort_name = SORT_OPTIONS[:newest_first][:name]
+    end
+    @active_sort_name = SORT_OPTIONS[option_param][:name]
+  end
+
+  def option_param
+    params[:sort_by]&.to_sym
   end
 end
