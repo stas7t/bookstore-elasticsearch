@@ -1,5 +1,5 @@
 class Image < ApplicationRecord
   belongs_to :book
 
-  mount_uploader :url, ImageUploader
+  mount_uploader :file, ImageUploader
 end
