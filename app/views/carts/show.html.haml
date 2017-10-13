@@ -1,6 +1,6 @@
 %main.container.general-main-wrap
   %h1.general-title-margin Cart
-  - items = OrderItem.where(id: session[:cart])
+  - items = OrderItem.where(id: session[:order_item_ids])
   - if items.empty?
     .text-center
       %p.font-18 Cart is empty

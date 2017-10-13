@@ -17,11 +17,6 @@ class Order < ApplicationRecord
 
   scope :in_progress, -> { where status: %w[in_queue in_delivery] }
 
-  scope :in_queue,    -> { where status: 'in_queue'    }
-  scope :in_delivery, -> { where status: 'in_delivery' }
-  scope :delivered,   -> { where status: 'delivered'   }
-  scope :canceled,    -> { where status: 'canceled'    }
-
   scope :payed,  -> { where.not status: %w[in_progress canceled] }
   scope :placed, -> { where.not(status: %w[in_progress]).order('created_at desc') }
 

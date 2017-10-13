@@ -12,7 +12,7 @@ RSpec.describe HomeController, type: :controller do
     end
 
     it 'assign @best_sellers' do
-      expect(assigns(:bestsellers)).not_to be_nil
+      expect(assigns(:best_sellers)).not_to be_nil
     end
 
     it 'render home index' do

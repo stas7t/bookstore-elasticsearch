@@ -19,10 +19,11 @@ RSpec.describe OrderItemsController, type: :controller do
   end
 
   describe 'PUT #update' do
-    let(:update_params) do
-      { id: FactoryGirl.create(:order_item).id, order_item: { quantity: 2 } }
+    before do
+      @order_item = FactoryGirl.create(:order_item)
+      session[:order_item_ids] = [@order_item.id]
+      put :update, xhr: true, params: { id: @order_item.id, order_item: { quantity: 2 } }
     end
-    before { put :update, xhr: true, params: update_params }
 
     it 'assign @order_items' do
       expect(assigns(:order_items)).not_to be_nil
@@ -35,7 +36,9 @@ RSpec.describe OrderItemsController, type: :controller do
 
   describe 'DELETE #destroy' do
     it 'returns http success' do
-      delete :destroy, xhr: true, params: { id: FactoryGirl.create(:order_item) }
+      @order_item = FactoryGirl.create(:order_item)
+      session[:order_item_ids] = [@order_item.id]
+      delete :destroy, xhr: true, params: { id: @order_item.id }
       expect(response.status).to eq(200)
     end
   end

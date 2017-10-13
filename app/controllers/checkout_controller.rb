@@ -6,7 +6,7 @@ class CheckoutController < ApplicationController
   before_action :set_order
 
   def show
-    return redirect_to root_path if session[:cart].nil? && step == :addresses
+    return redirect_to root_path if session[:order_item_ids].nil? && step == :addresses
     case step
     when :login     then login
     when :addresses then show_addresses
@@ -33,8 +33,8 @@ class CheckoutController < ApplicationController
 
   def set_order
     return if session[:order_id] || %i[login complete].include?(step)
-    @order = Order.create(order_item_ids: session[:cart],
-                          coupon_id: session[:coupon],
+    @order = Order.create(order_item_ids: session[:order_item_ids],
+                          coupon_id: session[:coupon_id],
                           user_id: current_user.id)
     session[:order_id] = @order.id
   end
@@ -89,8 +89,8 @@ class CheckoutController < ApplicationController
     session[:order_complete] = true
     current_order.place_in_queue
     session[:order_id] = nil
-    session[:cart] = nil
-    session[:coupon] = nil
+    session[:order_item_ids] = nil
+    session[:coupon_id] = nil
   end
 
   def order_params

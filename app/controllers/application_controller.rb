@@ -20,4 +20,8 @@ class ApplicationController < ActionController::Base
     return Order.new unless session[:order_id]
     Order.find(session[:order_id])
   end
+  
+  def current_ability
+    @current_ability ||= Ability.new(current_user, session)
+  end
 end

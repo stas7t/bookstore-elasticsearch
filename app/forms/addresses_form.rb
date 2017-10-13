@@ -6,7 +6,7 @@ class AddressesForm
   def initialize(params = false)
     @save = false
     @params = params
-    @relation = Order.find_by(id: order_id) || User.find_by(id: user_id) || User.new
+    @user = User.find_or_initialize_by(id: user_id)
   end
 
   def save
@@ -21,13 +21,13 @@ class AddressesForm
   end
 
   def billing
-    new_billing = relation.addresses.find_or_initialize_by(type: 'Billing')
+    new_billing = @user.addresses.find_or_initialize_by(type: 'Billing')
     new_billing.assign_attributes(params_for(:billing)) if save?
     @billing ||= new_billing
   end
 
   def shipping
-    new_shipping = relation.addresses.find_or_initialize_by(type: 'Shipping')
+    new_shipping = @user.addresses.find_or_initialize_by(type: 'Shipping')
     new_shipping.assign_attributes(params_for(:shipping)) if save?
     @shipping ||= new_shipping
   end

@@ -23,7 +23,5 @@ class Review < ApplicationRecord
 
   enum status: %i[unprocessed approved rejected]
 
-  scope :unprocessed, -> { where status: 'unprocessed' }
   scope :processed, -> { where status: %w[approved rejected] }
-  scope :approved, -> { where status: 'approved' }
 end
