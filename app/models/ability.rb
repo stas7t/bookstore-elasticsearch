@@ -7,7 +7,8 @@ class Ability
       can :manage, :all
     elsif user.is_a?(User) && user.persisted?
       can :read, [Author, Book, Category, Coupon, Delivery]
-      can %i[read create], Review
+      can :read, Review
+      can :create, Review, user_id: user.id
       can %i[read create update], [Order, Address, CreditCard], user_id: user.id
       can :create, OrderItem
       can %i[update destroy], OrderItem, id: session[:order_item_ids].to_a
