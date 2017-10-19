@@ -1,10 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Book, type: :model do
-
-  before :each { @book = FactoryGirl.build(:book) }
-
-  subject { @book }
+  subject { FactoryGirl.build(:book) }
 
   it { expect(subject).to validate_presence_of :title }
   it { expect(subject).to validate_presence_of :price }

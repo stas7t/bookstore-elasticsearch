@@ -13,8 +13,7 @@ RSpec.describe Order, type: :model do
   it { expect(subject).to have_one :shipping }
 
   describe 'callbacks' do
-    before :each { @order = FactoryGirl.create(:order) }
-    subject { @order }
+    subject { FactoryGirl.create(:order) }
 
     it 'set order status before create' do
       expect(subject.status).to eq 'in_progress'

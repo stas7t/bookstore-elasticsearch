@@ -1,16 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Review, type: :model do
-  before :each do 
-    @user = FactoryGirl.create(:user)
-    @book = FactoryGirl.build(:book)
-    @review = FactoryGirl.build(:review)
-    @review.user_id = @user.id
-    @review.book_id = @book.id
-    @review.save
-  end
-
-  subject { @review }
+  let(:user) { create(:user) }
+  let(:book) { create(:book) }
+  let(:review) { create(:review, user_id: user.id, book_id: book.id) }
 
   it { expect(subject).to validate_presence_of :title }
   it { expect(subject).to validate_presence_of :rating }
