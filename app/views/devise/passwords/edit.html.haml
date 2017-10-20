@@ -1,0 +1,14 @@
+%main.container.general-main-wrap
+  .text-center
+    %h3.general-login-title Set new password
+  = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "general-form" }) do |f|
+    = devise_error_messages!
+    = f.hidden_field :reset_password_token
+    .form-group.mb-30
+      = f.label :password, "Type a new Password", class: "control-label input-label"
+      = f.password_field :password, placeholder: "Type a new Password", class: "form-control"
+    .form-group.mb-40
+      = f.label :password, "Confirm Password", class: "control-label input-label"
+      = f.password_field :confirm_password, placeholder: "Confirm Password", class: "form-control"
+    .actions
+      = f.submit "Change", class: "btn btn-default center-block mb-20"

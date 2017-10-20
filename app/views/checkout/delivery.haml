@@ -1,0 +1,33 @@
+%main.container.general-main-wrap
+  %h1.general-title-margin Checkout
+  = render 'steps'
+  %h3.general-subtitle Shipping method
+  = form_for current_order, url: wizard_path do |form|
+    %table.table.table-hover
+      %thead
+        %tr
+          %th.col-xs-7.col-md-4
+            %span.in-grey-600.ml-40 Method
+          %th.col-xs-3.col-md-4
+            %span.in-grey-600 Days
+          %th.col-xs-2.col-md-4
+            %span.in-grey-600 Price
+      %tbody
+        = form.collection_radio_buttons :delivery_id, @deliveries, :id, :name do |option|
+          %tr
+            %td
+              .form-group.radio.mt-0.mb-0
+                = option.label(class: 'radio-label') do
+                  = option.radio_button(class: 'radio-input', hidden: "true")
+                  %span.radio-icon
+                  %span.radio-text= option.text
+            %td
+              %span= option.object.time
+            %td
+              %span.font-16.in-gold-500= number_to_euro option.object.price
+    .general-text-align
+      %p.in-gold-500.font-18 Order Summary
+      %table.general-summary-table
+        = render 'order_summary', order: current_order
+    .actions.text-center
+      = form.submit 'Save and Continue', class: 'btn btn-default mb-20'

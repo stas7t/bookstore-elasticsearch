@@ -1,0 +1,37 @@
+%main.container
+  %h1.general-title-margin Сatalog
+  .hidden-xs.clearfix
+    .dropdowns.pull-right
+      .dropdown.width-240
+        = render 'sort_by'
+    %ul.list-inline.pt-10.mb-25.mr-240
+      %li.mr-35
+        = link_to catalog_path(sort_by: params[:sort_by]), class: "filter-link #{'active' unless @current_category.id}" do
+          All
+          %span.badge.general-badge= Book.count
+      - categories.each do |category|
+        %li.mr-35
+          = link_to catalog_path(category_id: "#{category.id}", sort_by: params[:sort_by]), class: "filter-link #{'active' if category.id == @current_category.id}" do
+            = category.name
+            %span.badge.general-badge= category.books.size
+  .dropdowns.mb-25.visible-xs
+    %p.lead.small.mb-10 Filter by category
+    .dropdown
+      %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
+        = @current_category.name
+        %i.fa.fa-angle-down.dropdown-icon.pull-right
+      %ul.dropdown-menu
+        %li
+          = link_to "All", catalog_path
+        - categories.each do |category|
+          %li
+            = link_to "#{category.name}", catalog_path(category_id: category.id)
+    %p.lead.small.mb-10 Sort by
+    .dropdown
+      = render 'sort_by'
+  .mb-120
+    #books
+      = render 'books'
+
+    #paginator.text-center
+      = link_to_next_page @books, 'View More', remote: true, id: 'view_more', class: "btn btn-primary"

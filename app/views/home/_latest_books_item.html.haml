@@ -1,0 +1,14 @@
+.row
+  .col-sm-5
+    .general-img-wrap
+      = image_tag(book.cover, class: "img-shadow general-thumbnail-img", alt: "design-book")
+  .col-sm-7
+    .mb-60
+      %h1= book.title
+      %p.lead= truncate(book.description, length: 150)
+      %p.lead.small= book_authors(book)
+      .general-align
+        = form_for OrderItem.new, method: :post do |form|
+          = form.hidden_field :book_id, value: book.id
+          = form.hidden_field :quantity, value: 1
+          = form.submit 'Buy Now', class: "btn btn-primary"

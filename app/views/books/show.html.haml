@@ -1,0 +1,44 @@
+%main.container
+  = link_to :back, class: "general-back-link" do
+    %i.fa.fa-long-arrow-left.mr-15
+    Back to results
+  .row
+    .col-sm-6
+      .product-gallery
+        .mb-20
+          %img.img-responsive{src: "https://www.bramstein.com/static/smashing-book-5-photo-stack.9d5d114e3e.jpg"}
+        .images.clearfix
+          %a.img-link{href: "#"}
+            %img{src: "https://www.smashingmagazine.com/wp-content/uploads/2015/09/smashing-book-5-2-large.jpg"}
+          %a.img-link{href: "#"}
+            %img{src: "https://www.smashingmagazine.com/wp-content/uploads/2015/09/smashing-book-5-2-large.jpg"}
+          %a.img-link{href: "#"}
+            %img{src: "https://www.smashingmagazine.com/wp-content/uploads/2015/09/smashing-book-5-2-large.jpg"}
+    .col-sm-6
+      %h1.mt-res-0= @book.title
+      %p.lead.small= book_authors(@book)
+      .row
+        = render 'order_items/form'
+      .general-info-wrap.divider-lg
+        %p Description
+        %p.lead.small.line-height-2
+          = @book.description
+          %a.in-gold-500.ml-10#read_more{href: ""} Read More
+      .general-info-wrap.divider-lg
+        .clearfix
+          %p.pull-left Year of publication
+          %p.lead.small.pull-right= @book.publication_year
+      .general-info-wrap.divider-lg
+        .clearfix
+          %p.pull-left Dimensions
+          %p.lead.small.pull-right= book_dimensions(@book)
+      .general-info-wrap.divider-lg
+        .clearfix
+          %p.pull-left Materials
+          %p.lead.small.pull-right= @book.materials
+  .mb-80
+    %h3.in-gold-500.mb-25= "Reviews (#{@reviews.count})"
+    = render @reviews
+    - if user_signed_in?
+      %h3.in-gold-500.mb-25 Write review
+      = render 'reviews/form'

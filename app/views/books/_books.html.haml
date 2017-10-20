@@ -1,0 +1,21 @@
+- @books.in_groups_of(4) do |group|
+  .row
+    - group.compact.each do |book|
+      .col-xs-6.col-sm-3
+        .general-thumb-wrap
+          .thumbnail.general-thumbnail
+            = image_tag(book.cover, class: "img-shadow general-thumbnail-img", alt: "design-book")
+            .thumb-hover
+              .general-thumb-link-wrap
+                %a.thumb-hover-link{href: book_path(book)}
+                  %i.fa.fa-eye.thumb-icon.pt-10{'aria-hidden': "true"}
+                %a.thumb-hover-link{href: "", onclick: "$(this).siblings('form').submit()"}
+                  %i.fa.fa-shopping-cart.thumb-icon.pt-10
+                = form_for @order_item, method: :post do |form|
+                  = form.hidden_field :book_id, value: book.id
+                  = form.hidden_field :quantity, value: 1
+        .general-thumb-info
+          %p.title= book.title
+          %p.font-16.in-gold-500= number_to_euro book.price
+          %span.divider-sm
+          %p.lead.small= book_authors(book)

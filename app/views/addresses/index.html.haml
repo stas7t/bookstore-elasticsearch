@@ -1,0 +1,30 @@
+%main.container
+  %h1.general-title-margin Settings
+  %ul.nav.clearfix.mb-20{role: "tablist"}
+    %li.tab-item{role: "presentation"}
+      = link_to 'Address', settings_addresses_path, class: 'tab-link filter-link active'
+    %li.tab-item{role: "presentation"}
+      = link_to 'Privacy', settings_privacy_path, class: 'tab-link'
+  .tab-content
+    = simple_form_for @addresses, url: settings_addresses_path, method: :put, class: 'res-mb-100' do |form|
+      .hidden-xs.hidden-sm
+        .row
+          .col-md-5
+            %h3.general-subtitle Billing Address
+            %p.general-info-text all fields are required
+          .col-md-5.col-md-offset-1
+            %h3.general-subtitle Shipping Address
+      .row
+        .col-md-5.mb-40
+          .visible-xs.visible-sm
+            %h3.general-subtitle Billing Address
+            %p.general-info-text all fields are required
+          = form.fields_for @addresses.billing do |ff|
+            = render 'form_fields', f: ff
+        .col-md-5.col-md-offset-1.mb-60
+          .visible-xs.visible-sm
+            %h3.general-subtitle Shipping Address
+          = form.fields_for @addresses.shipping do |ff|
+            = render 'form_fields', f: ff
+      .actions.text-center
+        = form.submit "Save", class: 'btn btn-default mb-20'

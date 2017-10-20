@@ -1,0 +1,67 @@
+%main.container.general-main-wrap
+  %h1.mt-0.mb-25 My Orders
+  %p.lead.small.mb-10.visible-xs Sort by
+  .dropdowns.dropdown.general-order-dropdown
+    %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
+      = @active_filter
+      %i.fa.fa-angle-down.dropdown-icon.pull-right
+    %ul.dropdown-menu
+      %li
+        = link_to 'All', orders_path(order_status: 'all')
+      %li
+        = link_to 'Waiting for processing', orders_path(order_status: 'in_queue')
+      %li
+        = link_to 'In delivery', orders_path(order_status: 'in_delivery')
+      %li
+        = link_to 'Delivered', orders_path(order_status: 'delivered')
+      %li
+        = link_to 'Canceled', orders_path(order_status: 'canceled')
+  .visible-xs
+    - @orders.each do |order|
+      .general-cart-item.divider-lg-bottom.pt-0
+        %table.table
+          %tr
+            %td.col-half
+              %span.in-grey-600 Number
+            %td.col-half
+              %span.general-order-number= order.number
+          %tr
+            %td
+              %span.in-grey-600 Completed at
+            %td
+              %span.in-grey-900.font-16.fw-300= order.completed_at.strftime("%Y-%m-%d")
+          %tr
+            %td
+              %span.in-grey-600 Status
+            %td
+              %span.font-16.in-grey-900.fw-300= order.status.capitalize
+          %tr
+            %td
+              %span.in-grey-600 Total
+            %td
+              %strong.font-16= number_to_euro order.total
+
+  .hidden-xs.mb-res-50
+    %table.table.table-hover
+      %thead
+        %tr
+          %th
+            %span.in-grey-600 Number
+          %th
+            %span.in-grey-600 Completed at
+          %th
+            %span.in-grey-600 Status
+          %th
+            %span.in-grey-600 Total
+      %tbody
+        - @orders.each do |order|
+          %tr
+            %td
+              = link_to order_path(order), class: "nav-link" do
+                %span.general-order-number= order.number
+            %td
+              %span.in-grey-900.font-16.fw-300= order.completed_at.strftime("%Y-%m-%d")
+            %td
+              %span.font-16.in-grey-900.fw-300= order.status.capitalize
+            %td
+              %strong.font-16= number_to_euro order.total

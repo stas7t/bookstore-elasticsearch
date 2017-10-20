@@ -1,0 +1,29 @@
+%main.container.general-main-wrap
+  %h1.general-title-margin Cart
+  - items = OrderItem.where(id: session[:order_item_ids])
+  - if items.empty?
+    .text-center
+      %p.font-18 Cart is empty
+      = link_to "Go to Store", catalog_path(), class: "btn btn-default mb-20"
+  -else
+    .visible-xs
+      = render 'order_items_xs'
+    .hidden-xs
+      = render 'order_items'
+    .general-order-wrap
+      .row
+        .col-sm-4
+          .input-group.general-input-group
+            = form_tag cart_path, method: :put
+            = label_tag :code, 'Enter Your Coupon Code', class: 'input-label'
+            = text_field_tag(:code, nil, placeholder: 'Enter Your Coupon Code', class: 'form-control mb-30')
+            %div
+              = submit_tag 'Apply Coupon', class: 'btn btn-primary mb-15 res-block'
+        .col-sm-8
+          .res-mr-200.text-center.general-text-right
+            %p.in-gold-500.font-18 Order Summary
+            %table.general-summary-table.general-summary-table-right.general-text-right
+              = render 'checkout/order_summary', order: @order
+            = link_to "Checkout", checkout_path(:login), class: "btn btn-default mb-20 visible-xs-inline-block"
+    .text-center
+      = link_to "Checkout", checkout_path(:login), class: "btn btn-default mb-20 hidden-xs"

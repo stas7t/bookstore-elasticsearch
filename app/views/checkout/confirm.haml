@@ -1,0 +1,100 @@
+%main.container.general-main-wrap
+  %h1.general-title-margin Checkout
+  = render 'steps'
+  .row.mb-20
+    .col-sm-3
+      %h3.general-subtitle Shipping Address
+      %p.general-address
+        = "#{current_order.shipping.first_name} #{current_order.shipping.last_name}"
+        = link_to "edit", checkout_path(:addresses), class: "general-edit"
+        %br
+        = current_order.shipping.address
+        %br
+        = "#{current_order.shipping.city} #{current_order.shipping.zip}"
+        %br
+        = current_order.shipping.country_name
+        %br
+        = "Phone #{current_order.shipping.phone}"
+    .col-sm-3
+      %h3.general-subtitle Billing Address
+      %p.general-address
+        = "#{current_order.billing.first_name} #{current_order.billing.last_name}"
+        = link_to "edit", checkout_path(:addresses), class: "general-edit"
+        %br
+        = current_order.billing.address
+        %br
+        = "#{current_order.billing.city} #{current_order.billing.zip}"
+        %br
+        = current_order.billing.country_name
+        %br
+        = "Phone #{current_order.billing.phone}"
+    .col-sm-3
+      %h3.general-subtitle Shipments
+      %p.general-address
+        = current_order.delivery.name
+        = link_to "edit", checkout_path(:delivery), class: "general-edit"
+        %br
+        = current_order.delivery.time
+    .col-sm-3
+      %h3.general-subtitle Payment Information
+      %p.general-address
+        = "**** **** **** #{current_order.credit_card.number.last(4)}"
+        = link_to "edit", checkout_path(:payment), class: "general-edit"
+        %br
+        = current_order.credit_card.month_year
+  .visible-xs
+    - current_order.order_items.each do |order_item|
+      .general-cart-item.divider-lg
+        .general-img-wrap-table
+          = image_tag(order_item.book.cover, class: "cart-img-shadow", alt: "design-book")
+        %p.title= order_item.book.title
+        %table.table
+          %tr
+            %td
+              %span.in-grey-600 Price
+            %td
+              %span.font-16.in-gold-500= number_to_euro order_item.book.price
+          %tr
+            %td.vertical-middle
+              %span.in-grey-600 Quantity
+            %td
+              %span= order_item.quantity
+          %tr
+            %td
+              %span.in-grey-600 SubTotal
+            %td
+              %span.font-16.in-gold-500= number_to_euro order_item.total
+  .hidden-xs.divider-lg.pt-20
+    %table.table.table-hover
+      %thead
+        %tr
+          %th
+            %span.in-grey-600 Book
+          %th.col-method
+          %th
+            %span.in-grey-600 Price
+          %th
+            %span.in-grey-600 Quantity
+          %th
+            %span.in-grey-600 Total
+      %tbody
+        - current_order.order_items.each do |order_item|
+          %tr
+            %td
+              .general-img-wrap-table
+                = image_tag(order_item.book.cover, class: "cart-img-shadow pull-left", alt: "design-book")
+            %td
+              %p.title= order_item.book.title
+              %p.in-grey-600.fw-300= order_item.book.description.split('.').first
+            %td
+              %span.font-16.in-gold-500= number_to_euro order_item.book.price
+            %td
+              %span.ml-30= order_item.quantity
+            %td
+              %span.font-16.in-gold-500= number_to_euro order_item.total
+  .text-center.general-text-right
+    %p.in-gold-500.font-18 Order Summary
+    %table.general-summary-table.general-summary-table-right.general-text-right
+      = render 'order_summary', order: current_order
+  .text-center
+    = button_to "Place Order", wizard_path, method: :put, class: 'btn btn-default mb-20'

@@ -1,0 +1,7 @@
+.input-group
+  = form_for order_item, method: :put do |form|
+    = link_to order_item_path(id: order_item.id, order_item: {quantity: order_item.quantity - 1}), :method => :put, class: 'input-link pt-7' do
+      %i.fa.fa-minus.line-heaght-40
+    = form.text_field :quantity, value: order_item.quantity, class: "form-control quantity-input"
+    = link_to order_item_path(id: order_item.id, order_item: {quantity: order_item.quantity + 1}), :method => :put, class: 'input-link pt-7' do
+      %i.fa.fa-plus.line-heaght-40

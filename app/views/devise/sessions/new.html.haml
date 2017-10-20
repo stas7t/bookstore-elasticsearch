@@ -1,0 +1,27 @@
+%main.container.general-main-wrap
+  .text-center
+    %h3.general-login-title Log In
+    = link_to user_facebook_omniauth_authorize_path, class: "general-login-icon" do
+      %i.fa.fa-facebook-official
+    %p.general-login-text or
+  = form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "general-form"}) do |f|
+    = devise_error_messages!
+    .form-group.mb-30
+      = f.label :email, class: "control-label input-label"
+      = f.email_field :email, placeholder: "Enter email", class: "form-control"
+    .form-group.mb-30
+      = f.label :password, class: "control-label input-label"
+      = f.password_field :password, autocomplete: "off", placeholder: "Password", class: "form-control"
+      = link_to "Forgot password?", new_user_password_path, class: "help-block in-gold-500"
+    - if devise_mapping.rememberable?
+      .field.form-group.checkbox.text-center.mb-30
+        %label.checkbox-label
+          = f.check_box :remember_me, class: "checkbox-input", hidden: "true"
+          %span.checkbox-icon
+            %i.fa.fa-check
+          %span.checkbox-text Remember me
+    .actions.text-center
+      = f.submit "Log in", class: "btn btn-default mb-20"
+  %p.general-sign-text.text-center
+    Don’t have an Account?
+    = link_to "Sign up", new_user_registration_path, class: "in-gold-500"

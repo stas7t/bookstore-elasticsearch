@@ -1,0 +1,13 @@
+= form_for @order_item, method: :post do |form|
+  .col-xs-12.col-md-4
+    %p.h1.in-gold-500.mt-10= number_to_euro @book.price
+  .col-xs-5.col-md-3
+    .input-group.general-position
+      %a.input-link.pt-7#minus{href: ""}
+        %i.fa.fa-minus.line-height-40
+      = form.hidden_field :book_id, value: @book.id
+      = form.text_field :quantity, value: 1, class: "form-control quantity-input"
+      %a.input-link.pt-7#plus{href: ""}
+        %i.fa.fa-plus.line-height-40
+  .col-xs-7.col-md-5
+    = form.submit 'Add to Cart', class: "btn btn-default pull-right general-position"

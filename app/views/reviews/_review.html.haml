@@ -1,0 +1,16 @@
+.general-message-wrap.divider-lg
+  .clearfix
+    =image_tag review.user.avatar, class: "img-circle logo-size inlide-block pull-left"
+    .ml-70
+      %div
+        .general-message-date.hidden-xs= review.created_at.strftime("%d/%m/%y")
+        .max-240
+          - if review.user.book_ids.include?(@book.id)
+            .general-message-verified Verified Reviewer
+          .general-message-name= review.user.name || review.user.email.split('@').first
+      .mb-15
+        - review.rating.times do
+          %i.fa.fa-star.rate-star
+        - ( 5 - review.rating ).times do
+          %i.fa.fa-star.rate-star.rate-empty
+      %p= review.text

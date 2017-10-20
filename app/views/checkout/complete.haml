@@ -1,0 +1,80 @@
+%main.container.general-main-wrap
+  %h1.general-title-margin Checkout
+  = render 'steps'
+  .text-center.mb-40
+    %h3.general-subtitle Thank You for your Order!
+    %p.fw-300= "An order confirmation has been sent to #{current_user.email}"
+  .row.mb-20
+    .col-sm-6
+      .visible-xs
+        %p.general-order-number.mb-0= "Order ##{@order.number}"
+        %p.general-address.mb-30= @order.completed_at.strftime("%B %-d, %Y")
+      %p.general-address
+        = "#{@order.shipping.first_name} #{@order.shipping.last_name}"
+        %br
+        = @order.shipping.address
+        %br
+        = "#{@order.shipping.city} #{@order.shipping.zip}"
+        %br
+        = @order.shipping.country_name
+        %br
+        = "Phone #{@order.shipping.phone}"
+    .col-sm-6.hidden-xs.text-right
+      %p.general-order-number.mb-0= "Order ##{@order.number}"
+      %p.general-address.mb-30= @order.completed_at.strftime("%B %-d, %Y")
+  .visible-xs
+    - @order.order_items.each do |order_item|
+      .general-cart-item.divider-lg
+        .general-img-wrap-table
+          = image_tag(order_item.book.cover, class: "cart-img-shadow", alt: "design-book")
+        %p.title= order_item.book.title
+        %table.table
+          %tr
+            %td
+              %span.in-grey-600 Price
+            %td
+              %span.font-16.in-gold-500= number_to_euro order_item.book.price
+          %tr
+            %td.vertical-middle
+              %span.in-grey-600 Quantity
+            %td
+              %span= order_item.quantity
+          %tr
+            %td
+              %span.in-grey-600 SubTotal
+            %td
+              %span.font-16.in-gold-500= number_to_euro order_item.total
+  .hidden-xs.divider-lg.pt-20
+    %table.table.table-hover
+      %thead
+        %tr
+          %th
+            %span.in-grey-600 Book
+          %th.col-method
+          %th
+            %span.in-grey-600 Price
+          %th
+            %span.in-grey-600 Quantity
+          %th
+            %span.in-grey-600 Total
+      %tbody
+        - @order.order_items.each do |order_item|
+          %tr
+            %td
+              .general-img-wrap-table
+                = image_tag(order_item.book.cover, class: "cart-img-shadow pull-left", alt: "design-book")
+            %td
+              %p.title= order_item.book.title
+              %p.in-grey-600.fw-300= order_item.book.description.split('.').first
+            %td
+              %span.font-16.in-gold-500= number_to_euro order_item.book.price
+            %td
+              %span.ml-30= order_item.quantity
+            %td
+              %span.font-16.in-gold-500= number_to_euro order_item.total
+  .text-center.general-text-right
+    %p.in-gold-500.font-18 Order Summary
+    %table.general-summary-table.general-summary-table-right.general-text-right
+      = render 'order_summary', order: @order
+  .text-center
+    = link_to "Back to Store", root_path, class: 'btn btn-default mb-20'

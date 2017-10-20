@@ -1,0 +1,20 @@
+%tr
+  %td
+    %p.font-16 Item Total:
+  %td
+    %p.font-16= number_to_euro order.sub_total
+%tr
+  %td
+    %p.font-16 Coupone:
+  %td
+    %p.font-16= coupon_discount(order)
+%tr
+  %td
+    %p.font-16 Shipping:
+  %td
+    %p.font-16= shipping_price(order)
+%tr
+  %td
+    %strong.font-18 Order Total:
+  %td
+    %strong.font-18= number_to_euro order.total

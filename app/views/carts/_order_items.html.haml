@@ -1,0 +1,30 @@
+%table.table.table-hover
+  %tr.no-hover
+    %th.col-pic.pl-0
+      %span.in-grey-600 Product
+    %th.col-title
+    %th.col-price
+      %span.in-grey-600 Price
+    %th.col-quantity
+      %span.in-grey-600 Quantity
+    %th.col-total
+      %span.in-grey-600 SubTotal
+    %th.col-close
+  - @order.order_items.each do |order_item|
+    %tr
+      %td
+        .general-img-wrap-table
+          = link_to book_path(order_item.book) do
+            = image_tag(order_item.book.cover, class: "cart-img-shadow pull-left", alt: "design-book")
+      %td
+        = link_to book_path(order_item.book), class: 'title-link' do
+          %p.title= order_item.book.title
+      %td
+        %span.font-16.in-gold-500= number_to_euro order_item.book.price
+      %td
+        = render 'carts/quantity', order_item: order_item
+      %td
+        %span.font-16.in-gold-500= number_to_euro order_item.total 
+      %td
+        = button_to order_item, method: :delete, class: 'close general-cart-close' do
+          %span{'aria-hidden': "true"} &times;

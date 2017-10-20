@@ -1,0 +1,95 @@
+%main.container.general-main-wrap
+  %h1.general-title-margin= "Order #{@order.number}"
+  .row.mb-20
+    .col-sm-3
+      %h3.general-subtitle.mt-0 Shipping Address
+      %p.general-address
+        = "#{@order.shipping.first_name} #{@order.shipping.last_name}"
+        %br
+        = @order.shipping.address
+        %br
+        = "#{@order.shipping.city} #{@order.shipping.zip}"
+        %br
+        = @order.shipping.country
+        %br
+        = "Phone #{@order.shipping.phone}"
+    .col-sm-3
+      %h3.general-subtitle.mt-0 Billing Address
+      %p.general-address
+        = "#{@order.billing.first_name} #{@order.billing.last_name}"
+        %br
+        = @order.billing.address
+        %br
+        = "#{@order.billing.city} #{@order.billing.zip}"
+        %br
+        = @order.billing.country
+        %br
+        = "Phone #{@order.billing.phone}"
+    .col-sm-3
+      %h3.general-subtitle.mt-0 Shipments
+      %p.general-address
+        = @order.delivery.name
+        %br
+        = @order.delivery.time
+    .col-sm-3
+      %h3.general-subtitle.mt-0 Payment Information
+      %p.general-address
+        = "**** **** **** #{@order.credit_card.number.last(4)}"
+        %br
+        = @order.credit_card.month_year
+  .visible-xs
+    - @order.order_items.each do |order_item|
+      .general-cart-item.divider-lg
+        .general-img-wrap-table
+          = image_tag(order_item.book.cover, class: "cart-img-shadow", alt: "design-book")
+        %p.title= order_item.book.title
+        %table.table
+          %tr
+            %td
+              %span.in-grey-600 Price
+            %td
+              %span.font-16.in-gold-500= number_to_euro order_item.book.price
+          %tr
+            %td.vertical-middle
+              %span.in-grey-600 Quantity
+            %td
+              %span= order_item.quantity
+          %tr
+            %td
+              %span.in-grey-600 SubTotal
+            %td
+              %span.font-16.in-gold-500= number_to_euro order_item.total
+
+  .hidden-xs.divider-lg.pt-20
+    %table.table.table-hover
+      %thead
+        %tr
+          %th
+            %span.in-grey-600 Book
+          %th.col-method
+          %th
+            %span.in-grey-600 Price
+          %th
+            %span.in-grey-600 Quantity
+          %th
+            %span.in-grey-600 Total
+      %tbody
+        - @order.order_items.each do |order_item|
+          %tr
+            %td
+              .general-img-wrap-table
+                = image_tag(order_item.book.cover, class: "cart-img-shadow pull-left", alt: "design-book")
+            %td
+              %p.title= order_item.book.title
+              %p.in-grey-600.fw-300= order_item.book.description.split('.').first
+            %td
+              %span.font-16.in-gold-500= number_to_euro order_item.book.price
+            %td
+              %span.ml-30= order_item.quantity
+            %td
+              %span.font-16.in-gold-500= number_to_euro order_item.total
+
+  .text-center.general-text-right
+    %p.in-gold-500.font-18 Order Summary
+    %table.general-summary-table.general-summary-table-right.general-text-right
+      = render 'checkout/order_summary', order: @order
