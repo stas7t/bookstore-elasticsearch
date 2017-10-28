@@ -1,5 +1,5 @@
 class Coupon < ApplicationRecord
-  belongs_to :order, optional: true
+  has_many :orders, dependent: :nullify
 
   before_create :activate
 
