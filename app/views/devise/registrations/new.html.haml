@@ -1,7 +1,7 @@
 %main.container.general-main-wrap
   .text-center
     %h3.general-login-title Sign Up
-    = link_to user_facebook_omniauth_authorize_path, class: "general-login-icon" do
+    = link_to user_facebook_omniauth_authorize_path, class: "general-login-icon", method: :post do
       %i.fa.fa-facebook-official
     %p.general-login-text or
   = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "general-form"}) do |f|

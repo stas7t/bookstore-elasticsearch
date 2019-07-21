@@ -3,7 +3,7 @@
     .col-md-6.col-xs-12.mb-40
       .text-center
         %h3.general-subtitle.mt-0 Returning Customer
-        %a.general-login-icon{ href: user_facebook_omniauth_authorize_path }
+        = link_to user_facebook_omniauth_authorize_path, class: "general-login-icon", method: :post do
           %i.fa.fa-facebook-official
         %p.general-login-text or
       = form_for(User.new, url: user_session_path, html: { class: 'general-form' }) do |f|
@@ -20,7 +20,7 @@
     .col-md-6.col-xs-12.mb-40
       .text-center
         %h3.general-subtitle.mt-0 New Customer
-        %a.general-login-icon{href: user_facebook_omniauth_authorize_path}
+        = link_to user_facebook_omniauth_authorize_path, class: "general-login-icon", method: :post do
           %i.fa.fa-facebook-official
         %p.general-login-text or
       = form_for(User.new, url: user_registration_path, html: { class: 'general-form' }) do |f|
