@@ -1,9 +1,0 @@
-machine:
-  ruby:
-    version: 2.4.1
-database:
-  override:
-    - bundle exec rake db:create db:schema:load --trace
-dependencies:
-  pre:
-    - gem install bundler
