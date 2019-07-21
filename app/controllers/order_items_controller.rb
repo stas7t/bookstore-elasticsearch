@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OrderItemsController < ApplicationController
   load_and_authorize_resource
 
@@ -9,7 +11,7 @@ class OrderItemsController < ApplicationController
   end
 
   def update
-    @order_item.update_attributes(order_item_params)
+    @order_item.update(order_item_params)
     @order_items = OrderItem.where(id: order_item_ids)
 
     redirect_back(fallback_location: root_path)

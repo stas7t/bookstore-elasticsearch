@@ -5,7 +5,7 @@
     .text-center
       %p.font-18 Cart is empty
       = link_to "Go to Store", catalog_path(), class: "btn btn-default mb-20"
-  -else
+  - else
     .visible-xs
       = render 'order_items_xs'
     .hidden-xs

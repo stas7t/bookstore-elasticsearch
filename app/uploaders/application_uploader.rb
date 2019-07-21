@@ -1,5 +1,6 @@
-class ApplicationUploader < CarrierWave::Uploader::Base
+# frozen_string_literal: true
 
+class ApplicationUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
@@ -51,5 +52,4 @@ class ApplicationUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
-
 end

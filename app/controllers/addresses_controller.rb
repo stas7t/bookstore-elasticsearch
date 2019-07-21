@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddressesController < ApplicationController
   def index
     @addresses = AddressesForm.new(user_id: current_user.id)

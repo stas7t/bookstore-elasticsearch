@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Book < ApplicationRecord
   belongs_to :category
   has_many :authorships, dependent: :destroy
@@ -21,7 +23,7 @@ class Book < ApplicationRecord
     orders.payed.map { |order| order.order_items.sum(:quantity) }.sum
   end
 
-  def self.best_sellers(category_id = nil)
+  def self.best_sellers
     best = Order.payed.joins(:order_items).group(:book_id)
                 .order('sum("order_items"."quantity") DESC').count.keys
     Book.find(best)

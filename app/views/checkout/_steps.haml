@@ -7,5 +7,5 @@
           - if step_done?(step)
             %i.fa.fa-check.step-icon
         %span.step-text.hidden-xs= step.capitalize
-    -unless step == :complete
+    - unless step == :complete
       %li.step-divider

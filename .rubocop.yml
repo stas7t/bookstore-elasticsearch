@@ -5,5 +5,11 @@ AllCops:
     - 'db/**/*'
   TargetRubyVersion: 2.4
 
+Documentation:
+  Enabled: false
+
 Rails:
   Enabled: true
+
+Metrics/LineLength:
+  Max: 120

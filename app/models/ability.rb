@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 class Ability
   include CanCan::Ability
 
+  # rubocop :disable AbcSize, MethodLength
   def initialize(user, session = nil)
     user ||= User.new
     if user.is_a? Admin
@@ -19,4 +22,5 @@ class Ability
       can %i[update destroy], OrderItem, id: session[:order_item_ids].to_a
     end
   end
+  # rubocop :enable AbcSize, MethodLength
 end

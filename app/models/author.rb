@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Author < ApplicationRecord
   has_many :authorships, dependent: :destroy
   has_many :books, through: :authorships, dependent: :destroy

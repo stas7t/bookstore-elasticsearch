@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BooksController < ApplicationController
   load_and_authorize_resource
 
@@ -19,7 +21,7 @@ class BooksController < ApplicationController
   end
 
   def update
-    @book.update_attributes(book_params)
+    @book.update(book_params)
 
     render :show
   end
@@ -45,20 +47,19 @@ class BooksController < ApplicationController
   end
 
   def set_current_category
-    @current_category = Category.find_by(id: params[:category_id]) || Category.new(id: nil, name: 'All')
+    @current_category = Category.find_by(id: params[:category_id]) ||
+                        Category.new(id: nil, name: 'All')
   end
 
   def sort_option
-    unless SORT_OPTIONS.keys.include?(option_param)
-      return SORT_OPTIONS[:newest_first][:query]
-    end
+    return SORT_OPTIONS[:newest_first][:query] unless SORT_OPTIONS.key?(option_param)
+
     SORT_OPTIONS[option_param][:query]
   end
 
   def set_active_sort_name
-    unless SORT_OPTIONS.keys.include?(option_param)
-      return @active_sort_name = SORT_OPTIONS[:newest_first][:name]
-    end
+    return @active_sort_name = SORT_OPTIONS[:newest_first][:name] unless SORT_OPTIONS.key?(option_param)
+
     @active_sort_name = SORT_OPTIONS[option_param][:name]
   end
 
