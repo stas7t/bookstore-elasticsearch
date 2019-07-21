@@ -79,7 +79,6 @@ gem 'rails-i18n', '~> 5.0.0'
 
 # Authentication
 gem 'devise', '>= 4.6.0'
-gem 'omniauth', '~> 1.7', '>= 1.7.1'
 gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-facebook', '~> 4.0'
 
