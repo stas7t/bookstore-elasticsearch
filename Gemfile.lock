@@ -432,7 +432,6 @@ DEPENDENCIES
   letter_opener (~> 1.4, >= 1.4.1)
   listen (>= 3.0.5, < 3.2)
   mini_magick (>= 4.9.4)
-  omniauth (~> 1.7, >= 1.7.1)
   omniauth-facebook (~> 4.0)
   omniauth-rails_csrf_protection
   pg (~> 0.18)
