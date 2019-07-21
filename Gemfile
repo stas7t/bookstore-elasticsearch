@@ -51,7 +51,7 @@ group :development do
   gem 'spring', '~> 2.0', '>= 2.0.2'
   gem 'spring-watcher-listen', '~> 2.0.0'
 
-  gem 'rubocop', require: false
+  gem 'rubocop', '0.56.0', require: false
   gem 'letter_opener', '~> 1.4', '>= 1.4.1'
 end
 
@@ -78,7 +78,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'rails-i18n', '~> 5.0.0'
 
 # Authentication
-gem 'devise', '~> 4.3'
+gem 'devise', '>= 4.6.0'
 gem 'omniauth', '~> 1.7', '>= 1.7.1'
 gem 'omniauth-facebook', '~> 4.0'
 
@@ -86,8 +86,7 @@ gem 'omniauth-facebook', '~> 4.0'
 gem 'cancancan', '~> 2.0'
 
 # Admin panel
-# gem 'activeadmin', '~> 1.1'
-gem 'rails_admin', '~> 1.2'
+gem 'rails_admin', '>= 1.3'
 
 # Paginator
 gem 'kaminari', '~> 1.0', '>= 1.0.1'
@@ -105,14 +104,14 @@ gem 'letter_avatar'
 gem 'wicked', '~> 1.3', '>= 1.3.2'
 
 # An interface to the ImageMagick and GraphicsMagick image processing libraries
-gem 'mini_magick', '~> 4.8'
+gem 'mini_magick', '>= 4.9.4'
 
 # Templating engine
 gem 'haml', '~> 5.0', '>= 5.0.3'
 gem 'haml-rails', '~> 1.0'
 
 # Bootstrap
-gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
+gem 'bootstrap-sass', '>= 3.4.1'
 
 # Font
 gem 'font-awesome-sass', '~> 4.7.0'
@@ -122,4 +121,4 @@ gem 'country_select', '~> 3.1', '>= 3.1.1'
 gem 'simple_form', '~> 3.5'
 gem 'virtus', '~> 1.0', '>= 1.0.5'
 
-ruby '2.4.1'
+ruby '2.5.1'
