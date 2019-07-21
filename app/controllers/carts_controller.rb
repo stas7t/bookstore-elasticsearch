@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CartsController < ApplicationController
   def show
     @order = Order.new(order_item_ids: session[:order_item_ids],

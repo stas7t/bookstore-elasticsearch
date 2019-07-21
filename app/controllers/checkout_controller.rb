@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CheckoutController < ApplicationController
   include Wicked::Wizard
 
@@ -7,25 +9,31 @@ class CheckoutController < ApplicationController
 
   def show
     return redirect_to root_path if session[:order_item_ids].nil? && step == :addresses
-    case step
-    when :login     then login
-    when :addresses then show_addresses
-    when :delivery  then show_delivery
-    when :payment   then show_payment
-    when :confirm   then show_confirm
-    when :complete  then show_complete
-    end
+    # case step
+    # when :login     then login
+    # when :addresses then show_addresses
+    # when :delivery  then show_delivery
+    # when :payment   then show_payment
+    # when :confirm   then show_confirm
+    # when :complete  then show_complete
+    # end
+
+    # return login if step.eql?(:login)
+    # public_send("show_#{step}")
+
+    step.eql?(:login) ? login : send("show_#{step}")
     render_wizard
   end
 
   def update
-    case step
-    when :addresses then update_addresses
-    when :delivery  then update_delivery
-    when :payment   then update_payment
-    when :confirm   then update_confirm
-    when :complete  then update_complete
-    end
+    # case step
+    # when :addresses then update_addresses
+    # when :delivery  then update_delivery
+    # when :payment   then update_payment
+    # when :confirm   then update_confirm
+    # when :complete  then update_complete
+    # end
+    send("update_#{step}")
     redirect_to next_wizard_path unless performed?
   end
 
@@ -75,14 +83,14 @@ class CheckoutController < ApplicationController
   end
 
   def update_delivery
-    current_order.update_attributes(order_params)
+    current_order.update(order_params)
     flash[:warning] = 'Please choose delivery mehod.' if current_order.delivery_id.nil?
   end
 
   def update_payment
     @credit_card = CreditCard.new(credit_card_params)
     render_wizard unless @credit_card.save
-    current_order.update_attributes(credit_card_id: @credit_card.id)
+    current_order.update(credit_card_id: @credit_card.id)
   end
 
   def update_confirm

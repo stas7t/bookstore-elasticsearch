@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddressesForm
   include ActiveModel::Model
 
