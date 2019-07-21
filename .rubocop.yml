@@ -11,5 +11,8 @@ Documentation:
 Rails:
   Enabled: true
 
+RegexpLiteral:
+  Enabled: false
+
 Metrics/LineLength:
   Max: 120
