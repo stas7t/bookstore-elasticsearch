@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  require 'sidekiq/web'
+  authenticate :admin, ->(a) { a.is_a?(Admin) } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
   mount RailsAdmin::Engine => '/cms', as: 'rails_admin'
   root to: 'home#index'
   get  'catalog',            to: 'books#index'

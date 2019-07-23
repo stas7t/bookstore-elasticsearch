@@ -1,0 +1,24 @@
+version: '3.0'
+services:
+  es01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.2.0
+    container_name: es01
+    environment:
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata01:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - esnet
+
+volumes:
+  esdata01:
+    driver: local
+
+networks:
+  esnet:
