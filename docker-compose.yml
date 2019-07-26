@@ -1,8 +1,8 @@
 version: '3.0'
 services:
-  es01:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.2.0
-    container_name: es01
+  es6:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.0
+    container_name: es6
     environment:
       - discovery.type=single-node
     ulimits:
@@ -10,14 +10,14 @@ services:
         soft: -1
         hard: -1
     volumes:
-      - esdata01:/usr/share/elasticsearch/data
+      - esdata6:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
     networks:
       - esnet
 
 volumes:
-  esdata01:
+  esdata6:
     driver: local
 
 networks:

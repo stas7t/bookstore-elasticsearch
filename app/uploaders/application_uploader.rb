@@ -11,6 +11,9 @@ class ApplicationUploader < CarrierWave::Uploader::Base
   if Rails.env.test?
     storage :file
     enable_processing false
+  elsif Rails.env.development?
+    storage :file
+    enable_processing true
   else
     storage :fog
   end

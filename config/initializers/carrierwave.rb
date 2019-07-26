@@ -8,5 +8,5 @@ CarrierWave.configure do |config|
     aws_secret_access_key: ENV['AWS_SECRET_AC_KEY'],     # required
     region:                'eu-central-1',               # optional
   }
-  config.fog_directory = 'stas7t-bookstore'              # required
+  config.fog_directory = ENV['AWS_S3_BUCKET_NAME']       # required
 end

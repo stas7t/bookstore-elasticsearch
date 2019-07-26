@@ -19,6 +19,20 @@ class Book < ApplicationRecord
 
   scope :by_category, ->(category_id) { where category_id: category_id }
 
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
+
+  def as_indexed_json(_options = {})
+    as_json(
+      only: %i[id title],
+      include: {
+        authors: {
+          only: %i[first_name last_name]
+        }
+      }
+    )
+  end
+
   def sales
     orders.payed.map { |order| order.order_items.sum(:quantity) }.sum
   end

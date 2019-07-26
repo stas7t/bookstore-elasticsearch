@@ -37,7 +37,7 @@ class User < ApplicationRecord
       user.name = name_from_address if user.name.nil?
     end
 
-    unless user.provider == 'facebook'
+    unless user.avatar_url.present? || user.provider == 'facebook' || user.remote_avatar_url.present?
       av_name = user.name || user.email
       av_img = LetterAvatar.generate av_name, 200
 
