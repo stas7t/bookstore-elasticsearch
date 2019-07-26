@@ -1,7 +1,29 @@
-authors_count = ENV['AUTHORS_COUNT'] || 32
-books_count = ENV['BOOKS_COUNT'] || 256
-users_count = ENV['USERS_COUNT'] || 4
+authors_count = ENV['AUTHORS_COUNT']&.to_i || 32
+books_count = ENV['BOOKS_COUNT']&.to_i || 256
+users_count = ENV['USERS_COUNT']&.to_i || 4
 categorise_list = %w[Mobile development Photo Web design Web development]
+
+def book_authors(authors)
+  selected_authors = []
+  rand(1..3).times do
+    author = authors.sample
+    selected_authors << author unless selected_authors.include?(author)
+  end
+  selected_authors
+end
+
+def cover_url(options = {})
+  base_url = 'https://orly-appstore.herokuapp.com/generate?'
+  params = {
+    title: options[:title] || 'Sample title',
+    guide_text: options[:guide_text] || 'The Definitive Guide',
+    top_text: options[:top_text] || 'Sample top text',
+    author: options[:author] || 'Sample Author',
+    image_code: rand(1..40),
+    theme: rand(1..16)
+  }
+  base_url + params.to_query
+end
 
 Admin.create!(email: 'admin@example.com', password: "Qwerty123") if Rails.env.development?
 
@@ -34,16 +56,24 @@ puts ''
 puts 'create books'
 books_count.times do |index|
   title = FFaker::Book.title
+  description = Array.new(rand(1..2)).map { |x| FFaker::HipsterIpsum.paragraphs.join(' ') }.join(' ')
+  materials = [
+    'machine-finished coated paper',
+    'woodfree uncoated paper',
+    'coated fine paper',
+    'recycled paper'
+  ]
 
   new_book = Book.new(
     title: title,
-    price: "#{rand(1..99)}.99",
-    description: FFaker::Lorem.paragraphs.join('. ') + FFaker::Lorem.paragraphs.join('. '),
+    price: "#{rand(1..99)}.99".to_f,
+    description: description,
     height: rand(7.5...10.0).floor(2),
     width: rand(4.5...5.5).floor(2),
     depth: rand(0.3...4.0).floor(2),
+    isbn: FFaker::Book.isbn,
     publication_year: rand(2001..2017),
-    materials: FFaker::Lorem.words.join(', '),
+    materials: materials.sample,
     category_id: categories.sample.id,
   )
 
@@ -72,7 +102,7 @@ users = User.all
 
 puts ''
 puts 'update books'
-books.each do |book|
+Book.in_batches.each_record do |book|
   # assign authors to books
   book_authors(authors).each do |author|
     Authorship.create!(author_id: author.id, book_id: book.id)
@@ -104,6 +134,7 @@ books.each do |book|
   print '.'
 end
 
+Book.__elasticsearch__.create_index!
 Book.import
 
 Delivery.create(name: 'Delivery Next Day!', time: '3 to  7 days', price:  5.00)
@@ -113,25 +144,3 @@ Delivery.create(name: 'Expressit',          time: '2 to  3 days', price: 15.00)
 Coupon.create(code: 'TEST',       discount: 0.01)
 Coupon.create(code: 'WINTERSALE', discount: 5.00)
 Coupon.create(code: 'RUBYGARAGE', discount: 7.50)
-
-def book_authors(authors)
-  selected_authors = []
-  rand(1..3).times do
-    author = authors.sample
-    selected_authors << author unless selected_authors.include?(author)
-  end
-  selected_authors
-end
-
-def cover_url(options = {})
-  base_url = 'https://orly-appstore.herokuapp.com/generate?'
-  params = {
-    title: options[:title] || 'Sample title',
-    guide_text: options[:guide_text] || 'The Definitive Guide',
-    top_text: options[:top_text] || 'Sample top text',
-    author: options[:author] || 'Sample Author',
-    image_code: rand(1..40),
-    theme: rand(1..16)
-  }
-  base_url + params.to_query
-end

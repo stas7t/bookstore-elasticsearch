@@ -24,11 +24,10 @@ class Book < ApplicationRecord
 
   def as_indexed_json(_options = {})
     as_json(
-      only: %i[id title],
+      only: %i[id title description publication_year price materials],
       include: {
-        authors: {
-          only: %i[first_name last_name]
-        }
+        authors: { only: %i[first_name last_name] },
+        category: { only: %i[name] }
       }
     )
   end
