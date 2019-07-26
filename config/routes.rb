@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/cms', as: 'rails_admin'
   root to: 'home#index'
   get  'catalog',            to: 'books#index'
+  get 'search',              to: 'search#search'
   get  'settings/addresses', to: 'addresses#index'
   post 'settings/addresses', to: 'addresses#create'
   put  'settings/addresses', to: 'addresses#update'

@@ -42,3 +42,5 @@ class Book < ApplicationRecord
     Book.find(best)
   end
 end
+
+Book.import
