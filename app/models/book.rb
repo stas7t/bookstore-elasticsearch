@@ -43,4 +43,4 @@ class Book < ApplicationRecord
   end
 end
 
-Book.import
+# Book.import

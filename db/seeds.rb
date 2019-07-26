@@ -96,6 +96,8 @@ books_count.times do |index|
   print '.'
 end
 
+Book.__elasticsearch__.create_index!
+
 authors = Author.all
 books = Book.all
 users = User.all
@@ -134,7 +136,6 @@ Book.in_batches.each_record do |book|
   print '.'
 end
 
-Book.__elasticsearch__.create_index!
 Book.import
 
 Delivery.create(name: 'Delivery Next Day!', time: '3 to  7 days', price:  5.00)
