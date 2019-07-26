@@ -6,15 +6,17 @@
           %li
             = link_to "Home", root_path, class: "nav-link"
           %li
-            %a.nav-link{href: "#"} Shop
+            = link_to "Shop", catalog_path, class: "nav-link"
           - if user_signed_in?
             %li
               = link_to "Orders", orders_path, class: "nav-link"
             %li
               = link_to "Settings", settings_addresses_path, class: "nav-link"
       .col-sm-3
-        %p.general-nav-mail support@bookstore.com
-        %p.general-nav-number (555)-555-5555
+        %p.general-nav-mail
+          = mail_to 'support@bookstore.com', 'support@bookstore.com', class: 'general-nav-mail'
+        %p.general-nav-number
+          = link_to '(555)-555-5555', 'tel:5555555555', class: 'general-nav-number'
         %ul.list-inline.general-align
           %li
             %a.nav-link{href: "#"}

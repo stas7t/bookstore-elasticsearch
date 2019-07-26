@@ -21,6 +21,8 @@
           %li
             %a{type: "button", 'data-toggle': "collapse", href: "#menu_shop", 'aria-expanded': "false", 'aria-controls': "menu_shop"} Shop
             %ul#menu_shop.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
+              %li
+                = link_to "All", catalog_path, class: "collapse-link"
               - categories.each do |category|
                 %li
                   = link_to "#{category.name}", catalog_path(category_id: category.id), class: "collapse-link"
@@ -46,6 +48,8 @@
           %li.dropdown
             %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} Shop
             %ul.dropdown-menu
+              %li
+                = link_to "All", catalog_path, class: "collapse-link"
               - categories.each do |category|
                 %li
                   = link_to "#{category.name}", catalog_path(category_id: category.id)
