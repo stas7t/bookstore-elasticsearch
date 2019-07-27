@@ -103,5 +103,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Elasticsearch
-  Elasticsearch::Model.client = Elasticsearch::Client.new host: ENV['SEARCHBOX_URL']
+  Elasticsearch::Model.client = Elasticsearch::Client.new host: ENV['SEARCHBOX_URL'], port: ENV['SEARCHBOX_PORT']
 end
