@@ -1,7 +1,7 @@
 authors_count = ENV['AUTHORS_COUNT']&.to_i || 32
 books_count = ENV['BOOKS_COUNT']&.to_i || 256
 users_count = ENV['USERS_COUNT']&.to_i || 4
-categorise_list = %w[Mobile development Photo Web design Web development]
+categorise_list = ['Mobile development', 'Photo', 'Web design', 'Web development']
 
 def book_authors(authors)
   selected_authors = []
@@ -96,33 +96,40 @@ books_count.times do |index|
   print '.'
 end
 
-Book.__elasticsearch__.create_index!
+Book.__elasticsearch__.create_index!(force: true)
 
 authors = Author.all
 books = Book.all
 users = User.all
 
 puts ''
-puts 'update books'
+puts 'assign authors to books'
 Book.in_batches.each_record do |book|
-  # assign authors to books
   book_authors(authors).each do |author|
-    Authorship.create!(author_id: author.id, book_id: book.id)
+    Authorship.create!(author_id: author.id, book_id: book.id) if book.authors.empty?
   end
+  print '.'
+end
 
-  # create book reviews
-  rand(1..4).times do
-    Review.create!(
-      title: FFaker::Lorem.words.join(', '),
-      text: FFaker::Lorem.sentences.join('. '),
-      rating: rand(1..5),
-      status: rand(0..2),
-      book_id: book.id,
-      user_id: users.sample.id
-    )
-  end
+# puts ''
+# puts 'create book reviews'
+# Book.in_batches.each_record do |book|
+#   rand(1..4).times do
+#     Review.create!(
+#       title: FFaker::Lorem.words.join(', '),
+#       text: FFaker::Lorem.sentences.join('. '),
+#       rating: rand(1..5),
+#       status: rand(0..2),
+#       book_id: book.id,
+#       user_id: users.sample.id
+#     )
+#   end
+#   print '.'
+# end
 
-  # add book covers
+puts ''
+puts 'add book covers'
+Book.in_batches.each_record do |book|
   author_names = book.authors.map { |a| [a.first_name, a.last_name] }
   author_text = author_names.size > 1 ? author_names.map { |a| "#{a.first[0]}. #{a.last}" }.join(', ') : author_names.join(' ')
 
