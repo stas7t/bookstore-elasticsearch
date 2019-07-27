@@ -50,6 +50,9 @@ GEM
       thread_safe (~> 0.3, >= 0.3.1)
     bcrypt (3.1.13)
     bindex (0.8.1)
+    bonsai-elasticsearch-rails (6.0.0)
+      elasticsearch-model (~> 6)
+      elasticsearch-rails (~> 6)
     bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
       sassc (>= 2.0.0)
@@ -436,6 +439,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bonsai-elasticsearch-rails (~> 6)
   bootstrap-sass (>= 3.4.1)
   cancancan (~> 2.0)
   capybara (~> 2.15, >= 2.15.2)
