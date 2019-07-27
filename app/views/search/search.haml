@@ -5,8 +5,8 @@
     = text_field_tag :q, params[:q]
     = submit_tag "search", name: nil
 %ul
-  -# - binding.pry
   - @books.each do |book|
     %li
       %h3
         = link_to book.title, book_path(book.id)
+      = image_tag(book.cover, alt: book.title)
