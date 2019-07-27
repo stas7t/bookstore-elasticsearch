@@ -62,7 +62,7 @@ group :test do
 end
 
 group :production do
-  gem 'bonsai-elasticsearch-rails', '~> 6'
+  # gem 'bonsai-elasticsearch-rails', '~> 6'
   gem 'rails_12factor'
   gem 'railties'
   gem 'sendgrid-ruby'
