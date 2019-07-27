@@ -88,9 +88,9 @@ books_count.times do |index|
 
       new_book.attributes = main_book.attributes.except('id', 'created_at', 'updated_at', 'cover')
       new_book.title = new_title
-      new_book.save!
+      new_book.save
     else
-      raise exception
+      # raise exception
     end
   end
   print '.'
