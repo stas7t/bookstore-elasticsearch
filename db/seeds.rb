@@ -77,22 +77,30 @@ books_count.times do |index|
     category_id: categories.sample.id,
   )
 
-  begin
-    new_book.save!
-  rescue ActiveRecord::RecordInvalid => exception
-    if exception.message == 'Validation failed: Title has already been taken'
-      main_book = Book.find_by(title: title)
-      parts_count = Book.count { |x| x.title.starts_with?(title) }
-      main_book.update(title: "#{title} (Part #{parts_count})") unless main_book.title.ends_with?("(Part #{parts_count})")
-      new_title = "#{title} (Part #{parts_count + 1})"
+  parts_count = Book.count { |x| x.title.starts_with?(title) }
+  new_book.title = "#{title} (Part #{parts_count + 1})" unless parts_count.zero?
+  Book.find_by(title: title).update(title: "#{title} (Part 1)") if parts_count == 1
+  new_book.save
 
-      new_book.attributes = main_book.attributes.except('id', 'created_at', 'updated_at', 'cover')
-      new_book.title = new_title
-      new_book.save
-    else
-      # raise exception
-    end
-  end
+  # begin
+  #   parts_count = Book.count { |x| x.title.starts_with?(title) }
+  #   new_book.title = "#{title} (Part #{parts_count + 1})" unless parts_count.zero?
+  #   Book.find_by(title: title).update(title: "#{title} (Part 1)") if parts_count == 1
+  #   new_book.save!
+  # rescue ActiveRecord::RecordInvalid => exception
+  #   if exception.message == 'Validation failed: Title has already been taken'
+  #     main_book = Book.find_by(title: title)
+  #     parts_count = Book.count { |x| x.title.starts_with?(title) }
+  #     main_book.update(title: "#{title} (Part #{parts_count})") unless main_book.title.ends_with?("(Part #{parts_count})")
+  #     new_title = "#{title} (Part #{parts_count + 1})"
+
+  #     new_book.attributes = main_book.attributes.except('id', 'created_at', 'updated_at', 'cover')
+  #     new_book.title = new_title
+  #     new_book.save
+  #   else
+  #     # raise exception
+  #   end
+  # end
   print '.'
 end
 
