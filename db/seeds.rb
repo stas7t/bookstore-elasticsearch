@@ -79,7 +79,8 @@ books_count.times do |index|
 
   parts_count = Book.count { |x| x.title.starts_with?(title) }
   new_book.title = "#{title} (Part #{parts_count + 1})" unless parts_count.zero?
-  Book.find_by(title: title).update(title: "#{title} (Part 1)") if parts_count == 1
+  part_1 = Book.find_by(title: title)
+  part_1.update(title: "#{title} (Part 1)") if parts_count == 1 && part_1.present?
   new_book.save
 
   # begin
