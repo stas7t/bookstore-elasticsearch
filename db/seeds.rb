@@ -83,7 +83,7 @@ books_count.times do |index|
     if exception.message == 'Validation failed: Title has already been taken'
       main_book = Book.find_by(title: title)
       parts_count = Book.count { |x| x.title.starts_with?(title) }
-      main_book.update(title: "#{title} (Part 1)") if parts_count == 1
+      main_book.update(title: "#{title} (Part #{parts_count})") unless main_book.title.ends_with?("(Part #{parts_count})")
       new_title = "#{title} (Part #{parts_count + 1})"
 
       new_book.attributes = main_book.attributes.except('id', 'created_at', 'updated_at', 'cover')
