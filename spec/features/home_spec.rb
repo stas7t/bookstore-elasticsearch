@@ -1,16 +1,3 @@
-=begin
-feature 'Home page' do
-  background do
-    Book.make(title: 'Book #1')
-  end
-
-  scenario 'Latest books' do
-    visit root_path
-    expect(find('#slider')).not_to be_nil
-  end
-end
-=end
-
 require 'rails_helper'
 
 RSpec.describe 'Home Page', type: :feature do

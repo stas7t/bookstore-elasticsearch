@@ -24,7 +24,8 @@ class Book < ApplicationRecord
 
   def as_indexed_json(_options = {})
     as_json(
-      only: %i[id title description publication_year price materials],
+      only: %i[id title description isbn publication_year price materials],
+      methods: %i[cover_url sales],
       include: {
         authors: { only: %i[first_name last_name] },
         category: { only: %i[name] }
@@ -42,5 +43,3 @@ class Book < ApplicationRecord
     Book.find(best)
   end
 end
-
-# Book.import
