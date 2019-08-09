@@ -1,7 +1,11 @@
 authors_count = ENV['AUTHORS_COUNT']&.to_i || 32
 books_count = ENV['BOOKS_COUNT']&.to_i || 256
 users_count = ENV['USERS_COUNT']&.to_i || 4
+max_book_autors = 3
+max_book_reviews = 4
 categorise_list = ['Mobile development', 'Photo', 'Web design', 'Web development']
+
+Book.__elasticsearch__.create_index!(force: true)
 
 def book_authors(authors)
   selected_authors = []
@@ -86,30 +90,8 @@ books_count.times do |index|
     end
   end
   new_book.save
-
-  # begin
-  #   parts_count = Book.count { |x| x.title.starts_with?(title) }
-  #   new_book.title = "#{title} (Part #{parts_count + 1})" unless parts_count.zero?
-  #   Book.find_by(title: title).update(title: "#{title} (Part 1)") if parts_count == 1
-  #   new_book.save!
-  # rescue ActiveRecord::RecordInvalid => exception
-  #   if exception.message == 'Validation failed: Title has already been taken'
-  #     main_book = Book.find_by(title: title)
-  #     parts_count = Book.count { |x| x.title.starts_with?(title) }
-  #     main_book.update(title: "#{title} (Part #{parts_count})") unless main_book.title.ends_with?("(Part #{parts_count})")
-  #     new_title = "#{title} (Part #{parts_count + 1})"
-
-  #     new_book.attributes = main_book.attributes.except('id', 'created_at', 'updated_at', 'cover')
-  #     new_book.title = new_title
-  #     new_book.save
-  #   else
-  #     # raise exception
-  #   end
-  # end
   print '.'
 end
-
-Book.__elasticsearch__.create_index!(force: true)
 
 authors = Author.all
 books = Book.all
@@ -118,27 +100,28 @@ users = User.all
 puts ''
 puts 'assign authors to books'
 Book.in_batches.each_record do |book|
+  next unless book.authors.empty?
   book_authors(authors).each do |author|
-    Authorship.create!(author_id: author.id, book_id: book.id) if book.authors.empty?
+    rand(1..max_book_autors).times { Authorship.create!(author_id: author.id, book_id: book.id) }
   end
   print '.'
 end
 
-# puts ''
-# puts 'create book reviews'
-# Book.in_batches.each_record do |book|
-#   rand(1..4).times do
-#     Review.create!(
-#       title: FFaker::Lorem.words.join(', '),
-#       text: FFaker::Lorem.sentences.join('. '),
-#       rating: rand(1..5),
-#       status: rand(0..2),
-#       book_id: book.id,
-#       user_id: users.sample.id
-#     )
-#   end
-#   print '.'
-# end
+puts ''
+puts 'create book reviews'
+Book.in_batches.each_record do |book|
+  rand(1..max_book_reviews).times do
+    Review.create!(
+      title: FFaker::Lorem.words.join(', '),
+      text: FFaker::Lorem.sentences.join('. '),
+      rating: rand(1..5),
+      status: rand(0..2),
+      book_id: book.id,
+      user_id: users.sample.id
+    )
+  end
+  print '.'
+end
 
 puts ''
 puts 'add book covers'
