@@ -7,6 +7,7 @@
         %span.icon-bar
         %span.icon-bar
       %a.navbar-brand{href: root_path} Bookstore
+      = text_field_tag :q, params[:q], class: 'search-nav-input', placeholder: 'Find а book'
       %a.shop-link.pull-right.visible-xs{href: cart_path}
         = render 'shop_icon'
     %a.shop-link.pull-right.hidden-xs{href: cart_path}
@@ -69,3 +70,5 @@
               = link_to "Log in", new_user_session_path
             %li
               = link_to "Sign up", new_user_registration_path
+    .search-results
+      %ul

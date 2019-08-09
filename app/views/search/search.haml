@@ -8,5 +8,6 @@
   - @books.each do |book|
     %li
       %h3
+        = image_tag(book.cover_url, alt: book.title, height: 100)
         = link_to book.title, book_path(book.id)
-      = image_tag(book.cover, alt: book.title)
+      %hr
