@@ -12,19 +12,11 @@ class SearchController < ApplicationController
 
   private
 
-  def search_definition # rubocop:disable Metrics/MethodLength
+  def search_definition
     {
       query: {
-        # match: {
-        #   title: params[:q]
-        # },
         wildcard: {
-          "title.keyword": "*#{params[:q]}*"
-        }
-      },
-      highlight: {
-        fields: {
-          title: {}
+          "title.raw": "*#{params[:q]}*"
         }
       },
       size: params[:limit] || 20

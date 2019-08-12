@@ -10,10 +10,8 @@ class BooksController < ApplicationController
   before_action :set_active_sort_name, only: %i[index]
 
   def index
-    @books = Book.all
-    @books = @books.by_category(@current_category.id) if @current_category.id.present?
-    @books = @books.includes(:order_items) if params[:sort_by] == 'popular_first'
-    @books = @books.order(sort_option).page(params[:page])
+    @books = params[:q].present? ? load_books_from_index : load_books_from_db
+    @books = @books.page(params[:page])
   end
 
   def show
@@ -65,5 +63,65 @@ class BooksController < ApplicationController
 
   def option_param
     params[:sort_by]&.to_sym
+  end
+
+  def load_books_from_db
+    books = Book.all
+    books = books.by_category(@current_category.id) if @current_category.id.present?
+    books = books.includes(:order_items) if params[:sort_by] == 'popular_first'
+    books = books.order(sort_option)
+    books
+  end
+
+  def load_books_from_index
+    Book.search(search_definition).records
+  end
+
+  def search_definition # rubocop:disable Metrics/MethodLength
+    search_params = {
+      query: {
+        bool: {
+          must: [
+            {
+              query_string: {
+                query: "title:*#{params[:q]}*",
+                analyze_wildcard: true,
+                default_field: '*'
+              }
+            }
+          ],
+          filter: [],
+          should: [],
+          must_not: []
+        }
+      },
+      sort: [
+        search_sort
+      ],
+      size: params[:limit] || 1000
+    }
+
+    if @current_category.id.present?
+      search_params[:query][:bool][:must] << {
+        match_phrase: {
+          'category.name': {
+            query: @current_category.name
+          }
+        }
+      }
+    end
+
+    search_params
+  end
+
+  def search_sort
+    return { publication_year: { order: 'desc' } } unless option_param
+    field = SORT_OPTIONS[option_param][:es][:field]
+    order = SORT_OPTIONS[option_param][:es][:order]
+
+    sort_hash = {}
+    sort_hash["#{field}.raw"] = { order: order } if field.in?(%w[title])
+    sort_hash[field] = { order: order } if field.in?(%w[publication_year sales price])
+    sort_hash
   end
 end

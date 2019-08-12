@@ -22,13 +22,52 @@ class Book < ApplicationRecord
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
 
-  def as_indexed_json(_options = {})
+  settings index: { number_of_shards: 4 } do
+    mapping dynamic: false do
+      indexes :id, type: :integer
+
+      indexes :title, type: 'text' do
+        indexes :title
+        indexes :raw, type: 'keyword'
+      end
+
+      indexes :description, type: :text
+      indexes :isbn, type: :text
+      indexes :price, type: :float
+      indexes :publication_year, type: :integer
+      indexes :created_at, type: :date
+      indexes :sales, type: :integer
+      indexes :cover_url, type: :text
+
+      indexes :category, type: :object do
+        indexes :id
+        indexes :name
+      end
+
+      indexes :authors, type: :nested do
+        indexes :id
+        indexes :first_name
+        indexes :last_name
+      end
+    end
+  end
+
+  def as_indexed_json(_options = nil) # rubocop:disable Metrics/MethodLength
     as_json(
-      only: %i[id title description isbn publication_year price materials],
+      only: %i[
+        id
+        title
+        description
+        isbn
+        publication_year
+        price
+        materials
+        created_at
+      ],
       methods: %i[cover_url sales],
       include: {
-        authors: { only: %i[first_name last_name] },
-        category: { only: %i[name] }
+        authors: { only: %i[id first_name last_name] },
+        category: { only: %i[id name] }
       }
     )
   end
