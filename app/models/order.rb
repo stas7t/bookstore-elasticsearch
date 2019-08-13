@@ -22,6 +22,8 @@ class Order < ApplicationRecord
   scope :payed,  -> { where.not status: %w[in_progress canceled] }
   scope :placed, -> { where.not(status: %w[in_progress]).order('created_at desc') }
 
+  after_save :index_books_in_elasticsearch
+
   def place_in_queue
     update(status: 1, completed_at: Time.current)
   end
@@ -41,5 +43,11 @@ class Order < ApplicationRecord
 
   def set_number_and_status
     update(number: "R#{id.to_s.rjust(8, '0')}", status: 0)
+  end
+
+  def index_books_in_elasticsearch
+    return unless status.eql?('delivered') && Book.__elasticsearch__.index_exists? && books.any?
+
+    books.find_each { |book| book.__elasticsearch__.index_document }
   end
 end

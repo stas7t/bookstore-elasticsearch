@@ -1,6 +1,7 @@
 authors_count = ENV['AUTHORS_COUNT']&.to_i || 32
 books_count = ENV['BOOKS_COUNT']&.to_i || 256
 users_count = ENV['USERS_COUNT']&.to_i || 4
+orders_count = ENV['ORDERS_COUNT']&.to_i || 128
 max_book_autors = 3
 max_book_reviews = 4
 categorise_list = ['Mobile development', 'Photo', 'Web design', 'Web development']
@@ -148,3 +149,34 @@ Delivery.create(name: 'Expressit',          time: '2 to  3 days', price: 15.00)
 Coupon.create(code: 'TEST',       discount: 0.01)
 Coupon.create(code: 'WINTERSALE', discount: 5.00)
 Coupon.create(code: 'RUBYGARAGE', discount: 7.50)
+
+puts ''
+puts 'generate orders'
+orders_count.times do
+  order_user = User.limit(1).order("RANDOM()").first
+  ordered_books = Book.limit(rand(1..5)).order("RANDOM()")
+  delivery_type = Delivery.limit(1).order("RANDOM()").first
+  credit_card = CreditCard.new(
+    number: '1111222233334444',
+    name_on_card: FFaker::Name.name,
+    month_year: "#{rand(1..12)}/#{rand(20..25)}",
+    cvv: "#{rand(100..999)}",
+    user_id: order_user.id
+  )
+
+  order_items = ordered_books.map do |book|
+    OrderItem.new(quantity: rand(1..99), book_id: book.id)
+  end
+
+  order = Order.new
+  order.user = order_user
+  order.delivery = delivery_type
+  order.credit_card = credit_card
+  order.order_items = order_items
+
+  order.save
+  order.place_in_queue
+  order.update(status: 3)
+
+  print '.'
+end
