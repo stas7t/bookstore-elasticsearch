@@ -114,7 +114,7 @@ gem 'font-awesome-sass', '~> 4.7.0'
 
 # Forms
 gem 'country_select', '~> 3.1', '>= 3.1.1'
-gem 'simple_form', '~> 3.5'
+gem 'simple_form', '~> 5.0'
 gem 'virtus', '~> 1.0', '>= 1.0.5'
 
 # Search engine
