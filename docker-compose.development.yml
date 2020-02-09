@@ -1,0 +1,86 @@
+version: '3.0'
+services:
+  db:
+    image: postgres:10
+    expose:
+      - 5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: bookstore-elasticsearch_development
+    volumes:
+      - postgres10:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+  es:
+    image: 'docker.elastic.co/elasticsearch/elasticsearch:6.8.0'
+    environment:
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - 'esdata6:/usr/share/elasticsearch/data'
+    ports:
+      - '9200:9200'
+    networks:
+      - esnet
+  kibana:
+    image: 'docker.elastic.co/kibana/kibana:6.8.0'
+    hostname: kibana
+    restart: always
+    networks:
+      - esnet
+    environment:
+      - SERVER_NAME=kibana.localhost
+      - 'ELASTICSEARCH_URL=http://elasticsearch:9200'
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_HOST=elasticsearch
+      - ELASTICSEARCH_PORT=9200
+      - ELASTIC_PWD=changeme
+      - KIBANA_PWD=changeme
+    ports:
+      - '5601:5601'
+    expose:
+      - '5601'
+    links:
+      - es
+    depends_on:
+      - es
+  web:
+    build: .
+    command: bundle exec rails server -b 0.0.0.0
+    entrypoint: ./docker-entrypoint.sh
+    volumes:
+      - .:/home/www/bookstore-elasticsearch
+      - /home/www/bookstore-elasticsearch/vendor/bundle
+      - /home/www/bookstore-elasticsearch/public/assets
+    tty: true
+    stdin_open: true
+    restart: on-failure
+    environment:
+      RAILS_ENV: development
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: bookstore-elasticsearch_development
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      SECRET_KEY_BASE: STUB
+      DEVISE_SECRET_KEY: STUB
+    depends_on:
+      - db
+      - es
+    links:
+      - db
+      - es
+    ports:
+      - 3000:3000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+volumes:
+  postgres10:
+  esdata6:
+    driver: local
+networks:
+  esnet: null
