@@ -12,10 +12,14 @@ services:
       - postgres10:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"]
-  es:
+  elastic:
     image: 'docker.elastic.co/elasticsearch/elasticsearch:6.8.0'
     environment:
-      - discovery.type=single-node
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+      - xpack.watcher.enabled=false
     ulimits:
       memlock:
         soft: -1
@@ -24,19 +28,20 @@ services:
       - 'esdata6:/usr/share/elasticsearch/data'
     ports:
       - '9200:9200'
-    networks:
-      - esnet
+    healthcheck:
+      test: ["CMD-SHELL", "curl --silent --fail localhost:9200/_cluster/health || exit 1"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
   kibana:
     image: 'docker.elastic.co/kibana/kibana:6.8.0'
     hostname: kibana
     restart: always
-    networks:
-      - esnet
     environment:
       - SERVER_NAME=kibana.localhost
-      - 'ELASTICSEARCH_URL=http://elasticsearch:9200'
+      - 'ELASTICSEARCH_URL=http://elastic:9200'
       - ELASTICSEARCH_USERNAME=elastic
-      - ELASTICSEARCH_HOST=elasticsearch
+      - ELASTICSEARCH_HOST=elastic
       - ELASTICSEARCH_PORT=9200
       - ELASTIC_PWD=changeme
       - KIBANA_PWD=changeme
@@ -44,10 +49,8 @@ services:
       - '5601:5601'
     expose:
       - '5601'
-    links:
-      - es
     depends_on:
-      - es
+      - elastic
   web:
     build: .
     command: bundle exec rails server -b 0.0.0.0
@@ -66,14 +69,12 @@ services:
       DB_NAME: bookstore-elasticsearch_development
       DB_USERNAME: postgres
       DB_PASSWORD: postgres
+      ELASTICSEARCH_URL: 'http://elastic:9200'
       SECRET_KEY_BASE: STUB
       DEVISE_SECRET_KEY: STUB
     depends_on:
       - db
-      - es
-    links:
-      - db
-      - es
+      - elastic
     ports:
       - 3000:3000
     healthcheck:
@@ -82,5 +83,3 @@ volumes:
   postgres10:
   esdata6:
     driver: local
-networks:
-  esnet: null
