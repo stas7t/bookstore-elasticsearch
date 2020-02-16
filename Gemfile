@@ -70,6 +70,8 @@ end
 
 gem 'ffaker', '~> 2.7'
 
+gem 'sekrets'
+
 # Rails Internationalization
 gem 'rails-i18n', '~> 5.0.0'
 

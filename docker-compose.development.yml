@@ -1,0 +1,85 @@
+version: '3.0'
+services:
+  db:
+    image: postgres:10
+    expose:
+      - 5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: bookstore-elasticsearch_development
+    volumes:
+      - postgres10:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+  elastic:
+    image: 'docker.elastic.co/elasticsearch/elasticsearch:6.8.0'
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+      - xpack.watcher.enabled=false
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - 'esdata6:/usr/share/elasticsearch/data'
+    ports:
+      - '9200:9200'
+    healthcheck:
+      test: ["CMD-SHELL", "curl --silent --fail localhost:9200/_cluster/health || exit 1"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+  kibana:
+    image: 'docker.elastic.co/kibana/kibana:6.8.0'
+    hostname: kibana
+    restart: always
+    environment:
+      - SERVER_NAME=kibana.localhost
+      - 'ELASTICSEARCH_URL=http://elastic:9200'
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_HOST=elastic
+      - ELASTICSEARCH_PORT=9200
+      - ELASTIC_PWD=changeme
+      - KIBANA_PWD=changeme
+    ports:
+      - '5601:5601'
+    expose:
+      - '5601'
+    depends_on:
+      - elastic
+  web:
+    build: .
+    command: bundle exec rails server -b 0.0.0.0
+    entrypoint: ./docker-entrypoint.sh
+    volumes:
+      - .:/home/www/bookstore-elasticsearch
+      - /home/www/bookstore-elasticsearch/vendor/bundle
+      - /home/www/bookstore-elasticsearch/public/assets
+    tty: true
+    stdin_open: true
+    restart: on-failure
+    environment:
+      RAILS_ENV: development
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: bookstore-elasticsearch_development
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      ELASTICSEARCH_URL: 'http://elastic:9200'
+      SECRET_KEY_BASE: STUB
+      DEVISE_SECRET_KEY: STUB
+    depends_on:
+      - db
+      - elastic
+    ports:
+      - 3000:3000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+volumes:
+  postgres10:
+  esdata6:
+    driver: local

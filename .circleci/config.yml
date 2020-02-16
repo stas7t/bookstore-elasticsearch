@@ -2,18 +2,18 @@ version: 2
 
 jobs:
   build:
-    working_directory: ~/bookstore
+    working_directory: ~/bookstore-elasticsearch
     docker:
       - image: circleci/ruby:2.5.1
         environment:
           PGHOST: localhost
-          PGUSER: bookstore
+          PGUSER: bookstore-elasticsearch
           RAILS_ENV: test
-      - image: postgres:9.6
+      - image: postgres:10
         environment:
-          POSTGRES_USER: bookstore
-          POSTGRES_DB: bookstore_test
-          POSTGRES_PASSWORD: ""
+          POSTGRES_USER: bookstore-elasticsearch
+          POSTGRES_PASSWORD: bookstore-elasticsearch
+          POSTGRES_DB: bookstore-elasticsearch_test
       - image: docker.elastic.co/elasticsearch/elasticsearch:6.8.0
         environment:
           - cluster.name: bookstore-elasticsearch-test-cluster
@@ -28,7 +28,7 @@ jobs:
       # Restore Cached Dependencies
       - type: cache-restore
         name: Restore bundle cache
-        key: bookstore-{{ checksum "Gemfile.lock" }}
+        key: bookstore-elasticsearch-{{ checksum "Gemfile.lock" }}
 
       # Bundle install dependencies
       - run: bundle install --path vendor/bundle
@@ -36,7 +36,7 @@ jobs:
       # Cache Dependencies
       - type: cache-save
         name: Store bundle cache
-        key: bookstore-{{ checksum "Gemfile.lock" }}
+        key: bookstore-elasticsearch-{{ checksum "Gemfile.lock" }}
         paths:
           - vendor/bundle
 

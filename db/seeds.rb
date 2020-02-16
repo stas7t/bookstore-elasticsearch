@@ -30,7 +30,7 @@ def cover_url(options = {})
   base_url + params.to_query
 end
 
-Admin.create!(email: 'admin@example.com', password: "Qwerty123") if Rails.env.development?
+Admin.first_or_create!(email: 'admin@example.com', password: "Qwerty123") if Rails.env.development?
 
 unless Rails.env.test?
   users_count.times do
@@ -38,7 +38,7 @@ unless Rails.env.test?
       email: FFaker::Internet.safe_email,
       password: "test#{rand(100...999)}XX",
       name: FFaker::Name.name,
-      remote_avatar_url: FFaker::Avatar.image
+      # remote_avatar_url: FFaker::Avatar.image
     )
     new_user.skip_confirmation!
     new_user.save!
