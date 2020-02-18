@@ -1,6 +1,6 @@
 = form_for @order_item, method: :post do |form|
   = content_for :head do
-    = javascript_pack_tag 'quantity_input', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'books/quantity_input', 'data-turbolinks-track': 'reload'
 
   = form.hidden_field :book_id, value: @book.id
   .col-xs-12.col-md-4

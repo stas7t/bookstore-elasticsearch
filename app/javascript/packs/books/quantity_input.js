@@ -1,6 +1,6 @@
 import TurbolinksAdapter from 'vue-turbolinks'
 import Vue from 'vue/dist/vue.esm'
-import QuantityInput from '../components/quantity_input.vue'
+import QuantityInput from '../../components/books/quantity_input.vue'
 
 Vue.use(TurbolinksAdapter)
 
