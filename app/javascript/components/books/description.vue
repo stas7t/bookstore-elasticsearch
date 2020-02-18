@@ -3,7 +3,7 @@
     <p>Description</p>
     <p class="lead small line-height-2">
       {{ displayText }}
-      <a class="in-gold-500 ml-10" href="#" v-if="text.length > size" @click.prevent="updateText">{{ buttonText }}</a>
+      <a class="in-gold-500 ml-10" href="" v-if="text.length > sizeN" @click.prevent="updateText">{{ buttonText }}</a>
     </p>
   </div>
 </template>
@@ -17,19 +17,20 @@
         default: ''
       },
       size: {
-        type: Number,
-        default: 500
+        type: String,
+        default: '500'
       }
     },
     data: function () {
       return {
         displayText: this.text.substring(0, this.size),
+        sizeN: Number(this.size),
         isTextCutted: false,
         buttonText: 'Read more'
       }
     },
     mounted: function () {
-      if (this.text.length > this.size) {
+      if (this.text.length > this.sizeN) {
         this.cutText()
       }
     },
@@ -39,7 +40,7 @@
       },
 
       cutText() {
-        this.displayText = `${this.text.substring(0, this.size - 50).trim()}...`
+        this.displayText = `${this.text.substring(0, this.sizeN - 50).trim()}...`
         this.buttonText = 'Read more'
         this.isTextCutted = true
       },

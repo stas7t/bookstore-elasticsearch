@@ -1,13 +1,12 @@
 = form_for @order_item, method: :post do |form|
+  = stylesheet_pack_tag 'quantity_input'
+  = javascript_pack_tag 'quantity_input'
+
+  = form.hidden_field :book_id, value: @book.id
   .col-xs-12.col-md-4
     %p.h1.in-gold-500.mt-10= number_to_euro @book.price
   .col-xs-5.col-md-3
-    .input-group.general-position
-      %a.input-link.pt-7#minus{href: ""}
-        %i.fa.fa-minus.line-height-40
-      = form.hidden_field :book_id, value: @book.id
-      = form.text_field :quantity, value: 1, class: "form-control quantity-input"
-      %a.input-link.pt-7#plus{href: ""}
-        %i.fa.fa-plus.line-height-40
+    .input-group.general-position#quantity-input
+      %quantity-input{field_id: 'order_item_quantity',field_name: 'order_item[quantity]', field_class: 'form-control quantity-input', value: 1}
   .col-xs-7.col-md-5
     = form.submit 'Add to Cart', class: "btn btn-default pull-right general-position"
