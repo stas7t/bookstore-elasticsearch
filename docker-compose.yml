@@ -4,10 +4,6 @@ services:
     image: postgres:10
     expose:
       - 5432
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: bookstore-elasticsearch_development
     volumes:
       - postgres10:/var/lib/postgresql/data
     healthcheck:
@@ -87,7 +83,6 @@ services:
       RAILS_ENV: development
       DB_HOST: db
       DB_PORT: 5432
-      DB_NAME: bookstore-elasticsearch_development
       DB_USERNAME: postgres
       DB_PASSWORD: postgres
       ELASTICSEARCH_URL: 'http://elastic:9200'
