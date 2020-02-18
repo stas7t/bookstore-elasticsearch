@@ -1,6 +1,7 @@
 %main.container
-  = stylesheet_pack_tag 'books/description'
-  = javascript_pack_tag 'books/description'
+  = content_for :head do
+    = stylesheet_pack_tag 'books/description', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'books/description', 'data-turbolinks-track': 'reload'
 
   = link_to :back, class: "general-back-link" do
     %i.fa.fa-long-arrow-left.mr-15
