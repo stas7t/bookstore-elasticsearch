@@ -68,5 +68,8 @@ jobs:
       # Setup the database
       - run: bundle exec rake db:setup
 
+      # Precompile assets
+      - run: bundle exec rails assets:precompile
+
       # Run the tests
       - run: bundle exec rake spec
