@@ -57,19 +57,29 @@ services:
   webpacker:
     build: .
     command: bundle exec bin/webpack-dev-server
+    image: bookstore-elasticsearch-app:1.0.0
     volumes:
-      - .:/app
+      - .:/bookstore_elasticsearch_app
+      - bundle:/usr/local/bundle
+      - node_modules:/bookstore_elasticsearch_app/node_modules
+    environment:
+      RAILS_ENV: development
+      NODE_ENV: development
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
     ports:
       - "3035:3035"
+    tmpfs:
+      - /tmp
 
   web:
     build: .
     command: bundle exec rails server -b 0.0.0.0
     entrypoint: ./docker-entrypoint.sh
+    image: bookstore-elasticsearch-app:1.0.0
     volumes:
-      - .:/app
-      - /app/vendor/bundle
-      - /app/public/assets
+      - .:/bookstore_elasticsearch_app
+      - bundle:/usr/local/bundle
+      - node_modules:/bookstore_elasticsearch_app/node_modules
     tty: true
     stdin_open: true
     restart: on-failure
@@ -83,15 +93,21 @@ services:
       ELASTICSEARCH_URL: 'http://elastic:9200'
       SECRET_KEY_BASE: STUB
       DEVISE_SECRET_KEY: STUB
+      WEBPACKER_DEV_SERVER_HOST: webpacker
     depends_on:
       - db
       - elastic
       - webpacker
     ports:
       - 3000:3000
+    tmpfs:
+      - /tmp
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000"]
+
 volumes:
   postgres10:
   esdata6:
     driver: local
+  node_modules:
+  bundle:

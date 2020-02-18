@@ -7,6 +7,8 @@
 !/tmp/cache/.keep
 /vendor/bundle
 /public/assets
+/public/packs
+/node_modules
 /config/master.key
 /config/credentials.local.yml
 /.bundle
