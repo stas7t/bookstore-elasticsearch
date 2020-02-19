@@ -33,6 +33,9 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 
+# JavaScript
+gem 'webpacker'
+
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.8'
   gem 'pry', '~> 0.12.2'
