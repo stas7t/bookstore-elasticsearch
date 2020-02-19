@@ -24,9 +24,9 @@
   .container
     .jumbotron.text-center.mb-0
       %h2.h1 Welcome to our amazing Bookstore!
-      %p We pore through hundreds of new books each month and select the five best we can find to share with our members.
-      = link_to "Get Started", catalog_path, class: "btn btn-default"
-
+      .mb-20
+        %p We pore through hundreds of new books each month and select the five best we can find to share with our members.
+        = link_to "Get Started", catalog_path, class: "btn btn-default"
       .container#searchbox
         %searchbox{ mode: 'search-results'}
 

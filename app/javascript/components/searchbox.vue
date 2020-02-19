@@ -47,7 +47,7 @@
       if (this.isReloadPageMode && !!window.location.search) {
         this.urlSearchParams = window.location.search.replace('?', '').split('&')
         this.urlSearchParams.forEach( element => this.searchParams[`${element.split('=')[0]}`] = element.split('=')[1] )
-        this.query = decodeURI(this.searchParams['q'])
+        this.query = !!this.searchParams['q'] ? decodeURI(this.searchParams['q']) : ''
       }
     },
     methods: {
