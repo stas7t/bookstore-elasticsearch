@@ -7,6 +7,11 @@
 }
 .navbar-brand {
   font-size: $font-size-base;
+  i {
+    font-size: 22px;
+    color: $gold-500;
+    padding: 0 10px;
+  }
 }
 .navbar-toggle {
   margin-left: 15px;

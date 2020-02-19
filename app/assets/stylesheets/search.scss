@@ -1,9 +1,9 @@
 // Place all the styles related to the search controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.search-nav-input {
+.searchbox-main {
   margin-top: 22px;
-
+  width: 90%;
   height: 36px;
   padding: 8px 12px;
   font-size: 14px;
@@ -19,4 +19,12 @@
   -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.search-results {
+  text-align: left;
+  ul {
+    padding-top: 8px;
+    padding-left: 5%;
+  }
 }

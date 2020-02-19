@@ -1,5 +1,10 @@
+= content_for :head do
+  = javascript_pack_tag 'searchbox', 'data-turbolinks-track': 'reload'
+
 %main.container
   %h1.general-title-margin Сatalog
+  .container#searchbox
+    %searchbox{ mode: 'reload-page'}
   .hidden-xs.clearfix
     .dropdowns.pull-right
       .dropdown.width-240

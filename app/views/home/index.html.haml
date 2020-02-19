@@ -1,3 +1,6 @@
+= content_for :head do
+  = javascript_pack_tag 'searchbox', 'data-turbolinks-track': 'reload'
+
 %main.container
   #slider.carousel.slide{'data-ride': "carousel"}
     %ol.carousel-indicators
@@ -21,9 +24,12 @@
   .container
     .jumbotron.text-center.mb-0
       %h2.h1 Welcome to our amazing Bookstore!
-      .mb-res-50
-        %p We pore through hundreds of new books each month and select the five best we can find to share with our members.
+      %p We pore through hundreds of new books each month and select the five best we can find to share with our members.
       = link_to "Get Started", catalog_path, class: "btn btn-default"
+
+      .container#searchbox
+        %searchbox{ mode: 'search-results'}
+
     - if @best_sellers.any?
       .mb-35
         %h3 Best Sellers
