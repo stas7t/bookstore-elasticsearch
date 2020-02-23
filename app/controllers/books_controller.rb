@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class BooksController < ApplicationController
+class BooksController < ApplicationController # rubocop:disable Metrics/ClassLength
   load_and_authorize_resource
 
   before_action :set_book,             only: %i[show update]
@@ -12,10 +12,13 @@ class BooksController < ApplicationController
   def index
     @books = params[:q].present? ? load_books_from_index : load_books_from_db
     @books = @books.page(params[:page])
+    fresh_when @books
   end
 
   def show
     @reviews = @book.reviews.approved
+    fresh_when @book
+    fresh_when @reviews
   end
 
   def update
