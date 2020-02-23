@@ -99,7 +99,7 @@ services:
       SECRET_KEY_BASE: STUB
       DEVISE_SECRET_KEY: STUB
       WEBPACKER_DEV_SERVER_HOST: webpacker
-      CASHING: true
+      CASHING: 'true'
     depends_on:
       - db
       - redis
