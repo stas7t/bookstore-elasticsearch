@@ -128,3 +128,6 @@ gem 'elasticsearch-rails'
 
 # Workers
 gem 'sidekiq'
+
+# Cashing
+gem 'redis-rails'

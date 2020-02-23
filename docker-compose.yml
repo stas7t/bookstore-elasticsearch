@@ -50,6 +50,15 @@ services:
     depends_on:
       - elastic
 
+  redis:
+    image: redis:5
+    expose:
+      - 6379
+    volumes:
+      - redis:/var/lib/redis/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-h", "localhost", "ping"]
+
   webpacker:
     build: .
     command: bundle exec bin/webpack-dev-server
@@ -85,12 +94,15 @@ services:
       DB_PORT: 5432
       DB_USERNAME: postgres
       DB_PASSWORD: postgres
+      REDIS_URL: "redis://redis:6379"
       ELASTICSEARCH_URL: 'http://elastic:9200'
       SECRET_KEY_BASE: STUB
       DEVISE_SECRET_KEY: STUB
       WEBPACKER_DEV_SERVER_HOST: webpacker
+      CASHING: true
     depends_on:
       - db
+      - redis
       - elastic
       - webpacker
     ports:
@@ -102,6 +114,7 @@ services:
 
 volumes:
   postgres10:
+  redis:
   esdata6:
     driver: local
   node_modules:
