@@ -130,4 +130,5 @@ gem 'elasticsearch-rails'
 gem 'sidekiq'
 
 # Cashing
+gem 'actionpack-action_caching'
 gem 'redis-rails'

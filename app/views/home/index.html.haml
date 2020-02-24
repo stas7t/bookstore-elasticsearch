@@ -9,12 +9,8 @@
       %li{'data-target': "#slider", 'data-slide-to': "2"}
     .carousel-inner{role: "listbox"}
       - @latest_books.each_with_index do |book, index|
-        - if index == 0
-          .item.active
-            = render 'latest_books_item', book: book
-        - else
-          .item
-            = render 'latest_books_item', book: book
+        .item{class: ('active' if index.zero?)}
+          = render 'latest_books_item', book: book, cached: true
     %a.left.carousel-control{href: "#slider", role: "button", 'data-slide': "prev"}
       %span.icon-prev{'aria-hidden': "true"}
       %span.sr-only Previous
@@ -35,4 +31,4 @@
         %h3 Best Sellers
         .row
           - @best_sellers.compact.each do |book|
-            = render 'bestsellers_item', book: book
+            = render 'bestsellers_item', book: book, cached: true

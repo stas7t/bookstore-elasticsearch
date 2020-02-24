@@ -9,6 +9,8 @@ class BooksController < ApplicationController # rubocop:disable Metrics/ClassLen
   before_action :set_current_category, only: %i[index]
   before_action :set_active_sort_name, only: %i[index]
 
+  caches_action :show
+
   def index
     @books = params[:q].present? ? load_books_from_index : load_books_from_db
     @books = @books.page(params[:page])

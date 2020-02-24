@@ -8,7 +8,7 @@
   .hidden-xs.clearfix
     .dropdowns.pull-right
       .dropdown.width-240
-        = render 'sort_by'
+        = render 'sort_by', cached: true
     %ul.list-inline.pt-10.mb-25.mr-240
       %li.mr-35
         = link_to catalog_path(search_params.merge(sort_by: params[:sort_by])), class: "filter-link #{'active' unless @current_category.id}" do
@@ -33,10 +33,10 @@
             = link_to "#{category.name}", catalog_path(search_params.merge(category_id: category.id))
     %p.lead.small.mb-10 Sort by
     .dropdown
-      = render 'sort_by'
+      = render 'sort_by', cached: true
   .mb-120
     #books
-      = render 'books'
+      = render 'books', cached: true
 
     #paginator.text-center
       = link_to_next_page @books, 'View More', remote: true, id: 'view_more', class: "btn btn-primary"
