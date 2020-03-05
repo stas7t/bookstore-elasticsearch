@@ -9,7 +9,7 @@
     = javascript_include_tag "https://use.fontawesome.com/f8e53eb187.js"
     = yield :head
   %body
-    = render 'header'
+    = render 'header', cached: true
     = render 'flash'
     = yield
-    = render 'footer'
+    = render 'footer', cached: true

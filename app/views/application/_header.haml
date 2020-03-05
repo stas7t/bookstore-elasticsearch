@@ -10,9 +10,9 @@
         %i.fa.fa-book
         %b Bookstore
       %a.shop-link.pull-right.visible-xs{href: cart_path}
-        = render 'shop_icon'
+        = render 'shop_icon', cached: true
     %a.shop-link.pull-right.hidden-xs{href: cart_path}
-      = render 'shop_icon'
+      = render 'shop_icon', cached: true
     #navbar.navbar-collapse.collapse.pl-30{'aria-expanded': "false"}
       .visible-xs
         %button.close{type: "button", 'aria-label': "Close"}
