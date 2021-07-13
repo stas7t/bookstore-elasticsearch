@@ -93,7 +93,7 @@ gem 'rails_admin', '>= 1.3'
 gem 'kaminari', '~> 1.2'
 
 # Solution for file uploads
-gem 'carrierwave', '~> 1.2'
+gem 'carrierwave', '~> 1.3'
 gem 'fog-aws', '~> 1.4'
 
 gem 'letter_avatar'
